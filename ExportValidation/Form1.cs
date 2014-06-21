@@ -96,5 +96,23 @@ namespace ExportValidation
                 MessageBox.Show("Finish");
             }
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var strServer = this.tbxServerName.Text;
+            var strLogin = this.tbxLogin.Text;
+            var strPassword = this.tbxPassword.Text;
+            var strDbName = this.cbxDatabases.SelectedItem.ToString();
+            var strPath = this.tbxOutputPath.Text;
+
+            var conn = Tools.GetConnectionString(strServer, strDbName, strLogin, strPassword);
+
+            using (conn)
+            {
+                var data = Tools.RunProcedure(conn, this.cbxProcedures.SelectedItem.ToString());
+                WordGeneration.GenerateDocument(strPath, data);
+                MessageBox.Show("Finish");
+            }
+        }
     }
 }
