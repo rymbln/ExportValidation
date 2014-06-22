@@ -19,7 +19,7 @@ namespace ExportValidation.Common
             try
             {
                 Word.Application objWord = new Word.Application();
-                objWord.Visible = true;
+                objWord.Visible = false;
                 obj = objWord;
             }
             catch (Exception)

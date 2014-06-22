@@ -105,7 +105,7 @@ namespace ExportValidation.Common
             return obj;
         }
 
-        public static List<QueryData> RunProcedure(SqlConnection conn, string procedureName)
+        public static List<QueryData> RunProcedure(SqlConnection conn, string procedureName, string projectName)
         {
             var sql = "EXEC " + procedureName;
             var cmd = new SqlCommand(sql, conn);
@@ -140,7 +140,7 @@ namespace ExportValidation.Common
 
             foreach (var item in lst)
             {
-                var obj = GetQueryData(item.s1, item.s2, item.s3, item.s4, item.s5, item.s6, "ELI_RUS", conn);
+                var obj = GetQueryData(item.s1, item.s2, item.s3, item.s4, item.s5, item.s6, projectName, conn);
                 
                 if (obj != null)
                 {

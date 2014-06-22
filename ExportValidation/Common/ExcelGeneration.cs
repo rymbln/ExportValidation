@@ -6,6 +6,7 @@ using System.Net.Mail;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using Excel = Microsoft.Office.Interop.Excel;
 
@@ -152,14 +153,16 @@ namespace ExportValidation.Common
 
                 while (Marshal.ReleaseComObject(ExcelApp) > 0)
                 { }
-
+                MessageBox.Show("Document created successfully !");
                 return filePath + "\\" + filename;
+    
 
             }
             catch (Exception ex)
             {
-                return ex.Data + "\r\n" + ex.Message + "\r\n" + ex.Source + "\r\n" + ex.InnerException + "\r\n" +
-                       ex.StackTrace;
+                MessageBox.Show(ex.Data + "\r\n" + ex.Message + "\r\n" + ex.Source + "\r\n" + ex.InnerException + "\r\n" +
+                                ex.StackTrace);
+                return null;
             }
             finally
             {

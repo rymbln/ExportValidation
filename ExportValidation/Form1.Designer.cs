@@ -47,6 +47,8 @@
             this.btnGenerate = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.tbxProjectName = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -162,7 +164,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(180, 13);
+            this.label4.Location = new System.Drawing.Point(180, 58);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(71, 13);
             this.label4.TabIndex = 11;
@@ -170,7 +172,7 @@
             // 
             // tbxOutputPath
             // 
-            this.tbxOutputPath.Location = new System.Drawing.Point(183, 28);
+            this.tbxOutputPath.Location = new System.Drawing.Point(183, 73);
             this.tbxOutputPath.Name = "tbxOutputPath";
             this.tbxOutputPath.Size = new System.Drawing.Size(340, 20);
             this.tbxOutputPath.TabIndex = 12;
@@ -185,14 +187,14 @@
             "PDF",
             "Excel",
             "Word"});
-            this.checkedListBox1.Location = new System.Drawing.Point(183, 74);
+            this.checkedListBox1.Location = new System.Drawing.Point(183, 119);
             this.checkedListBox1.Name = "checkedListBox1";
             this.checkedListBox1.Size = new System.Drawing.Size(340, 60);
             this.checkedListBox1.TabIndex = 13;
             // 
             // btnGenerate
             // 
-            this.btnGenerate.Location = new System.Drawing.Point(183, 159);
+            this.btnGenerate.Location = new System.Drawing.Point(183, 204);
             this.btnGenerate.Name = "btnGenerate";
             this.btnGenerate.Size = new System.Drawing.Size(340, 23);
             this.btnGenerate.TabIndex = 14;
@@ -202,7 +204,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(183, 188);
+            this.button1.Location = new System.Drawing.Point(183, 233);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(340, 23);
             this.button1.TabIndex = 15;
@@ -212,7 +214,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(183, 217);
+            this.button2.Location = new System.Drawing.Point(183, 262);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(340, 23);
             this.button2.TabIndex = 16;
@@ -220,11 +222,29 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // tbxProjectName
+            // 
+            this.tbxProjectName.Location = new System.Drawing.Point(183, 28);
+            this.tbxProjectName.Name = "tbxProjectName";
+            this.tbxProjectName.Size = new System.Drawing.Size(340, 20);
+            this.tbxProjectName.TabIndex = 17;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(183, 13);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(71, 13);
+            this.label5.TabIndex = 18;
+            this.label5.Text = "Project Name";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(535, 406);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.tbxProjectName);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnGenerate);
@@ -272,6 +292,8 @@
         private System.Windows.Forms.Button btnGenerate;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox tbxProjectName;
+        private System.Windows.Forms.Label label5;
     }
 }
 

@@ -68,12 +68,13 @@ namespace ExportValidation
             var strPassword = this.tbxPassword.Text;
             var strDbName = this.cbxDatabases.SelectedItem.ToString();
             var strPath = this.tbxOutputPath.Text;
+            var strProject = this.tbxProjectName.Text;
 
             var conn = Tools.GetConnectionString(strServer, strDbName, strLogin, strPassword);
 
             using (conn)
             {
-              var data = Tools.RunProcedure(conn, this.cbxProcedures.SelectedItem.ToString());
+                var data = Tools.RunProcedure(conn, this.cbxProcedures.SelectedItem.ToString(), strProject);
              PDFGeneration.GenerateDocument(strPath,data);
                 MessageBox.Show("Finish");
             }
@@ -86,12 +87,13 @@ namespace ExportValidation
             var strPassword = this.tbxPassword.Text;
             var strDbName = this.cbxDatabases.SelectedItem.ToString();
             var strPath = this.tbxOutputPath.Text;
+            var strProject = this.tbxProjectName.Text;
 
             var conn = Tools.GetConnectionString(strServer, strDbName, strLogin, strPassword);
 
             using (conn)
             {
-                var data = Tools.RunProcedure(conn, this.cbxProcedures.SelectedItem.ToString());
+                var data = Tools.RunProcedure(conn, this.cbxProcedures.SelectedItem.ToString(), strProject);
                 ExcelGeneration.GenerateDocument(strPath, data);
                 MessageBox.Show("Finish");
             }
@@ -104,12 +106,12 @@ namespace ExportValidation
             var strPassword = this.tbxPassword.Text;
             var strDbName = this.cbxDatabases.SelectedItem.ToString();
             var strPath = this.tbxOutputPath.Text;
-
+            var strProject = this.tbxProjectName.Text;
             var conn = Tools.GetConnectionString(strServer, strDbName, strLogin, strPassword);
 
             using (conn)
             {
-                var data = Tools.RunProcedure(conn, this.cbxProcedures.SelectedItem.ToString());
+                var data = Tools.RunProcedure(conn, this.cbxProcedures.SelectedItem.ToString(), strProject);
                 WordGeneration.GenerateDocument(strPath, data);
                 MessageBox.Show("Finish");
             }
