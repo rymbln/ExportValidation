@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
@@ -8,6 +7,8 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Office.Interop.Word;
+using DataTable = System.Data.DataTable;
 
 namespace ExportValidation.Common
 {
@@ -20,9 +21,14 @@ namespace ExportValidation.Common
 
         private static List<string> GetNamesFromSQL(SqlConnection conn, string sql)
         {
+
             var lst = new List<string>();
             var cmd = new SqlCommand(sql, conn);
-            conn.Open();
+
+            if (conn.State.ToString() == "Closed")
+            {
+                conn.Open();
+            }
 
             var rdr = cmd.ExecuteReader();
 
@@ -69,6 +75,39 @@ namespace ExportValidation.Common
             return lst;
         }
 
+        public static List<IndexData> GetIndex(SqlConnection conn)
+        {
+            var sql = "SELECT * FROM ValidationAttributes ORDER BY NameList";
+            var cmd = new SqlCommand(sql, conn);
+            var lst = new List<IndexData>();
+            var lstData = new List<IndexData>();
+
+            if (conn.State.ToString() == "Closed")
+            {
+                conn.Open();
+            }
+            var rdr = cmd.ExecuteReader();
+
+            // Получаем список запросов валидации
+            if (rdr.HasRows)
+            {
+                while (rdr.Read())
+                {
+                    lst.Add(new IndexData
+                    {
+                        ValidationRule = rdr.GetString(0),
+                        NameList = rdr.GetString(3),
+                        Description = rdr.GetString(2),
+                    });
+                }
+            }
+            rdr.Close();
+            rdr = null;
+            
+
+            return lst;
+        }
+
         private static QueryData GetQueryData(string procName, string validName, string selectText, string descText, string number, string execText, string projectName, SqlConnection conn)
         {
             var obj = new QueryData();
@@ -80,7 +119,7 @@ namespace ExportValidation.Common
             {
                 for (int i = 0; i < rdrQD.FieldCount; i++)
                 {
-                    lstColumns.Add(rdrQD.GetName(i));
+                    lstColumns.Add(rdrQD.GetName(i).Replace("_"," "));
                 }
 
                 obj.FieldsName = lstColumns;
@@ -105,16 +144,18 @@ namespace ExportValidation.Common
             return obj;
         }
 
+
         public static List<QueryData> RunProcedure(SqlConnection conn, string procedureName, string projectName)
         {
             var sql = "EXEC " + procedureName;
             var cmd = new SqlCommand(sql, conn);
             var lst = new List<ValidationRows>();
             var lstData = new List<QueryData>();
-            FileStream fs = new FileStream(@"C:\Users\rymbln\Desktop\WriteLines2.txt", FileMode.OpenOrCreate, FileAccess.Write);
-            StreamWriter sw = new StreamWriter(fs);
 
-            conn.Open();
+            if (conn.State.ToString() == "Closed")
+            {
+                conn.Open();
+            }
 
             var rdr = cmd.ExecuteReader();
 

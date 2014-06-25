@@ -30,7 +30,7 @@ namespace ExportValidation.Common
         }
 
 
-        public static string GenerateDocument(string filePath, List<QueryData> data)
+        public static string GenerateDocument(string filePath, List<QueryData> data,  string orientation)
         {
             object missing = System.Reflection.Missing.Value;
             int rowsCount;
@@ -52,6 +52,10 @@ namespace ExportValidation.Common
                 var objWord = CreateWordObj();
 
                 var doc = objWord.Documents.Add();
+                if (orientation.Equals("portrait"))
+                    doc.PageSetup.Orientation = Word.WdOrientation.wdOrientPortrait;
+                if (orientation.Equals("album"))
+                    doc.PageSetup.Orientation = Word.WdOrientation.wdOrientLandscape;
 
                 //retrieve the first paragragh of the document
                 Word.Paragraph paragraphBefore = doc.Paragraphs[1];

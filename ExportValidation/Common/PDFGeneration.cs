@@ -1,4 +1,5 @@
-﻿using MigraDoc.DocumentObjectModel;
+﻿using Microsoft.Office.Interop.Excel;
+using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Shapes.Charts;
 using MigraDoc.DocumentObjectModel.Tables;
 using MigraDoc.Rendering;
@@ -12,7 +13,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using HeaderFooter = MigraDoc.DocumentObjectModel.HeaderFooter;
+using Style = MigraDoc.DocumentObjectModel.Style;
 
 
 namespace ExportValidation.Common
@@ -80,7 +82,7 @@ namespace ExportValidation.Common
         /// <summary>
         /// Defines the cover page.
         /// </summary>
-        private static void DefineCover(Document document)
+        private static void DefineCover(Document document, string projectName)
         {
             Section section = document.AddSection();
 
@@ -90,74 +92,64 @@ namespace ExportValidation.Common
             //Image image = section.AddImage("../../images/Logo landscape.png");
             //image.Width = "10cm";
 
-            paragraph = section.AddParagraph("A sample document that demonstrates the\ncapabilities of MigraDoc");
+            paragraph = section.AddParagraph("Валидация данных по проекту " + projectName );
             paragraph.Format.Font.Size = 16;
             paragraph.Format.Font.Color = Colors.DarkRed;
             paragraph.Format.SpaceBefore = "8cm";
             paragraph.Format.SpaceAfter = "3cm";
 
-            paragraph = section.AddParagraph("Rendering date: ");
+            paragraph = section.AddParagraph("Дата создания: ");
             paragraph.AddDateField();
         }
         /// <summary>
         /// Defines the cover page.
         /// </summary>
-        private static void DefineTableOfContents(Document document)
+        private static void DefineTableOfContents(Document document, List<QueryData> data )
         {
             Section section = document.LastSection;
 
             section.AddPageBreak();
-            Paragraph paragraph = section.AddParagraph("Table of Contents");
+            var paragraph = section.AddParagraph("Содержание:", "Heading1");
+            
             paragraph.Format.Font.Size = 14;
             paragraph.Format.Font.Bold = true;
             paragraph.Format.SpaceAfter = 24;
             paragraph.Format.OutlineLevel = OutlineLevel.Level1;
-
-            paragraph = section.AddParagraph();
-            paragraph.Style = "TOC";
-            Hyperlink hyperlink = paragraph.AddHyperlink("Paragraphs");
-            hyperlink.AddText("Paragraphs\t");
-            hyperlink.AddPageRefField("Paragraphs");
-
-            paragraph = section.AddParagraph();
-            paragraph.Style = "TOC";
-            hyperlink = paragraph.AddHyperlink("Tables");
-            hyperlink.AddText("Tables\t");
-            hyperlink.AddPageRefField("Tables");
-
-            paragraph = section.AddParagraph();
-            paragraph.Style = "TOC";
-            hyperlink = paragraph.AddHyperlink("Charts");
-            hyperlink.AddText("Charts\t");
-            hyperlink.AddPageRefField("Charts");
+        
+            foreach (var item in data)
+            {
+                paragraph = section.AddParagraph();
+                paragraph.Style = "TOC";
+                var hyperlink = paragraph.AddHyperlink((item.NameList + " - " + item.ValidationRule).ToString());
+                hyperlink.AddText(item.NameList + " - " + item.ValidationRule + "\t");
+                hyperlink.AddPageRefField(item.NameList + " - " + item.ValidationRule);
+            }
         }
         /// <summary>
         /// Defines page setup, headers, and footers.
         /// </summary>
-        private static void DefineContentSection(Document document)
+        private static void DefineContentSection(Document document, List<QueryData> data )
         {
             Section section = document.AddSection();
-            section.PageSetup.OddAndEvenPagesHeaderFooter = true;
+            //section.PageSetup.OddAndEvenPagesHeaderFooter = true;
             section.PageSetup.StartingNumber = 1;
 
             HeaderFooter header = section.Headers.Primary;
-            header.AddParagraph("\tOdd Page Header");
-
-            header = section.Headers.EvenPage;
-            header.AddParagraph("Even Page Header");
-
+            header.AddParagraph(data[0].ProjectName + " - Отчет проверки данных от " + DateTime.Now.ToShortDateString() );
+            header.Format.Alignment = ParagraphAlignment.Center;
             // Create a paragraph with centered page number. See definition of style "Footer".
             Paragraph paragraph = new Paragraph();
             paragraph.AddTab();
             paragraph.AddPageField();
-
+            paragraph.AddText(" из ");
+            paragraph.AddNumPagesField();
             // Add paragraph to footer for odd pages.
             section.Footers.Primary.Add(paragraph);
             // Add clone of paragraph to footer for odd pages. Cloning is necessary because an object must
             // not belong to more than one other object. If you forget cloning an exception is thrown.
             section.Footers.EvenPage.Add(paragraph.Clone());
         }
-        public static void DefineParagraphs(Document document)
+        private static void DefineParagraphs(Document document)
         {
             Paragraph paragraph = document.LastSection.AddParagraph("Paragraph Layout Overview", "Heading1");
             paragraph.AddBookmark("Paragraphs");
@@ -226,49 +218,75 @@ namespace ExportValidation.Common
             paragraph.Format.FirstLineIndent = "-1.5cm";
             paragraph.AddText("лалоплодлога ыщгашг пыщ  щпшг ыщ ыщшывпшщыгпщыг ыпщ ыпшгыщпгыщпыщшпг ");
         }
-        public static void DefineTables(Document document)
+        
+        private static void DefineTables(Document document, List<QueryData> data )
         {
-            Paragraph paragraph = document.LastSection.AddParagraph("Table Overview", "Heading1");
-            paragraph.AddBookmark("Tables");
+            foreach (var item in data)
+            {
+                Paragraph paragraph = document.LastSection.AddParagraph("Правило: "+item.NameList+" - " + item.ValidationRule, "Heading1");
+                paragraph.AddBookmark(item.NameList + " - " + item.ValidationRule);
 
-            DemonstrateSimpleTable(document);
-            DemonstrateAlignmentTable(document);
-            DemonstrateCellMerge(document);
+                SimpleTable(document, item);
+               // DemonstrateAlignmentTable(document);
+               // DemonstrateCellMerge(document);   
+            }
         }
 
-        private static void DemonstrateSimpleTable(Document document)
+        private static void SimpleTable(Document document, QueryData data)
         {
-            document.LastSection.AddParagraph("Simple Tables", "Heading2");
+            document.LastSection.AddParagraph("Описание: " + data.Description, "Heading2");
 
             Table table = new Table();
             table.Borders.Width = 0.75;
 
-            Column column = table.AddColumn(Unit.FromCentimeter(2));
-            column.Format.Alignment = ParagraphAlignment.Center;
+            Row row ;
+            Cell cell;
+            int i = 0;
+            int cntr = 0;
+            
 
-            table.AddColumn(Unit.FromCentimeter(5));
+            foreach (var strFieldName in data.FieldsName)
+            {
+            var column = table.AddColumn();
+                column.Format.Alignment = ParagraphAlignment.Center;
+                column.Width = (document.DefaultPageSetup.PageWidth - document.DefaultPageSetup.RightMargin - document.DefaultPageSetup.LeftMargin)/data.FieldsName.Count;
+             
 
-            Row row = table.AddRow();
+            }
+
+            row = table.AddRow();
             row.Shading.Color = Colors.PaleGoldenrod;
-            Cell cell = row.Cells[0];
-            cell.AddParagraph("Itemus");
-            cell = row.Cells[1];
-            cell.AddParagraph("Descriptum");
+            row.HeadingFormat = true;
 
-            row = table.AddRow();
-            cell = row.Cells[0];
-            cell.AddParagraph("1");
-            cell = row.Cells[1];
-            cell.AddParagraph("лалоплодлога ыщгашг пыщ  щпшг ыщ ыщшывпшщыгпщыг ыпщ ыпшгыщпгыщпыщшпг ");
+            foreach (var strFieldName in data.FieldsName)
+            {
 
-            row = table.AddRow();
-            cell = row.Cells[0];
-            cell.AddParagraph("2");
-            cell = row.Cells[1];
-            cell.AddParagraph("лалоплодлога ыщгашг пыщ  щпшг ыщ ыщшывпшщыгпщыг ыпщ ыпшгыщпгыщпыщшпг ");
+                cell = row.Cells[i];
+                cell.AddParagraph(strFieldName);
+                i++;
+            }
+            for ( i = 0; i < data.Data.Rows.Count; i++)
+            {
+                cntr++;
 
-            table.SetEdge(0, 0, 2, 3, Edge.Box, BorderStyle.Single, 1.5, Colors.Black);
+                row = table.AddRow();
+                if (cntr % 2 == 0)
+                {
+                    row.Shading.Color = Colors.LightGray;
+                }
+                for (int j = 0; j < data.FieldsName.Count; j++)
+                {
 
+                    cell = row.Cells[j];
+                    cell.AddParagraph(data.Data.Rows[i][j].ToString());
+                    cell.Format.Font.Size = 8;
+
+                }
+            }
+
+    
+       table.SetEdge(0, 0, data.FieldsName.Count, data.Data.Rows.Count, Edge.Box, BorderStyle.Single, 1.5, Colors.Black);
+   
             document.LastSection.Add(table);
         }
 
@@ -406,16 +424,16 @@ namespace ExportValidation.Common
             paragraph.AddText("лалоплодлога ыщгашг пыщ  щпшг ыщ ыщшывпшщыгпщыг ыпщ ыпшгыщпгыщпыщшпг ");
         }
 
-        public static Document CreateDocument()
+        public static Document CreateDocument(List<QueryData> data )
         {
             // Create a new MigraDoc document
             Document document = new Document();
             DefineStyles(document);
-            DefineCover(document);
-            DefineTableOfContents(document);
-            DefineContentSection(document);
-            DefineParagraphs(document);
-            DefineTables(document);
+            DefineCover(document, data[0].ProjectName);
+            DefineTableOfContents(document, data);
+            DefineContentSection(document, data);
+        //    DefineParagraphs(document);
+            DefineTables(document, data);
             //DefineCharts(document);
             return document;
         }
@@ -423,7 +441,7 @@ namespace ExportValidation.Common
 
         public static void GenerateDocument(string filePath, List<QueryData> data)
         {
-            Document document = CreateDocument();
+            Document document = CreateDocument(data);
             MigraDoc.DocumentObjectModel.IO.DdlWriter.WriteToFile(document, "MigraDoc.mdddl");
 
             PdfDocumentRenderer renderer = new PdfDocumentRenderer(true, PdfSharp.Pdf.PdfFontEmbedding.Always);
@@ -431,7 +449,7 @@ namespace ExportValidation.Common
             renderer.RenderDocument();
 
             // Save the document...
-            string filename = "HelloMigraDoc.pdf";
+            string filename = data[0].ProjectName + "_Validation_" + DateTime.Now.ToShortDateString() + ".pdf";
             renderer.PdfDocument.Save(filename);
             // ...and start a viewer.
             Process.Start(filename);

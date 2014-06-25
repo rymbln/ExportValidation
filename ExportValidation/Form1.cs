@@ -24,6 +24,8 @@ namespace ExportValidation
             var strLogin = this.tbxLogin.Text;
             var strPassword = this.tbxPassword.Text;
 
+            this.cbxDatabases.Items.Clear();
+
             var conn = Tools.GetConnectionString(strServer, strLogin, strPassword);
             using (conn)
             {
@@ -46,7 +48,9 @@ namespace ExportValidation
             var strPassword = this.tbxPassword.Text;
             var strDbName = this.cbxDatabases.SelectedItem.ToString();
 
-            var conn = Tools.GetConnectionString(strServer,strDbName, strLogin, strPassword);
+            this.cbxProcedures.Items.Clear();
+
+            var conn = Tools.GetConnectionString(strServer, strDbName, strLogin, strPassword);
             using (conn)
             {
                 var lst = Tools.GetProceduresInDatabase(conn);
@@ -75,8 +79,15 @@ namespace ExportValidation
             using (conn)
             {
                 var data = Tools.RunProcedure(conn, this.cbxProcedures.SelectedItem.ToString(), strProject);
-             PDFGeneration.GenerateDocument(strPath,data);
-                MessageBox.Show("Finish");
+                if (data.Count > 0)
+                {
+                    PDFGeneration.GenerateDocument(strPath, data);
+                    MessageBox.Show("Finish");
+                }
+                else
+                {
+                    MessageBox.Show("Ошибок не обнаружено!");
+                }
             }
         }
 
@@ -94,8 +105,16 @@ namespace ExportValidation
             using (conn)
             {
                 var data = Tools.RunProcedure(conn, this.cbxProcedures.SelectedItem.ToString(), strProject);
-                ExcelGeneration.GenerateDocument(strPath, data);
-                MessageBox.Show("Finish");
+                var index = Tools.GetIndex(conn);
+                if (data.Count > 0)
+                {
+                    ExcelGeneration.GenerateDocument(strPath, data, index);
+                    MessageBox.Show("Finish");
+                }
+                else
+                {
+                    MessageBox.Show("Ошибок не обнаружено!");
+                }
             }
         }
 
@@ -112,8 +131,40 @@ namespace ExportValidation
             using (conn)
             {
                 var data = Tools.RunProcedure(conn, this.cbxProcedures.SelectedItem.ToString(), strProject);
-                WordGeneration.GenerateDocument(strPath, data);
-                MessageBox.Show("Finish");
+                if (data.Count > 0)
+                {
+                    WordGeneration.GenerateDocument(strPath, data, "portrait");
+                    MessageBox.Show("Finish");
+                }
+                else
+                {
+                    MessageBox.Show("Ошибок не обнаружено!");
+                }
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var strServer = this.tbxServerName.Text;
+            var strLogin = this.tbxLogin.Text;
+            var strPassword = this.tbxPassword.Text;
+            var strDbName = this.cbxDatabases.SelectedItem.ToString();
+            var strPath = this.tbxOutputPath.Text;
+            var strProject = this.tbxProjectName.Text;
+            var conn = Tools.GetConnectionString(strServer, strDbName, strLogin, strPassword);
+
+            using (conn)
+            {
+                var data = Tools.RunProcedure(conn, this.cbxProcedures.SelectedItem.ToString(), strProject);
+                if (data.Count > 0)
+                {
+                    WordGeneration.GenerateDocument(strPath, data, "album");
+                    MessageBox.Show("Finish");
+                }
+                else
+                {
+                    MessageBox.Show("Ошибок не обнаружено!");
+                }
             }
         }
     }

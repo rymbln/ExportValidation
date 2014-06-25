@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\ExcelGeneration.cs" />
+    <Compile Include="Common\IndexData.cs" />
     <Compile Include="Common\PDFGeneration.cs" />
     <Compile Include="Common\QueryData.cs" />
     <Compile Include="Common\Tools.cs" />

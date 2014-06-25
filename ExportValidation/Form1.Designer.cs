@@ -43,12 +43,12 @@
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.label4 = new System.Windows.Forms.Label();
             this.tbxOutputPath = new System.Windows.Forms.TextBox();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.btnGenerate = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.tbxProjectName = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -144,7 +144,7 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripProgressBar1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 384);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 300);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(535, 22);
             this.statusStrip1.TabIndex = 10;
@@ -178,23 +178,9 @@
             this.tbxOutputPath.TabIndex = 12;
             this.tbxOutputPath.Text = "C:\\Users\\rymbln\\Desktop\\Output\\PDF";
             // 
-            // checkedListBox1
-            // 
-            this.checkedListBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Items.AddRange(new object[] {
-            "LaTeX",
-            "PDF",
-            "Excel",
-            "Word"});
-            this.checkedListBox1.Location = new System.Drawing.Point(183, 119);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(340, 60);
-            this.checkedListBox1.TabIndex = 13;
-            // 
             // btnGenerate
             // 
-            this.btnGenerate.Location = new System.Drawing.Point(183, 204);
+            this.btnGenerate.Location = new System.Drawing.Point(183, 119);
             this.btnGenerate.Name = "btnGenerate";
             this.btnGenerate.Size = new System.Drawing.Size(340, 23);
             this.btnGenerate.TabIndex = 14;
@@ -204,7 +190,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(183, 233);
+            this.button1.Location = new System.Drawing.Point(183, 148);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(340, 23);
             this.button1.TabIndex = 15;
@@ -214,7 +200,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(183, 262);
+            this.button2.Location = new System.Drawing.Point(183, 177);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(340, 23);
             this.button2.TabIndex = 16;
@@ -238,17 +224,27 @@
             this.label5.TabIndex = 18;
             this.label5.Text = "Project Name";
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(183, 206);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(340, 23);
+            this.button3.TabIndex = 19;
+            this.button3.Text = "Generate Word Album";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(535, 406);
+            this.ClientSize = new System.Drawing.Size(535, 322);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.tbxProjectName);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnGenerate);
-            this.Controls.Add(this.checkedListBox1);
             this.Controls.Add(this.tbxOutputPath);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.statusStrip1);
@@ -288,12 +284,12 @@
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox tbxOutputPath;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
         private System.Windows.Forms.Button btnGenerate;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox tbxProjectName;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button button3;
     }
 }
 
