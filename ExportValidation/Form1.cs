@@ -105,7 +105,7 @@ namespace ExportValidation
             using (conn)
             {
                 var data = Tools.RunProcedure(conn, this.cbxProcedures.SelectedItem.ToString(), strProject);
-                var index = Tools.GetIndex(conn);
+                var index = Tools.GetIndex(conn, this.cbxProcedures.Text);
                 if (data.Count > 0)
                 {
                     ExcelGeneration.GenerateDocument(strPath, data, index);

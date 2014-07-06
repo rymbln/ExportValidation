@@ -75,21 +75,32 @@ namespace ExportValidation.Common
         private static List<QueryData> SortData(List<QueryData> data)
         {
             QueryData tmp = null;
-
-            for (int i = 0; i < data.Count - 1; i++)
+            try
             {
-                for (int j = 0; j < data.Count - 1; j++)
-                {
-                    if (Convert.ToInt32(data[j].NameList) < Convert.ToInt32(data[j + 1].NameList))
-                    {
-                        tmp = data[j];
-                        data[j] = data[j + 1];
-                        data[j + 1] = tmp;
 
+
+                for (int i = 0; i < data.Count - 1; i++)
+                {
+                    for (int j = 0; j < data.Count - 1; j++)
+                    {
+                        if (Convert.ToInt32(data[j].NameList) < Convert.ToInt32(data[j + 1].NameList))
+                        {
+                            tmp = data[j];
+                            data[j] = data[j + 1];
+                            data[j + 1] = tmp;
+
+                        }
                     }
                 }
             }
-
+            catch (Exception ex)
+            {
+                
+            }
+            finally
+            {
+                
+            }
             return data;
         }
 
@@ -107,13 +118,13 @@ namespace ExportValidation.Common
             {
                 if (String.IsNullOrEmpty(filePath))
                 {
-                    filePath = Path.Combine(filePath + "\\" + data[0].ProjectName + "_Validation_" + DateTime.Now.ToShortDateString());
+                    filePath = Path.Combine(filePath + "\\" + data[0].ProjectName + "_" + DateTime.Now.ToShortDateString());
                     //if (Environment.OSVersion.Version.Major >= 6)
                     //{
                     //    filePath = Directory.GetParent(filePath).FullName;
                     //}
                 }
-                var filename = data[0].ProjectName + "_Validation_" + DateTime.Now.ToShortDateString() + ".xlsx";
+                var filename = data[0].ProjectName + "_" + DateTime.Now.ToShortDateString() + ".xlsx";
 
                 var indexDocument = index;
 
@@ -187,7 +198,7 @@ namespace ExportValidation.Common
 
                 ExcelSheet.Cells[1, 1] = "Проект:";
                 ExcelSheet.Cells[1, 2] = data[0].ProjectName;
-                ExcelSheet.Cells[2, 1] = "Описание правил валидации:";
+                ExcelSheet.Cells[2, 1] = "Описание:";
                 ExcelSheet.Range[ExcelSheet.Cells[2, 1], ExcelSheet.Cells[2, 3]].Merge();
                 FormatDescription(ExcelSheet.Range[ExcelSheet.Cells[1, 1], ExcelSheet.Cells[2, 2]]);
                 ExcelSheet.Cells[4, 1] = "Имя листа";

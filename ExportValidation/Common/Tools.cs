@@ -75,9 +75,9 @@ namespace ExportValidation.Common
             return lst;
         }
 
-        public static List<IndexData> GetIndex(SqlConnection conn)
+        public static List<IndexData> GetIndex(SqlConnection conn, string procname)
         {
-            var sql = "SELECT * FROM ValidationAttributes ORDER BY NameList";
+            var sql = "exec "+procname;
             var cmd = new SqlCommand(sql, conn);
             var lst = new List<IndexData>();
             var lstData = new List<IndexData>();
