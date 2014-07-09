@@ -95,9 +95,9 @@ namespace ExportValidation.Common
                 {
                     lst.Add(new IndexData
                     {
-                        ValidationRule = rdr.GetString(0),
-                        NameList = rdr.GetString(3),
-                        Description = rdr.GetString(2),
+                        ValidationRule = rdr.GetString(1),
+                        NameList = rdr.GetString(4),
+                        Description = rdr.GetString(3),
                     });
                 }
             }
@@ -119,7 +119,7 @@ namespace ExportValidation.Common
             {
                 for (int i = 0; i < rdrQD.FieldCount; i++)
                 {
-                    lstColumns.Add(rdrQD.GetName(i).Replace("_"," "));
+                    lstColumns.Add(rdrQD.GetName(i));
                 }
 
                 obj.FieldsName = lstColumns;

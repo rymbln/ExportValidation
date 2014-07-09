@@ -55,21 +55,21 @@ namespace ExportValidation.Common
 
         private static void FormatSheet(Excel.Worksheet sheet, QueryData obj)
         {
-            sheet.PageSetup.PrintGridlines = false;
-            sheet.PageSetup.Orientation = Excel.XlPageOrientation.xlPortrait;
-            sheet.PageSetup.PaperSize = Excel.XlPaperSize.xlPaperA4;
-            sheet.PageSetup.RightFooter = "Дата: &DD Стр &PP из &NN";
-            sheet.PageSetup.RightHeader = obj.ProjectName + " - " + obj.ValidationRule;
-            sheet.PageSetup.Zoom = false;
-            sheet.PageSetup.LeftHeader = "e-CRF";
-            sheet.PageSetup.TopMargin = 50;
-            sheet.PageSetup.BottomMargin = 50;
-            sheet.PageSetup.HeaderMargin = 20;
-            sheet.PageSetup.FooterMargin = 20;
-            sheet.PageSetup.RightMargin = 10;
-            sheet.PageSetup.LeftMargin = 50;
-            sheet.PageSetup.Order = Excel.XlOrder.xlOverThenDown;
-            sheet.Columns.EntireColumn.AutoFit();
+           //sheet.PageSetup.PrintGridlines = false;
+           // sheet.PageSetup.Orientation = Excel.XlPageOrientation.xlPortrait;
+           // sheet.PageSetup.PaperSize = Excel.XlPaperSize.xlPaperA4;
+           // sheet.PageSetup.RightFooter = "Дата: &DD Стр &PP из &NN";
+           // sheet.PageSetup.RightHeader = obj.ProjectName + " - " + obj.ValidationRule;
+           // sheet.PageSetup.Zoom = false;
+           // sheet.PageSetup.LeftHeader = "e-CRF";
+           // sheet.PageSetup.TopMargin = 50;
+           // sheet.PageSetup.BottomMargin = 50;
+           // sheet.PageSetup.HeaderMargin = 20;
+           // sheet.PageSetup.FooterMargin = 20;
+           // sheet.PageSetup.RightMargin = 10;
+           // sheet.PageSetup.LeftMargin = 50;
+           // sheet.PageSetup.Order = Excel.XlOrder.xlOverThenDown;
+           // sheet.Columns.EntireColumn.AutoFit();
         }
 
         private static List<QueryData> SortData(List<QueryData> data)
