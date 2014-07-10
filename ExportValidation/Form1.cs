@@ -167,5 +167,32 @@ namespace ExportValidation
                 }
             }
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            var strServer = this.tbxServerName.Text;
+            var strLogin = this.tbxLogin.Text;
+            var strPassword = this.tbxPassword.Text;
+            var strDbName = this.cbxDatabases.SelectedItem.ToString();
+            var strPath = this.tbxOutputPath.Text;
+            var strProject = this.tbxProjectName.Text;
+
+            var conn = Tools.GetConnectionString(strServer, strDbName, strLogin, strPassword);
+
+            using (conn)
+            {
+                var data = Tools.RunProcedure(conn, this.cbxProcedures.SelectedItem.ToString(), strProject);
+                var index = Tools.GetIndex(conn, this.cbxProcedures.Text);
+                if (data.Count > 0)
+                {
+                    ExcelGeneration.GenerateDocument2(strPath, data, index);
+                    MessageBox.Show("Finish");
+                }
+                else
+                {
+                    MessageBox.Show("Ошибок не обнаружено!");
+                }
+            }
+        }
     }
 }

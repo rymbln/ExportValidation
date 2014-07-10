@@ -13,9 +13,6 @@ using DataTable = System.Data.DataTable;
 namespace ExportValidation.Common
 {
     static class Tools
-
-        //            using (System.IO.StreamWriter file = new System.IO.StreamWriter(filePath))
-    // {
     {
 
 
@@ -113,7 +110,7 @@ namespace ExportValidation.Common
             var obj = new QueryData();
             var lstColumns = new List<string>();
             var sql = execText;
-            var cmd = new SqlCommand(sql, conn);
+            var cmd = new SqlCommand(sql.Replace("\\r",""), conn);
             var rdrQD = cmd.ExecuteReader();
             if (rdrQD.HasRows)
             {
