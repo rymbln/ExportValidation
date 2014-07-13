@@ -111,6 +111,11 @@ namespace ExportValidation.Common
             var lstColumns = new List<string>();
             var sql = execText;
             var cmd = new SqlCommand(sql.Replace("\\r",""), conn);
+            if (cmd.CommandText.Equals("EXEC [dbo].[stat_Parameters]"))
+            {
+                 cmd.CommandTimeout = 60;      
+            }
+          
             var rdrQD = cmd.ExecuteReader();
             if (rdrQD.HasRows)
             {

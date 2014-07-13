@@ -69,7 +69,8 @@ namespace ExportValidation.Common
             // sheet.PageSetup.RightMargin = 10;
             // sheet.PageSetup.LeftMargin = 50;
             // sheet.PageSetup.Order = Excel.XlOrder.xlOverThenDown;
-            // sheet.Columns.EntireColumn.AutoFit();
+             sheet.Columns.EntireColumn.AutoFit();
+             sheet.Range[sheet.Cells[1, 1], sheet.Cells[obj.Data.Rows.Count, 3]].NumberFormat = "@";
         }
 
         private static List<QueryData> SortData(List<QueryData> data)
@@ -118,13 +119,13 @@ namespace ExportValidation.Common
             {
                 if (String.IsNullOrEmpty(filePath))
                 {
-                    filePath = Path.Combine(filePath + "\\" + data[0].ProjectName + "_" + DateTime.Now.ToShortDateString());
+                    filePath = Path.Combine(filePath + "\\" + data[0].ProjectName + "_Validation_" + DateTime.Now.ToShortDateString());
                     //if (Environment.OSVersion.Version.Major >= 6)
                     //{
                     //    filePath = Directory.GetParent(filePath).FullName;
                     //}
                 }
-                var filename = data[0].ProjectName + "_" + DateTime.Now.ToShortDateString() + ".xlsx";
+                var filename = data[0].ProjectName + "_Validation_" + DateTime.Now.ToShortDateString() + ".xlsx";
 
                 var indexDocument = index;
 
@@ -261,13 +262,13 @@ namespace ExportValidation.Common
                 if (String.IsNullOrEmpty(filePath))
                 {
                     filePath =
-                        Path.Combine(filePath + "\\" + data[0].ProjectName + "_" + DateTime.Now.ToShortDateString());
+                        Path.Combine(filePath + "\\" + data[0].ProjectName + "_Export_" + DateTime.Now.ToShortDateString());
                     //if (Environment.OSVersion.Version.Major >= 6)
                     //{
                     //    filePath = Directory.GetParent(filePath).FullName;
                     //}
                 }
-                var filename = data[0].ProjectName + "_" + DateTime.Now.ToShortDateString() + ".xlsx";
+                var filename = data[0].ProjectName + "_Export_" + DateTime.Now.ToShortDateString() + ".xlsx";
 
                 var indexDocument = index;
 
