@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
@@ -44,6 +45,76 @@ namespace ExportValidation.Common
 
         }
 
+        private static void FormatHighlitedCells(Excel.Range range)
+        {
+            Excel.Range currentFind = null;
+            Excel.Range firstFind = null;
+
+            // You should specify all these parameters every time you call this method, 
+            // since they can be overridden in the user interface. 
+            currentFind = range.Find("_@_", System.Type.Missing,
+                Excel.XlFindLookIn.xlValues, Excel.XlLookAt.xlPart,
+                Excel.XlSearchOrder.xlByRows, Excel.XlSearchDirection.xlNext, false,
+                System.Type.Missing, System.Type.Missing);
+
+            while (currentFind != null)
+            {
+                // Keep track of the first range you find.  
+                if (firstFind == null)
+                {
+                    firstFind = currentFind;
+                }
+
+                // If you didn't move to a new range, you are done. 
+                else if (currentFind.get_Address(Excel.XlReferenceStyle.xlA1)
+                      == firstFind.get_Address(Excel.XlReferenceStyle.xlA1))
+                {
+                    break;
+                }
+
+                currentFind.Cells.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Yellow);
+                // currentFind.Font.Bold = true;
+
+                currentFind = range.FindNext(currentFind);
+            }
+
+            currentFind = null;
+            firstFind = null;
+
+            currentFind = range.Find("_@_", System.Type.Missing,
+            Excel.XlFindLookIn.xlValues, Excel.XlLookAt.xlPart,
+            Excel.XlSearchOrder.xlByRows, Excel.XlSearchDirection.xlNext, false,
+            System.Type.Missing, System.Type.Missing);
+
+            while (currentFind != null)
+            {
+                // Keep track of the first range you find.  
+                if (firstFind == null)
+                {
+                    firstFind = currentFind;
+                }
+
+                // If you didn't move to a new range, you are done. 
+                else if (currentFind.get_Address(Excel.XlReferenceStyle.xlA1)
+                      == firstFind.get_Address(Excel.XlReferenceStyle.xlA1))
+                {
+                    break;
+                }
+
+                currentFind.Replace(What: "_@_", Replacement: "", LookAt: Excel.XlLookAt.xlPart, SearchOrder: Excel.XlSearchOrder.xlByRows, MatchCase: false, SearchFormat: true, ReplaceFormat: false);
+
+                currentFind = range.FindNext(currentFind);
+            }
+
+
+
+
+
+        }
+
+
+
+
         private static void FormatDataArea(Excel.Range range, String data)
         {
             range.Worksheet.ListObjects.Add(Excel.XlListObjectSourceType.xlSrcRange, range, System.Type.Missing,
@@ -69,8 +140,8 @@ namespace ExportValidation.Common
             // sheet.PageSetup.RightMargin = 10;
             // sheet.PageSetup.LeftMargin = 50;
             // sheet.PageSetup.Order = Excel.XlOrder.xlOverThenDown;
-             sheet.Columns.EntireColumn.AutoFit();
-             sheet.Range[sheet.Cells[1, 1], sheet.Cells[obj.Data.Rows.Count, 3]].NumberFormat = "@";
+            sheet.Columns.EntireColumn.AutoFit();
+            sheet.Range[sheet.Cells[1, 1], sheet.Cells[obj.Data.Rows.Count, 3]].NumberFormat = "@";
         }
 
         private static List<QueryData> SortData(List<QueryData> data)
@@ -182,6 +253,7 @@ namespace ExportValidation.Common
                     FormatDescription(ExcelSheet.Range[ExcelSheet.Cells[1, 1], ExcelSheet.Cells[3, 2]]);
                     ExcelSheet.Range[ExcelSheet.Cells[3, 2], ExcelSheet.Cells[3, colsCount]].WrapText = true;
                     ExcelSheet.Range[ExcelSheet.Cells[3, 2], ExcelSheet.Cells[3, colsCount]].RowHeight = 60;
+                    FormatHighlitedCells(rng);
 
                 }
 
@@ -322,11 +394,11 @@ namespace ExportValidation.Common
                     rng.Value = dataSet;
 
                     FormatDataArea(
-                        ExcelSheet.Range[ExcelSheet.Cells[1, 1], ExcelSheet.Cells[1+rowsCount, colsCount]],
+                        ExcelSheet.Range[ExcelSheet.Cells[1, 1], ExcelSheet.Cells[1 + rowsCount, colsCount]],
                         itemData.ValidationRule);
                     //FormatDescription(ExcelSheet.Range[ExcelSheet.Cells[1, 1], ExcelSheet.Cells[3, 2]]);
-                   // ExcelSheet.Range[ExcelSheet.Cells[3, 2], ExcelSheet.Cells[3, colsCount]].WrapText = true;
-                   // ExcelSheet.Range[ExcelSheet.Cells[3, 2], ExcelSheet.Cells[3, colsCount]].RowHeight = 60;
+                    // ExcelSheet.Range[ExcelSheet.Cells[3, 2], ExcelSheet.Cells[3, colsCount]].WrapText = true;
+                    // ExcelSheet.Range[ExcelSheet.Cells[3, 2], ExcelSheet.Cells[3, colsCount]].RowHeight = 60;
 
                 }
 

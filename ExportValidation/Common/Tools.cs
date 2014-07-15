@@ -110,7 +110,7 @@ namespace ExportValidation.Common
             var obj = new QueryData();
             var lstColumns = new List<string>();
             var sql = execText;
-            var cmd = new SqlCommand(sql.Replace("\\r",""), conn);
+            var cmd = new SqlCommand(sql.Replace("\\r\\n","").Replace("\\r",""), conn);
             if (cmd.CommandText.Equals("EXEC [dbo].[stat_Parameters]"))
             {
                  cmd.CommandTimeout = 60;      
