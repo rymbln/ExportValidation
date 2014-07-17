@@ -121,6 +121,7 @@
             this.cbxDatabases.Name = "cbxDatabases";
             this.cbxDatabases.Size = new System.Drawing.Size(144, 21);
             this.cbxDatabases.TabIndex = 7;
+            this.cbxDatabases.SelectedIndexChanged += new System.EventHandler(this.cbxDatabases_SelectedIndexChanged);
             // 
             // btnProcedures
             // 

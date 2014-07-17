@@ -194,5 +194,10 @@ namespace ExportValidation
                 }
             }
         }
+
+        private void cbxDatabases_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.tbxProjectName.Text = this.cbxDatabases.SelectedItem.ToString();
+        }
     }
 }
