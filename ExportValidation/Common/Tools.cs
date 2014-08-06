@@ -74,7 +74,7 @@ namespace ExportValidation.Common
 
         public static List<IndexData> GetIndex(SqlConnection conn, string procname)
         {
-            var sql = "exec "+procname;
+            var sql = "exec " + procname;
             var cmd = new SqlCommand(sql, conn);
             var lst = new List<IndexData>();
             var lstData = new List<IndexData>();
@@ -100,7 +100,7 @@ namespace ExportValidation.Common
             }
             rdr.Close();
             rdr = null;
-            
+
 
             return lst;
         }
@@ -110,12 +110,15 @@ namespace ExportValidation.Common
             var obj = new QueryData();
             var lstColumns = new List<string>();
             var sql = execText;
-            var cmd = new SqlCommand(sql.Replace("\\r\\n","").Replace("\\r",""), conn);
+            var cmd = new SqlCommand(sql.Replace("\\r\\n", "").Replace("\\r", ""), conn);
             if (cmd.CommandText.Equals("EXEC [dbo].[stat_Parameters]"))
             {
-                 cmd.CommandTimeout = 60;      
+                cmd.CommandTimeout = 120;
             }
-          
+            if (cmd.CommandText.Contains("check_patient"))
+            {
+                cmd.CommandTimeout = 90;
+            }
             var rdrQD = cmd.ExecuteReader();
             if (rdrQD.HasRows)
             {
@@ -168,7 +171,6 @@ namespace ExportValidation.Common
                 {
                     lst.Add(new ValidationRows
                     {
-
                         s1 = rdr.GetString(0),
                         s2 = rdr.GetString(1),
                         s3 = rdr.GetString(2),
@@ -184,13 +186,117 @@ namespace ExportValidation.Common
             foreach (var item in lst)
             {
                 var obj = GetQueryData(item.s1, item.s2, item.s3, item.s4, item.s5, item.s6, projectName, conn);
-                
+
                 if (obj != null)
                 {
-                lstData.Add(obj);
+                    lstData.Add(obj);
                 }
             }
             return lstData;
+        }
+
+        public static void GetQueries(SqlConnection conn, string strProject, string strPath)
+        {
+            var sql = "EXEC	[dbo].[GetQueries]";
+            var cmd = new SqlCommand(sql, conn);
+            if (conn.State.ToString() == "Closed")
+            {
+                conn.Open();
+            }
+            cmd.CommandTimeout = 120;
+            cmd.ExecuteNonQuery();
+
+            sql =
+                "SELECT DISTINCT [UserName],[UserEmail],[SiteNo],[CityName] FROM [dbo].[QUERY_LIST_DISTINCT]";
+
+            var lstUsers = new List<QueryReportData>();
+            cmd = new SqlCommand(sql, conn);
+            var rdr = cmd.ExecuteReader();
+            // Получаем список пользователей
+            if (rdr.HasRows)
+            {
+                while (rdr.Read())
+                {
+                    lstUsers.Add(new QueryReportData
+                    {
+                        UserName = rdr.GetString(0),
+                        UserEmail = rdr.GetString(1),
+                        SiteNo = rdr.GetString(2),
+                        CityName = rdr.GetString(3)
+                    });
+                }
+            }
+            rdr.Close();
+            rdr = null;
+
+
+
+            foreach (var user in lstUsers)
+            {
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(strPath +@"\"+ strProject + "_" + user.SiteNo + "_" + user.CityName + "_" + user.UserName + DateTime.Now.ToShortDateString() +".txt", true))
+                {
+                    file.WriteLine("Номер центра: " + user.SiteNo);
+                    file.WriteLine("Город: " + user.CityName);
+                    file.WriteLine("Пользователь: " + user.UserName);
+                    file.WriteLine("Email: " + user.UserEmail);
+                    file.WriteLine("");
+                    file.WriteLine("");
+                    file.WriteLine("");
+
+                    sql = "SELECT DISTINCT [CrfNumber],[CrfName],[DateOfInput]  FROM [dbo].[QUERY_LIST_DISTINCT]  WHERE UserName = N'" + user.UserName + "'";
+                    cmd = new SqlCommand(sql, conn);
+                    rdr = cmd.ExecuteReader();
+                    var lstCrf = new List<CrfInfo>();
+                    if (rdr.HasRows)
+                    {
+                        while (rdr.Read())
+                        {
+                            lstCrf.Add(new CrfInfo
+                            {
+                                CrfNumber = rdr.GetString(0),
+                                CrfName = rdr.GetString(1),
+                                DateOfInput = rdr.GetDateTime(2).ToString()
+                            });
+                        }
+                    }
+                    rdr.Close();
+                    rdr = null;
+                    foreach (var crfInfo in lstCrf)
+                    {
+                        file.WriteLine("");
+                        file.WriteLine("----------------------------");
+                        file.WriteLine("");
+                        file.WriteLine("Номер карты: " + crfInfo.CrfNumber);
+                        file.WriteLine("Пациент: " + crfInfo.CrfName);
+                        file.WriteLine("Дата ввода: " + crfInfo.DateOfInput);
+                        file.WriteLine("");
+                        file.WriteLine("Правила валидации и описание ошибки:");
+
+                        sql =
+                            "SELECT DISTINCT [ValidationRule],[Descritpion]  FROM [dbo].[QUERY_LIST_DISTINCT] WHERE UserName = N'" +
+                            user.UserName + "' AND CrfNumber = N'" + crfInfo.CrfNumber + "'";
+                        cmd = new SqlCommand(sql, conn);
+                        rdr = cmd.ExecuteReader();
+                        if (rdr.HasRows)
+                        {
+                            while (rdr.Read())
+                            {
+                                {
+                                    file.WriteLine(rdr.GetString(0) + " - " + rdr.GetString(1));
+                                }
+                            }
+                        }
+                        rdr.Close();
+                        rdr = null;
+                    }
+                    file.WriteLine("");
+                    file.WriteLine("----------------------------");
+                }
+
+            }
+            MessageBox.Show("Создание Квери закончено");
+
+
         }
     }
 }
