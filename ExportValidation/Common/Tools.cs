@@ -356,8 +356,7 @@ namespace ExportValidation.Common
                             lstCrf.Add(new CrfInfo
                             {
                                 CrfNumber = rdr.GetString(0),
-                                CrfName = rdr.GetString(1),
-                                DateOfInput = rdr.GetDateTime(2).ToString()
+                                CrfName = rdr.GetString(1)
                             });
                         }
                     }
