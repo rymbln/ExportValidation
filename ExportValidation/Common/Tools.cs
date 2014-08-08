@@ -111,14 +111,15 @@ namespace ExportValidation.Common
             var lstColumns = new List<string>();
             var sql = execText;
             var cmd = new SqlCommand(sql.Replace("\\r\\n", "").Replace("\\r", ""), conn);
-            if (cmd.CommandText.Equals("EXEC [dbo].[stat_Parameters]"))
+            if (cmd.CommandText.StartsWith("EXEC"))
             {
-                cmd.CommandTimeout = 120;
+                cmd.CommandTimeout = 200;
             }
             if (cmd.CommandText.Contains("check_patient"))
             {
                 cmd.CommandTimeout = 90;
             }
+       //     cmd.CommandTimeout = 300;
             var rdrQD = cmd.ExecuteReader();
             if (rdrQD.HasRows)
             {
@@ -291,6 +292,103 @@ namespace ExportValidation.Common
                     }
                     file.WriteLine("");
                     file.WriteLine("----------------------------");
+                }
+
+            }
+            MessageBox.Show("Создание Квери закончено");
+
+
+        }
+        public static void GetQueriesInFormat(SqlConnection conn, string strProject, string strPath)
+        {
+            var sql = "EXEC	[dbo].[GetQueries]";
+            var cmd = new SqlCommand(sql, conn);
+            if (conn.State.ToString() == "Closed")
+            {
+                conn.Open();
+            }
+            cmd.CommandTimeout = 120;
+            cmd.ExecuteNonQuery();
+
+            sql =
+                "SELECT DISTINCT [UserName],[UserEmail],[SiteNo],[CityName] FROM [dbo].[QUERY_LIST_DISTINCT]";
+
+            var lstUsers = new List<QueryReportData>();
+            cmd = new SqlCommand(sql, conn);
+            var rdr = cmd.ExecuteReader();
+            // Получаем список пользователей
+            if (rdr.HasRows)
+            {
+                while (rdr.Read())
+                {
+                    lstUsers.Add(new QueryReportData
+                    {
+                        UserName = rdr.GetString(0),
+                        UserEmail = rdr.GetString(1),
+                        SiteNo = rdr.GetString(2),
+                        CityName = rdr.GetString(3)
+                    });
+                }
+            }
+            rdr.Close();
+            rdr = null;
+
+
+
+            foreach (var user in lstUsers)
+            {
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(strPath + @"\" + strProject + "_" + user.SiteNo + "_" + user.CityName + "_" + user.UserName + "_" + DateTime.Now.ToShortDateString() + ".txt", true))
+                {
+                    file.WriteLine("To: " + user.UserEmail);
+                    file.WriteLine("Subject: " + strProject + " Query");
+                    file.WriteLine("");
+                    file.WriteLine("");
+                    file.WriteLine("Уважаемый, " + user.UserName + ",");
+
+                    sql = "SELECT DISTINCT [CrfNumber],[CrfName],[DateOfInput]  FROM [dbo].[QUERY_LIST_DISTINCT]  WHERE UserName = N'" + user.UserName + "'";
+                    cmd = new SqlCommand(sql, conn);
+                    rdr = cmd.ExecuteReader();
+                    var lstCrf = new List<CrfInfo>();
+                    if (rdr.HasRows)
+                    {
+                        while (rdr.Read())
+                        {
+                            lstCrf.Add(new CrfInfo
+                            {
+                                CrfNumber = rdr.GetString(0),
+                                CrfName = rdr.GetString(1),
+                                DateOfInput = rdr.GetDateTime(2).ToString()
+                            });
+                        }
+                    }
+                    rdr.Close();
+                    rdr = null;
+                    foreach (var crfInfo in lstCrf)
+                    {
+                        file.WriteLine("");
+                        
+                        file.WriteLine("В карте № " + crfInfo.CrfNumber + " пациента "+ crfInfo.CrfName + " обнаружены проблемные данные");
+
+                        sql =
+                            "SELECT DISTINCT [ValidationRule],[Descritpion]  FROM [dbo].[QUERY_LIST_DISTINCT] WHERE UserName = N'" +
+                            user.UserName + "' AND CrfNumber = N'" + crfInfo.CrfNumber + "'";
+                        cmd = new SqlCommand(sql, conn);
+                        rdr = cmd.ExecuteReader();
+                        var i = 1;
+                        if (rdr.HasRows)
+                        {
+                            while (rdr.Read())
+                            {
+                                {
+                                    file.WriteLine(i + ") " +rdr.GetString(1));
+                                    i++;
+                                }
+                            }
+                        }
+                        rdr.Close();
+                        rdr = null;
+                    }
+                    file.WriteLine("Пожалуйста, в случае ошибки, исправьте их самостоятельно или свяжитесь со службой поддержки путем ответа на данное письмо. \r\n Пожалуйста, не удаляйте тему письма при ответе! \r\n \r\n Спасибо,\r\nКоманда поддержки eCRF");
                 }
 
             }

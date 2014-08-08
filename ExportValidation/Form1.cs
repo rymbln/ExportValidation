@@ -217,5 +217,23 @@ namespace ExportValidation
                 
             }
         }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            var strServer = this.tbxServerName.Text;
+            var strLogin = this.tbxLogin.Text;
+            var strPassword = this.tbxPassword.Text;
+            var strDbName = this.cbxDatabases.SelectedItem.ToString();
+            var strPath = this.tbxOutputPath.Text;
+            var strProject = this.tbxProjectName.Text;
+
+            var conn = Tools.GetConnectionString(strServer, strDbName, strLogin, strPassword);
+
+            using (conn)
+            {
+                Tools.GetQueriesInFormat(conn, strProject, strPath);
+
+            }
+        }
     }
 }
