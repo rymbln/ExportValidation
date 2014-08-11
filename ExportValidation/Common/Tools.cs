@@ -119,7 +119,7 @@ namespace ExportValidation.Common
             {
                 cmd.CommandTimeout = 90;
             }
-       //     cmd.CommandTimeout = 300;
+           cmd.CommandTimeout = 200;
             var rdrQD = cmd.ExecuteReader();
             if (rdrQD.HasRows)
             {
@@ -343,7 +343,7 @@ namespace ExportValidation.Common
                     file.WriteLine("Subject: " + strProject + " Query");
                     file.WriteLine("");
                     file.WriteLine("");
-                    file.WriteLine("Уважаемый, " + user.UserName + ",");
+                    file.WriteLine("Уважаемый(-ая), " + user.UserName + ",");
 
                     sql = "SELECT DISTINCT [CrfNumber],[CrfName],[DateOfInput]  FROM [dbo].[QUERY_LIST_DISTINCT]  WHERE UserName = N'" + user.UserName + "'";
                     cmd = new SqlCommand(sql, conn);
@@ -366,7 +366,7 @@ namespace ExportValidation.Common
                     {
                         file.WriteLine("");
                         
-                        file.WriteLine("В карте № " + crfInfo.CrfNumber + " пациента "+ crfInfo.CrfName + " обнаружены проблемные данные");
+                        file.WriteLine("В карте № " + crfInfo.CrfNumber + " пациента "+ crfInfo.CrfName + " обнаружены проблемные данные:\r\n");
 
                         sql =
                             "SELECT DISTINCT [ValidationRule],[Descritpion]  FROM [dbo].[QUERY_LIST_DISTINCT] WHERE UserName = N'" +
@@ -386,8 +386,10 @@ namespace ExportValidation.Common
                         }
                         rdr.Close();
                         rdr = null;
+                        file.WriteLine("");
                     }
-                    file.WriteLine("Пожалуйста, в случае ошибки, исправьте их самостоятельно или свяжитесь со службой поддержки путем ответа на данное письмо. \r\n Пожалуйста, не удаляйте тему письма при ответе! \r\n \r\n Спасибо,\r\nКоманда поддержки eCRF");
+                    file.WriteLine("\r\n\r\n\r\nПожалуйста, в случае ошибки, исправьте их самостоятельно или свяжитесь со службой поддержки путем ответа на данное письмо. \r\nПожалуйста, не удаляйте тему письма при ответе!\r\n" +
+                                   "Крайний срок внесения исправлений 8:00 14.08.2014 (четверг)\r\n\r\nСпасибо,\r\nКоманда поддержки eCRF");
                 }
 
             }
