@@ -14,8 +14,26 @@ namespace ExportValidation.Common
 {
     static class Tools
     {
+        private static string columnNames(DataTable dtSchemaTable, string delimiter)
+        {
+            string strOut = "";
+            if (delimiter.ToLower() == "tab")
+            {
+                delimiter = "\t";
+            }
 
+            for (int i = 0; i < dtSchemaTable.Rows.Count; i++)
+            {
+                strOut += dtSchemaTable.Rows[i][0].ToString();
+                if (i < dtSchemaTable.Rows.Count - 1)
+                {
+                    strOut += delimiter;
+                }
 
+            }
+            return strOut;
+        }
+      
         private static List<string> GetNamesFromSQL(SqlConnection conn, string sql)
         {
 
@@ -66,7 +84,7 @@ namespace ExportValidation.Common
 
         public static List<string> GetProceduresInDatabase(SqlConnection conn)
         {
-            var sql = "SELECT LOWER(name) AS name FROM sysobjects WHERE xtype='P' AND name NOT LIKE 'dt_%'";
+            var sql = "SELECT LOWER(name) AS name FROM sysobjects WHERE xtype='P' AND name NOT LIKE 'dt_%' ORDER BY NAME";
             var lst = GetNamesFromSQL(conn, sql);
 
             return lst;
@@ -95,6 +113,40 @@ namespace ExportValidation.Common
                         ValidationRule = rdr.GetString(1),
                         NameList = rdr.GetString(4),
                         Description = rdr.GetString(3),
+                    });
+                }
+            }
+            rdr.Close();
+            rdr = null;
+
+
+            return lst;
+        }
+
+        public static List<IndexData> GetIndexWithSelectCommand(SqlConnection conn, string procname)
+        {
+            var sql = "exec " + procname;
+            var cmd = new SqlCommand(sql, conn);
+            var lst = new List<IndexData>();
+            var lstData = new List<IndexData>();
+
+            if (conn.State.ToString() == "Closed")
+            {
+                conn.Open();
+            }
+            var rdr = cmd.ExecuteReader();
+
+            // Получаем список запросов валидации
+            if (rdr.HasRows)
+            {
+                while (rdr.Read())
+                {
+                    lst.Add(new IndexData
+                    {
+                        ValidationRule = rdr.GetString(1),
+                        NameList = rdr.GetString(4),
+                        Description = rdr.GetString(3),
+                        SelectCommand = rdr.GetString(5)
                     });
                 }
             }
@@ -396,6 +448,110 @@ namespace ExportValidation.Common
             MessageBox.Show("Создание Квери закончено");
 
 
+        }
+
+        public static List<string> GetTablesInDataBase(SqlConnection conn)
+        {
+            var lst = new List<string>();
+
+            SqlDataAdapter da = new SqlDataAdapter("select name from dbo.sysobjects where xtype = 'U' and name <> 'dtproperties' order by name", conn);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            if (dt.Rows.Count == 0)
+            {
+                MessageBox.Show("There is no user table in the specified database.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                lst.Add("<no tables>");
+            }
+            else
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    lst.Add(dt.Rows[i][0].ToString());
+                }
+            }
+
+            return lst;
+        }
+
+        public static List<string> GetViewsInDataBase(SqlConnection conn)
+        {
+            var lst = new List<string>();
+
+            SqlDataAdapter da = new SqlDataAdapter("select  name from    sys.objects where type = 'V' and name <> 'dtproperties' order by name", conn);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            if (dt.Rows.Count == 0)
+            {
+                MessageBox.Show("There is no user views in the specified database.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                lst.Add("<no tables>");
+            }
+            else
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    lst.Add(dt.Rows[i][0].ToString());
+                }
+            }
+
+            return lst;
+
+
+        }
+
+        public static void ExportToCSVFile(string filePath, string project, string fileName, string sql, SqlConnection conn, Encoding encoding, string separator, bool firstRowNames)
+        {
+            var cmd = new SqlCommand(sql, conn);
+            cmd.CommandTimeout = 240;
+            if (conn.State.ToString() == "Closed")
+            {
+                conn.Open();
+            }
+            // Creates a SqlDataReader instance to read data from the table.
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            // Retrives the schema of the table.
+            DataTable dtSchema = dr.GetSchemaTable();
+
+            // Creates the CSV file as a stream, using the given encoding.
+            StreamWriter sw = new StreamWriter(filePath+"\\"+project+"_"+fileName+"_"+DateTime.Now.ToShortDateString()+".csv", false, encoding);
+
+            StringBuilder strRow; // represents a full row
+
+            // Writes the column headers if the user previously asked that.
+            if (firstRowNames)
+            {
+                sw.WriteLine(columnNames(dtSchema, separator));
+            }
+
+            // Reads the rows one by one from the SqlDataReader
+            // transfers them to a string with the given separator character and
+            // writes it to the file.
+            while (dr.Read())
+            {
+                strRow = new StringBuilder();
+                for (int i = 0; i < dr.FieldCount; i++)
+                {
+                    strRow.Append(dr.GetValue(i).ToString());
+                    if (i < dr.FieldCount - 1)
+                    {
+                        strRow.Append(separator);
+                    }
+                }
+                sw.WriteLine(strRow);
+            }
+
+
+            // Closes the text stream and the database connenction.
+            sw.Close();
+            conn.Close();
+        }
+
+        public static void GenerateCSVDocument(SqlConnection conn, List<IndexData> index, string project, string filePath, Encoding encoding, string separator, bool hasColumnNames)
+        {
+            foreach (var indexData in index)
+            {
+                ExportToCSVFile(filePath, project, indexData.NameList, indexData.SelectCommand,conn, encoding,separator,hasColumnNames);
+            }
         }
     }
 }

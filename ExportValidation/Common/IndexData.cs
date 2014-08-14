@@ -11,5 +11,6 @@ namespace ExportValidation.Common
         public string NameList;
         public string ValidationRule;
         public string Description;
+        public string SelectCommand;
     }
 }
