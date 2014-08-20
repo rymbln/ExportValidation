@@ -185,7 +185,8 @@ namespace ExportValidation
             var strProject = this.tbxProjectName.Text;
 
             var conn = Tools.GetConnectionString(strServer, strDbName, strLogin, strPassword);
-
+            LogForm v = new LogForm();
+ 
             using (conn)
             {
                 var data = Tools.RunProcedure(conn, this.cbxProcedures.SelectedItem.ToString(), strProject);
@@ -214,8 +215,8 @@ namespace ExportValidation
 
             using (conn)
             {
-                var data = Tools.RunProcedure(conn, "_ExportDataValidation", strProject);
-                var index = Tools.GetIndex(conn, "_ExportDataValidation");
+                var data = Tools.RunProcedure(conn, this.cbxProcedures.Text, strProject);
+                var index = Tools.GetIndex(conn, this.cbxProcedures.Text);
                 if (data.Count > 0)
                 {
                     ExcelGeneration.GenerateDocument(strPath, data, index);
@@ -291,8 +292,8 @@ namespace ExportValidation
 
             using (conn)
             {
-                var data = Tools.RunProcedure(conn, "_ExportDataForStatistic", strProject);
-                var index = Tools.GetIndex(conn, "_ExportDataForStatistic");
+                var data = Tools.RunProcedure(conn, this.cbxProcedures.Text, strProject);
+                var index = Tools.GetIndex(conn, this.cbxProcedures.Text);
                 if (data.Count > 0)
                 {
                     ExcelGeneration.GenerateDocument2(strPath, data, index);
@@ -858,6 +859,81 @@ namespace ExportValidation
             catch (Exception e)
             {
                 MessageBox.Show(e.Message, "Error - SaveToDatabaseDirectly", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void button7_Click_1(object sender, EventArgs e)
+        {
+            var strServer = this.tbxServerName.Text;
+            var strLogin = this.tbxLogin.Text;
+            var strPassword = this.tbxPassword.Text;
+            var strDbName = this.cbxDatabases.SelectedItem.ToString();
+            var strPath = this.tbxOutputPath.Text;
+            var strProject = this.tbxProjectName.Text;
+            var strProcedure = this.cbxProcedures.Text;
+
+            var conn = Tools.GetConnectionString(strServer, strDbName, strLogin, strPassword);
+
+            using (conn)
+            {
+                //Tools.RunProcedureNonQuery(conn, strProcedure);
+                string fileName = "";
+                string sql = "";
+
+            //    var data = Tools.RunProcedure(conn, this.cbxProcedures.Text, strProject);
+                var index = Tools.GetIndex(conn, this.cbxProcedures.Text);
+                if (index.Count > 0)
+                {
+                    foreach (var queryData in index)
+                    {
+                        fileName = queryData.NameList;
+                        sql = queryData.SelectCommand;
+                        Tools.ExportToCSVFile(strPath, strProject, fileName, sql, conn, encodingCSV, separatorCSV, this.chkFirstRowColumnNames.Checked);
+                    }
+                    MessageBox.Show("Finish");
+                }
+                else
+                {
+                    MessageBox.Show("Ошибок не обнаружено!");
+                }
+
+               
+            }
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            var strServer = this.tbxServerName.Text;
+            var strLogin = this.tbxLogin.Text;
+            var strPassword = this.tbxPassword.Text;
+            var strDbName = this.cbxDatabases.SelectedItem.ToString();
+            var strPath = this.tbxOutputPath.Text;
+            var strProject = this.tbxProjectName.Text;
+            var strProcedure = this.cbxProcedures.Text;
+
+            var conn = Tools.GetConnectionString(strServer, strDbName, strLogin, strPassword);
+
+            using (conn)
+            {
+                Tools.RunProcedureNonQuery(conn,strProcedure);
+            }
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            var strServer = this.tbxServerName.Text;
+            var strLogin = this.tbxLogin.Text;
+            var strPassword = this.tbxPassword.Text;
+            var strDbName = this.cbxDatabases.SelectedItem.ToString();
+            var strPath = this.tbxOutputPath.Text;
+            var strProject = this.tbxProjectName.Text;
+            var strProcedure = this.cbxProcedures.Text;
+
+            var conn = Tools.GetConnectionString(strServer, strDbName, strLogin, strPassword);
+
+            using (conn)
+            {
+                Tools.RunProcedureNonQuery(conn, strProcedure);
             }
         }
     }

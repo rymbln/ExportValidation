@@ -46,3 +46,4 @@ C:\Users\Rymbln\Documents\GitHub\ExportValidation\ExportValidation\obj\Debug\Exp
 C:\Users\Rymbln\Documents\GitHub\ExportValidation\ExportValidation\obj\Debug\ExportValidation.Form1.resources
 C:\Users\Rymbln\Documents\GitHub\ExportValidation\ExportValidation\obj\Debug\ExportValidation.Properties.Resources.resources
 C:\Users\Rymbln\Documents\GitHub\ExportValidation\ExportValidation\obj\Debug\ExportValidation.csproj.GenerateResource.Cache
+C:\Users\Rymbln\Documents\GitHub\ExportValidation\ExportValidation\obj\Debug\ExportValidation.LogForm.resources

@@ -55,6 +55,13 @@
             this.button8 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button12 = new System.Windows.Forms.Button();
+            this.button11 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.lbxProcedures = new System.Windows.Forms.ListBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.lbxViews = new System.Windows.Forms.ListBox();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.lbxTables = new System.Windows.Forms.ListBox();
@@ -72,45 +79,40 @@
             this.rdbSemicolon = new System.Windows.Forms.RadioButton();
             this.chkFirstRowColumnNames = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.lbxProcedures = new System.Windows.Forms.ListBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.button9 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
-            this.button11 = new System.Windows.Forms.Button();
-            this.button12 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.txtFileToImport = new System.Windows.Forms.TextBox();
-            this.btnBrowse = new System.Windows.Forms.Button();
+            this.btnSave_Direct = new System.Windows.Forms.Button();
+            this.btnSave_DataSet = new System.Windows.Forms.Button();
+            this.txtTableName = new System.Windows.Forms.TextBox();
+            this.txtOwner = new System.Windows.Forms.TextBox();
+            this.lblTableName = new System.Windows.Forms.Label();
+            this.lblOwner = new System.Windows.Forms.Label();
+            this.lblProgress = new System.Windows.Forms.Label();
+            this.dataGridView_preView = new System.Windows.Forms.DataGridView();
+            this.btnPreview = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.rdbImportOEM = new System.Windows.Forms.RadioButton();
+            this.rdbImportUnicode = new System.Windows.Forms.RadioButton();
+            this.rdbImportAnsi = new System.Windows.Forms.RadioButton();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.rdbImportOther = new System.Windows.Forms.RadioButton();
             this.rdbImportTab = new System.Windows.Forms.RadioButton();
             this.rdbImportSemicolon = new System.Windows.Forms.RadioButton();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.rdbImportOEM = new System.Windows.Forms.RadioButton();
-            this.rdbImportUnicode = new System.Windows.Forms.RadioButton();
-            this.rdbImportAnsi = new System.Windows.Forms.RadioButton();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.btnPreview = new System.Windows.Forms.Button();
-            this.dataGridView_preView = new System.Windows.Forms.DataGridView();
-            this.lblProgress = new System.Windows.Forms.Label();
-            this.txtTableName = new System.Windows.Forms.TextBox();
-            this.txtOwner = new System.Windows.Forms.TextBox();
-            this.lblTableName = new System.Windows.Forms.Label();
-            this.lblOwner = new System.Windows.Forms.Label();
-            this.btnSave_DataSet = new System.Windows.Forms.Button();
-            this.btnSave_Direct = new System.Windows.Forms.Button();
+            this.btnBrowse = new System.Windows.Forms.Button();
+            this.txtFileToImport = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.button13 = new System.Windows.Forms.Button();
+            this.button14 = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gpbEncoding.SuspendLayout();
             this.gpbSeparator.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_preView)).BeginInit();
+            this.groupBox5.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbxServerName
@@ -324,6 +326,7 @@
             this.button7.TabIndex = 23;
             this.button7.Text = "Generate CSV Export";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click_1);
             // 
             // button8
             // 
@@ -367,6 +370,74 @@
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Export To CSV";
+            // 
+            // button12
+            // 
+            this.button12.Location = new System.Drawing.Point(180, 227);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(163, 26);
+            this.button12.TabIndex = 42;
+            this.button12.Text = "Select All";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
+            // button11
+            // 
+            this.button11.Location = new System.Drawing.Point(349, 227);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(163, 26);
+            this.button11.TabIndex = 41;
+            this.button11.Text = "Select All";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
+            // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(11, 227);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(163, 26);
+            this.button10.TabIndex = 40;
+            this.button10.Text = "Select All";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(180, 256);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(163, 26);
+            this.button9.TabIndex = 39;
+            this.button9.Text = "Clear Selection";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(346, 19);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(85, 13);
+            this.label7.TabIndex = 38;
+            this.label7.Text = "PROCEDURES:";
+            // 
+            // lbxProcedures
+            // 
+            this.lbxProcedures.FormattingEnabled = true;
+            this.lbxProcedures.HorizontalScrollbar = true;
+            this.lbxProcedures.Location = new System.Drawing.Point(349, 38);
+            this.lbxProcedures.Name = "lbxProcedures";
+            this.lbxProcedures.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.lbxProcedures.Size = new System.Drawing.Size(163, 186);
+            this.lbxProcedures.TabIndex = 37;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(184, 19);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(45, 13);
+            this.label6.TabIndex = 36;
+            this.label6.Text = "VIEWS:";
             // 
             // lbxViews
             // 
@@ -540,6 +611,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.button14);
+            this.groupBox2.Controls.Add(this.button13);
             this.groupBox2.Controls.Add(this.btnGenerate);
             this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.button2);
@@ -550,78 +623,10 @@
             this.groupBox2.Controls.Add(this.button6);
             this.groupBox2.Location = new System.Drawing.Point(15, 113);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(361, 299);
+            this.groupBox2.Size = new System.Drawing.Size(361, 308);
             this.groupBox2.TabIndex = 27;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Auto Export";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(184, 19);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(45, 13);
-            this.label6.TabIndex = 36;
-            this.label6.Text = "VIEWS:";
-            // 
-            // lbxProcedures
-            // 
-            this.lbxProcedures.FormattingEnabled = true;
-            this.lbxProcedures.HorizontalScrollbar = true;
-            this.lbxProcedures.Location = new System.Drawing.Point(349, 38);
-            this.lbxProcedures.Name = "lbxProcedures";
-            this.lbxProcedures.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.lbxProcedures.Size = new System.Drawing.Size(163, 186);
-            this.lbxProcedures.TabIndex = 37;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(346, 19);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(85, 13);
-            this.label7.TabIndex = 38;
-            this.label7.Text = "PROCEDURES:";
-            // 
-            // button9
-            // 
-            this.button9.Location = new System.Drawing.Point(180, 256);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(163, 26);
-            this.button9.TabIndex = 39;
-            this.button9.Text = "Clear Selection";
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
-            // 
-            // button10
-            // 
-            this.button10.Location = new System.Drawing.Point(11, 227);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(163, 26);
-            this.button10.TabIndex = 40;
-            this.button10.Text = "Select All";
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
-            // 
-            // button11
-            // 
-            this.button11.Location = new System.Drawing.Point(349, 227);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(163, 26);
-            this.button11.TabIndex = 41;
-            this.button11.Text = "Select All";
-            this.button11.UseVisualStyleBackColor = true;
-            this.button11.Click += new System.EventHandler(this.button11_Click);
-            // 
-            // button12
-            // 
-            this.button12.Location = new System.Drawing.Point(180, 227);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(163, 26);
-            this.button12.TabIndex = 42;
-            this.button12.Text = "Select All";
-            this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // groupBox3
             // 
@@ -647,32 +652,151 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Import From CSV";
             // 
-            // label8
+            // btnSave_Direct
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 22);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(82, 13);
-            this.label8.TabIndex = 1;
-            this.label8.Text = "CSV file to load:";
+            this.btnSave_Direct.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnSave_Direct.Location = new System.Drawing.Point(272, 309);
+            this.btnSave_Direct.Name = "btnSave_Direct";
+            this.btnSave_Direct.Size = new System.Drawing.Size(189, 28);
+            this.btnSave_Direct.TabIndex = 20;
+            this.btnSave_Direct.Text = "Save to database - directly";
+            this.btnSave_Direct.UseVisualStyleBackColor = true;
+            this.btnSave_Direct.Click += new System.EventHandler(this.btnSave_Direct_Click);
             // 
-            // txtFileToImport
+            // btnSave_DataSet
             // 
-            this.txtFileToImport.Location = new System.Drawing.Point(94, 19);
-            this.txtFileToImport.Name = "txtFileToImport";
-            this.txtFileToImport.Size = new System.Drawing.Size(303, 20);
-            this.txtFileToImport.TabIndex = 2;
-            this.txtFileToImport.TextChanged += new System.EventHandler(this.txtFileToImport_TextChanged);
+            this.btnSave_DataSet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnSave_DataSet.Location = new System.Drawing.Point(272, 262);
+            this.btnSave_DataSet.Name = "btnSave_DataSet";
+            this.btnSave_DataSet.Size = new System.Drawing.Size(189, 28);
+            this.btnSave_DataSet.TabIndex = 19;
+            this.btnSave_DataSet.Text = "Save to database - with DataSet";
+            this.btnSave_DataSet.UseVisualStyleBackColor = true;
+            this.btnSave_DataSet.Click += new System.EventHandler(this.btnSave_DataSet_Click);
             // 
-            // btnBrowse
+            // txtTableName
             // 
-            this.btnBrowse.Location = new System.Drawing.Point(403, 17);
-            this.btnBrowse.Name = "btnBrowse";
-            this.btnBrowse.Size = new System.Drawing.Size(58, 22);
-            this.btnBrowse.TabIndex = 3;
-            this.btnBrowse.Text = "Browse";
-            this.btnBrowse.UseVisualStyleBackColor = true;
-            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
+            this.txtTableName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.txtTableName.Location = new System.Drawing.Point(82, 317);
+            this.txtTableName.Name = "txtTableName";
+            this.txtTableName.Size = new System.Drawing.Size(164, 20);
+            this.txtTableName.TabIndex = 18;
+            // 
+            // txtOwner
+            // 
+            this.txtOwner.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.txtOwner.Location = new System.Drawing.Point(82, 288);
+            this.txtOwner.Name = "txtOwner";
+            this.txtOwner.Size = new System.Drawing.Size(87, 20);
+            this.txtOwner.TabIndex = 17;
+            this.txtOwner.Text = "dbo";
+            // 
+            // lblTableName
+            // 
+            this.lblTableName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblTableName.AutoSize = true;
+            this.lblTableName.Location = new System.Drawing.Point(6, 317);
+            this.lblTableName.Name = "lblTableName";
+            this.lblTableName.Size = new System.Drawing.Size(66, 13);
+            this.lblTableName.TabIndex = 16;
+            this.lblTableName.Text = "Table name:";
+            // 
+            // lblOwner
+            // 
+            this.lblOwner.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblOwner.AutoSize = true;
+            this.lblOwner.Location = new System.Drawing.Point(6, 288);
+            this.lblOwner.Name = "lblOwner";
+            this.lblOwner.Size = new System.Drawing.Size(41, 13);
+            this.lblOwner.TabIndex = 15;
+            this.lblOwner.Text = "Owner:";
+            // 
+            // lblProgress
+            // 
+            this.lblProgress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblProgress.AutoSize = true;
+            this.lblProgress.Location = new System.Drawing.Point(6, 253);
+            this.lblProgress.Name = "lblProgress";
+            this.lblProgress.Size = new System.Drawing.Size(91, 13);
+            this.lblProgress.TabIndex = 12;
+            this.lblProgress.Text = "Imported: 0 row(s)";
+            // 
+            // dataGridView_preView
+            // 
+            this.dataGridView_preView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView_preView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_preView.Location = new System.Drawing.Point(9, 145);
+            this.dataGridView_preView.Name = "dataGridView_preView";
+            this.dataGridView_preView.Size = new System.Drawing.Size(452, 105);
+            this.dataGridView_preView.TabIndex = 11;
+            // 
+            // btnPreview
+            // 
+            this.btnPreview.Location = new System.Drawing.Point(305, 114);
+            this.btnPreview.Name = "btnPreview";
+            this.btnPreview.Size = new System.Drawing.Size(156, 25);
+            this.btnPreview.TabIndex = 10;
+            this.btnPreview.Text = "Load preview (first 500 rows)";
+            this.btnPreview.UseVisualStyleBackColor = true;
+            this.btnPreview.Click += new System.EventHandler(this.btnPreview_Click);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Location = new System.Drawing.Point(305, 54);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(156, 17);
+            this.checkBox1.TabIndex = 9;
+            this.checkBox1.Text = "First row has column names";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.rdbImportOEM);
+            this.groupBox5.Controls.Add(this.rdbImportUnicode);
+            this.groupBox5.Controls.Add(this.rdbImportAnsi);
+            this.groupBox5.Location = new System.Drawing.Point(144, 45);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(138, 94);
+            this.groupBox5.TabIndex = 8;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Encoding";
+            // 
+            // rdbImportOEM
+            // 
+            this.rdbImportOEM.AutoSize = true;
+            this.rdbImportOEM.Location = new System.Drawing.Point(6, 63);
+            this.rdbImportOEM.Name = "rdbImportOEM";
+            this.rdbImportOEM.Size = new System.Drawing.Size(49, 17);
+            this.rdbImportOEM.TabIndex = 2;
+            this.rdbImportOEM.Text = "OEM";
+            this.rdbImportOEM.UseVisualStyleBackColor = true;
+            // 
+            // rdbImportUnicode
+            // 
+            this.rdbImportUnicode.AutoSize = true;
+            this.rdbImportUnicode.Location = new System.Drawing.Point(6, 42);
+            this.rdbImportUnicode.Name = "rdbImportUnicode";
+            this.rdbImportUnicode.Size = new System.Drawing.Size(65, 17);
+            this.rdbImportUnicode.TabIndex = 1;
+            this.rdbImportUnicode.Text = "Unicode";
+            this.rdbImportUnicode.UseVisualStyleBackColor = true;
+            // 
+            // rdbImportAnsi
+            // 
+            this.rdbImportAnsi.AutoSize = true;
+            this.rdbImportAnsi.Checked = true;
+            this.rdbImportAnsi.Location = new System.Drawing.Point(6, 19);
+            this.rdbImportAnsi.Name = "rdbImportAnsi";
+            this.rdbImportAnsi.Size = new System.Drawing.Size(50, 17);
+            this.rdbImportAnsi.TabIndex = 0;
+            this.rdbImportAnsi.TabStop = true;
+            this.rdbImportAnsi.Text = "ANSI";
+            this.rdbImportAnsi.UseVisualStyleBackColor = true;
             // 
             // groupBox4
             // 
@@ -727,151 +851,52 @@
             this.rdbImportSemicolon.Text = "Semicolon";
             this.rdbImportSemicolon.UseVisualStyleBackColor = true;
             // 
-            // groupBox5
+            // btnBrowse
             // 
-            this.groupBox5.Controls.Add(this.rdbImportOEM);
-            this.groupBox5.Controls.Add(this.rdbImportUnicode);
-            this.groupBox5.Controls.Add(this.rdbImportAnsi);
-            this.groupBox5.Location = new System.Drawing.Point(144, 45);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(138, 94);
-            this.groupBox5.TabIndex = 8;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Encoding";
+            this.btnBrowse.Location = new System.Drawing.Point(403, 17);
+            this.btnBrowse.Name = "btnBrowse";
+            this.btnBrowse.Size = new System.Drawing.Size(58, 22);
+            this.btnBrowse.TabIndex = 3;
+            this.btnBrowse.Text = "Browse";
+            this.btnBrowse.UseVisualStyleBackColor = true;
+            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
             // 
-            // rdbImportOEM
+            // txtFileToImport
             // 
-            this.rdbImportOEM.AutoSize = true;
-            this.rdbImportOEM.Location = new System.Drawing.Point(6, 63);
-            this.rdbImportOEM.Name = "rdbImportOEM";
-            this.rdbImportOEM.Size = new System.Drawing.Size(49, 17);
-            this.rdbImportOEM.TabIndex = 2;
-            this.rdbImportOEM.Text = "OEM";
-            this.rdbImportOEM.UseVisualStyleBackColor = true;
+            this.txtFileToImport.Location = new System.Drawing.Point(94, 19);
+            this.txtFileToImport.Name = "txtFileToImport";
+            this.txtFileToImport.Size = new System.Drawing.Size(303, 20);
+            this.txtFileToImport.TabIndex = 2;
+            this.txtFileToImport.TextChanged += new System.EventHandler(this.txtFileToImport_TextChanged);
             // 
-            // rdbImportUnicode
+            // label8
             // 
-            this.rdbImportUnicode.AutoSize = true;
-            this.rdbImportUnicode.Location = new System.Drawing.Point(6, 42);
-            this.rdbImportUnicode.Name = "rdbImportUnicode";
-            this.rdbImportUnicode.Size = new System.Drawing.Size(65, 17);
-            this.rdbImportUnicode.TabIndex = 1;
-            this.rdbImportUnicode.Text = "Unicode";
-            this.rdbImportUnicode.UseVisualStyleBackColor = true;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 22);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(82, 13);
+            this.label8.TabIndex = 1;
+            this.label8.Text = "CSV file to load:";
             // 
-            // rdbImportAnsi
+            // button13
             // 
-            this.rdbImportAnsi.AutoSize = true;
-            this.rdbImportAnsi.Checked = true;
-            this.rdbImportAnsi.Location = new System.Drawing.Point(6, 19);
-            this.rdbImportAnsi.Name = "rdbImportAnsi";
-            this.rdbImportAnsi.Size = new System.Drawing.Size(50, 17);
-            this.rdbImportAnsi.TabIndex = 0;
-            this.rdbImportAnsi.TabStop = true;
-            this.rdbImportAnsi.Text = "ANSI";
-            this.rdbImportAnsi.UseVisualStyleBackColor = true;
+            this.button13.Location = new System.Drawing.Point(7, 248);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(340, 23);
+            this.button13.TabIndex = 25;
+            this.button13.Text = "RUN VALIDATION";
+            this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
             // 
-            // checkBox1
+            // button14
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(305, 54);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(156, 17);
-            this.checkBox1.TabIndex = 9;
-            this.checkBox1.Text = "First row has column names";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // btnPreview
-            // 
-            this.btnPreview.Location = new System.Drawing.Point(305, 114);
-            this.btnPreview.Name = "btnPreview";
-            this.btnPreview.Size = new System.Drawing.Size(156, 25);
-            this.btnPreview.TabIndex = 10;
-            this.btnPreview.Text = "Load preview (first 500 rows)";
-            this.btnPreview.UseVisualStyleBackColor = true;
-            this.btnPreview.Click += new System.EventHandler(this.btnPreview_Click);
-            // 
-            // dataGridView_preView
-            // 
-            this.dataGridView_preView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView_preView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_preView.Location = new System.Drawing.Point(9, 145);
-            this.dataGridView_preView.Name = "dataGridView_preView";
-            this.dataGridView_preView.Size = new System.Drawing.Size(452, 105);
-            this.dataGridView_preView.TabIndex = 11;
-            // 
-            // lblProgress
-            // 
-            this.lblProgress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblProgress.AutoSize = true;
-            this.lblProgress.Location = new System.Drawing.Point(6, 253);
-            this.lblProgress.Name = "lblProgress";
-            this.lblProgress.Size = new System.Drawing.Size(91, 13);
-            this.lblProgress.TabIndex = 12;
-            this.lblProgress.Text = "Imported: 0 row(s)";
-            // 
-            // txtTableName
-            // 
-            this.txtTableName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtTableName.Location = new System.Drawing.Point(82, 317);
-            this.txtTableName.Name = "txtTableName";
-            this.txtTableName.Size = new System.Drawing.Size(164, 20);
-            this.txtTableName.TabIndex = 18;
-            // 
-            // txtOwner
-            // 
-            this.txtOwner.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtOwner.Location = new System.Drawing.Point(82, 288);
-            this.txtOwner.Name = "txtOwner";
-            this.txtOwner.Size = new System.Drawing.Size(87, 20);
-            this.txtOwner.TabIndex = 17;
-            this.txtOwner.Text = "dbo";
-            // 
-            // lblTableName
-            // 
-            this.lblTableName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblTableName.AutoSize = true;
-            this.lblTableName.Location = new System.Drawing.Point(6, 317);
-            this.lblTableName.Name = "lblTableName";
-            this.lblTableName.Size = new System.Drawing.Size(66, 13);
-            this.lblTableName.TabIndex = 16;
-            this.lblTableName.Text = "Table name:";
-            // 
-            // lblOwner
-            // 
-            this.lblOwner.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblOwner.AutoSize = true;
-            this.lblOwner.Location = new System.Drawing.Point(6, 288);
-            this.lblOwner.Name = "lblOwner";
-            this.lblOwner.Size = new System.Drawing.Size(41, 13);
-            this.lblOwner.TabIndex = 15;
-            this.lblOwner.Text = "Owner:";
-            // 
-            // btnSave_DataSet
-            // 
-            this.btnSave_DataSet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSave_DataSet.Location = new System.Drawing.Point(272, 262);
-            this.btnSave_DataSet.Name = "btnSave_DataSet";
-            this.btnSave_DataSet.Size = new System.Drawing.Size(189, 28);
-            this.btnSave_DataSet.TabIndex = 19;
-            this.btnSave_DataSet.Text = "Save to database - with DataSet";
-            this.btnSave_DataSet.UseVisualStyleBackColor = true;
-            this.btnSave_DataSet.Click += new System.EventHandler(this.btnSave_DataSet_Click);
-            // 
-            // btnSave_Direct
-            // 
-            this.btnSave_Direct.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSave_Direct.Location = new System.Drawing.Point(272, 309);
-            this.btnSave_Direct.Name = "btnSave_Direct";
-            this.btnSave_Direct.Size = new System.Drawing.Size(189, 28);
-            this.btnSave_Direct.TabIndex = 20;
-            this.btnSave_Direct.Text = "Save to database - directly";
-            this.btnSave_Direct.UseVisualStyleBackColor = true;
-            this.btnSave_Direct.Click += new System.EventHandler(this.btnSave_Direct_Click);
+            this.button14.Location = new System.Drawing.Point(7, 276);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(340, 23);
+            this.button14.TabIndex = 26;
+            this.button14.Text = "RUN SYNC";
+            this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
             // 
             // Form1
             // 
@@ -910,11 +935,11 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_preView)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_preView)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -996,6 +1021,8 @@
         private System.Windows.Forms.Button btnBrowse;
         private System.Windows.Forms.TextBox txtFileToImport;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button button14;
+        private System.Windows.Forms.Button button13;
     }
 }
 

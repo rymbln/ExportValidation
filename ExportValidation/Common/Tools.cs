@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
@@ -113,6 +114,7 @@ namespace ExportValidation.Common
                         ValidationRule = rdr.GetString(1),
                         NameList = rdr.GetString(4),
                         Description = rdr.GetString(3),
+                        SelectCommand = rdr.GetString(5)
                     });
                 }
             }
@@ -202,49 +204,89 @@ namespace ExportValidation.Common
             return obj;
         }
 
+        public static void RunProcedureNonQuery(SqlConnection conn, string procedureName)
+        {
+            MessageBox.Show("Start: " + procedureName);
+            var sql = "EXEC " + procedureName;
+            var cmd = new SqlCommand(sql, conn);
+            try
+            {
+                if (conn.State.ToString() == "Closed")
+                {
+                    conn.Open();
+                }
 
+                cmd.ExecuteNonQuery();
+
+                
+            }
+            catch (Exception e)
+            {
+
+                MessageBox.Show(e.Message + " - " + procedureName + " - ");
+            }
+            finally
+            {
+                MessageBox.Show("Exit: " + procedureName);
+            }
+
+        }
         public static List<QueryData> RunProcedure(SqlConnection conn, string procedureName, string projectName)
         {
+            MessageBox.Show("Start: " + procedureName);
             var sql = "EXEC " + procedureName;
             var cmd = new SqlCommand(sql, conn);
             var lst = new List<ValidationRows>();
             var lstData = new List<QueryData>();
-
-            if (conn.State.ToString() == "Closed")
+            try
             {
-                conn.Open();
-            }
-
-            var rdr = cmd.ExecuteReader();
-
-            // Получаем список запросов валидации
-            if (rdr.HasRows)
-            {
-                while (rdr.Read())
+                if (conn.State.ToString() == "Closed")
                 {
-                    lst.Add(new ValidationRows
+                    conn.Open();
+                }
+
+                var rdr = cmd.ExecuteReader();
+
+                // Получаем список запросов валидации
+                if (rdr.HasRows)
+                {
+                    while (rdr.Read())
                     {
-                        s1 = rdr.GetString(0),
-                        s2 = rdr.GetString(1),
-                        s3 = rdr.GetString(2),
-                        s4 = rdr.GetString(3),
-                        s5 = rdr.GetString(4),
-                        s6 = rdr.GetString(5),
-                    });
+                        lst.Add(new ValidationRows
+                        {
+                            s1 = rdr.GetString(0),
+                            s2 = rdr.GetString(1),
+                            s3 = rdr.GetString(2),
+                            s4 = rdr.GetString(3),
+                            s5 = rdr.GetString(4),
+                            s6 = rdr.GetString(5),
+                        });
+                    }
                 }
-            }
-            rdr.Close();
-            rdr = null;
+                rdr.Close();
+                rdr = null;
 
-            foreach (var item in lst)
-            {
-                var obj = GetQueryData(item.s1, item.s2, item.s3, item.s4, item.s5, item.s6, projectName, conn);
-
-                if (obj != null)
+                foreach (var item in lst)
                 {
-                    lstData.Add(obj);
+                    var obj = GetQueryData(item.s1, item.s2, item.s3, item.s4, item.s5, item.s6, projectName, conn);
+
+                    if (obj != null)
+                    {
+                        lstData.Add(obj);
+                    }
                 }
             }
+            catch (Exception e)
+            {
+              
+
+               MessageBox.Show(e.Message + " - " + procedureName + " - " );
+            }
+            finally
+            {
+                MessageBox.Show("Exit: " + procedureName);
+            }
+
             return lstData;
         }
 
@@ -359,9 +401,15 @@ namespace ExportValidation.Common
             {
                 conn.Open();
             }
-            cmd.CommandTimeout = 120;
-            cmd.ExecuteNonQuery();
-
+            try
+            {
+                cmd.CommandTimeout = 120;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                
+            }
             sql =
                 "SELECT DISTINCT [UserName],[UserEmail],[SiteNo],[CityName] FROM [dbo].[QUERY_LIST_DISTINCT]";
 
