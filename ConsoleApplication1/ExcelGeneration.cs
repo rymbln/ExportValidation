@@ -122,7 +122,7 @@ namespace ExportValidation.Common
                     //    filePath = Directory.GetParent(filePath).FullName;
                     //}
                 }
-                var filename = data[0].ProjectName + "_Validation_" + DateTime.Now.ToShortDateString() + ".xlsx";
+                var filename = data[0].ProjectName + "_Validation_" + DateTime.Now.ToShortDateString() + ".xls";
 
                 var indexDocument = index;
 
@@ -213,7 +213,7 @@ namespace ExportValidation.Common
                 //End Creating Index
 
                 ExcelWorkbook.SaveAs();
-                ExcelWorkbook.SaveAs(filePath + "\\" + filename, Excel.XlFileFormat.xlWorkbookDefault, Type.Missing, Type.Missing, false, false, Excel.XlSaveAsAccessMode.xlNoChange, Excel.XlSaveConflictResolution.xlLocalSessionChanges, Type.Missing, Type.Missing);
+                ExcelWorkbook.SaveAs(filePath + "\\" + filename, Excel.XlFileFormat.xlExcel5, Type.Missing, Type.Missing, false, false, Excel.XlSaveAsAccessMode.xlNoChange, Excel.XlSaveConflictResolution.xlLocalSessionChanges, Type.Missing, Type.Missing);
 
 
                 while (Marshal.ReleaseComObject(ExcelWorkbook) > 0)
@@ -266,7 +266,7 @@ namespace ExportValidation.Common
                     //    filePath = Directory.GetParent(filePath).FullName;
                     //}
                 }
-                var filename = data[0].ProjectName + "_Export_" + DateTime.Now.ToShortDateString() + ".xlsx";
+                var filename = data[0].ProjectName + "_Export_" + DateTime.Now.ToShortDateString() + ".xls";
 
                 var indexDocument = index;
 
@@ -361,7 +361,7 @@ namespace ExportValidation.Common
                 //End Creating Index
 
                 ExcelWorkbook.SaveAs();
-                ExcelWorkbook.SaveAs(filePath + "\\" + filename, Excel.XlFileFormat.xlWorkbookDefault, Type.Missing,
+                ExcelWorkbook.SaveAs(filePath + "\\" + filename, Excel.XlFileFormat.xlExcel5, Type.Missing,
                     Type.Missing, false, false, Excel.XlSaveAsAccessMode.xlNoChange,
                     Excel.XlSaveConflictResolution.xlLocalSessionChanges, Type.Missing, Type.Missing);
 

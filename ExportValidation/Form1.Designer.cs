@@ -39,9 +39,6 @@
             this.cbxDatabases = new System.Windows.Forms.ComboBox();
             this.btnProcedures = new System.Windows.Forms.Button();
             this.cbxProcedures = new System.Windows.Forms.ComboBox();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.label4 = new System.Windows.Forms.Label();
             this.tbxOutputPath = new System.Windows.Forms.TextBox();
             this.btnGenerate = new System.Windows.Forms.Button();
@@ -112,7 +109,6 @@
             this.rdbWin1251 = new System.Windows.Forms.RadioButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gpbEncoding.SuspendLayout();
             this.gpbSeparator.SuspendLayout();
@@ -212,28 +208,6 @@
             this.cbxProcedures.Name = "cbxProcedures";
             this.cbxProcedures.Size = new System.Drawing.Size(165, 21);
             this.cbxProcedures.TabIndex = 9;
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
-            this.toolStripProgressBar1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 534);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1515, 22);
-            this.statusStrip1.TabIndex = 10;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
-            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
-            // 
-            // toolStripProgressBar1
-            // 
-            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
             // 
             // label4
             // 
@@ -980,7 +954,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1515, 556);
+            this.ClientSize = new System.Drawing.Size(1515, 481);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button16);
@@ -995,7 +969,6 @@
             this.Controls.Add(this.tbxProjectName);
             this.Controls.Add(this.tbxOutputPath);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.cbxProcedures);
             this.Controls.Add(this.btnProcedures);
             this.Controls.Add(this.cbxDatabases);
@@ -1008,9 +981,7 @@
             this.Controls.Add(this.tbxServerName);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Form1";
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.Text = "e-CRF Export Validation";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.gpbEncoding.ResumeLayout(false);
@@ -1044,9 +1015,6 @@
         private System.Windows.Forms.ComboBox cbxDatabases;
         private System.Windows.Forms.Button btnProcedures;
         private System.Windows.Forms.ComboBox cbxProcedures;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox tbxOutputPath;
         private System.Windows.Forms.Button btnGenerate;

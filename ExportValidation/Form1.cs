@@ -151,8 +151,7 @@ namespace ExportValidation
                     this.cbxDatabases.Items.Add(item);
                 }
                 this.cbxDatabases.Refresh();
-                this.statusStrip1.Text = "Список баз данных получен";
-                this.statusStrip1.Refresh();
+  
 
             }
         }
@@ -175,9 +174,6 @@ namespace ExportValidation
                     this.cbxProcedures.Items.Add(item);
                 }
                 this.cbxProcedures.Refresh();
-                this.statusStrip1.Text = "Список процедур получен";
-                this.statusStrip1.Refresh();
-
             }
         }
 
