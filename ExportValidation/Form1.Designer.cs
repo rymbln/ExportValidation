@@ -108,6 +108,7 @@
             this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
             this.maskedTextBox2 = new System.Windows.Forms.MaskedTextBox();
             this.button16 = new System.Windows.Forms.Button();
+            this.rdbWin1251 = new System.Windows.Forms.RadioButton();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gpbEncoding.SuspendLayout();
@@ -495,13 +496,14 @@
             // 
             // gpbEncoding
             // 
+            this.gpbEncoding.Controls.Add(this.rdbWin1251);
             this.gpbEncoding.Controls.Add(this.rdbUTF8);
             this.gpbEncoding.Controls.Add(this.rdbUTF7);
             this.gpbEncoding.Controls.Add(this.rdbASCII);
             this.gpbEncoding.Controls.Add(this.rdbUnicode);
             this.gpbEncoding.Location = new System.Drawing.Point(518, 139);
             this.gpbEncoding.Name = "gpbEncoding";
-            this.gpbEncoding.Size = new System.Drawing.Size(90, 111);
+            this.gpbEncoding.Size = new System.Drawing.Size(90, 140);
             this.gpbEncoding.TabIndex = 32;
             this.gpbEncoding.TabStop = false;
             this.gpbEncoding.Text = "Encoding";
@@ -539,12 +541,10 @@
             // rdbUnicode
             // 
             this.rdbUnicode.AutoSize = true;
-            this.rdbUnicode.Checked = true;
             this.rdbUnicode.Location = new System.Drawing.Point(6, 19);
             this.rdbUnicode.Name = "rdbUnicode";
             this.rdbUnicode.Size = new System.Drawing.Size(65, 17);
             this.rdbUnicode.TabIndex = 1;
-            this.rdbUnicode.TabStop = true;
             this.rdbUnicode.Text = "Unicode";
             this.rdbUnicode.UseVisualStyleBackColor = true;
             // 
@@ -606,7 +606,7 @@
             this.chkFirstRowColumnNames.AutoSize = true;
             this.chkFirstRowColumnNames.Checked = true;
             this.chkFirstRowColumnNames.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkFirstRowColumnNames.Location = new System.Drawing.Point(452, 262);
+            this.chkFirstRowColumnNames.Location = new System.Drawing.Point(350, 262);
             this.chkFirstRowColumnNames.Name = "chkFirstRowColumnNames";
             this.chkFirstRowColumnNames.Size = new System.Drawing.Size(156, 17);
             this.chkFirstRowColumnNames.TabIndex = 31;
@@ -939,6 +939,18 @@
             this.button16.UseVisualStyleBackColor = true;
             this.button16.Click += new System.EventHandler(this.button16_Click);
             // 
+            // rdbWin1251
+            // 
+            this.rdbWin1251.AutoSize = true;
+            this.rdbWin1251.Checked = true;
+            this.rdbWin1251.Location = new System.Drawing.Point(6, 114);
+            this.rdbWin1251.Name = "rdbWin1251";
+            this.rdbWin1251.Size = new System.Drawing.Size(52, 17);
+            this.rdbWin1251.TabIndex = 5;
+            this.rdbWin1251.TabStop = true;
+            this.rdbWin1251.Text = "UTF8";
+            this.rdbWin1251.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1072,6 +1084,7 @@
         private System.Windows.Forms.MaskedTextBox maskedTextBox1;
         private System.Windows.Forms.MaskedTextBox maskedTextBox2;
         private System.Windows.Forms.Button button16;
+        private System.Windows.Forms.RadioButton rdbWin1251;
     }
 }
 

@@ -584,8 +584,8 @@ namespace ExportValidation.Common
             DataTable dtSchema = dr.GetSchemaTable();
 
             // Creates the CSV file as a stream, using the given encoding.
-            StreamWriter sw = new StreamWriter(filePath + "\\" + project + "_" + fileName + "_" + DateTime.Now.ToShortDateString() + ".csv", false, encoding);
-
+            //StreamWriter sw = new StreamWriter(filePath + "\\" + project + "_" + fileName + "_" + DateTime.Now.ToShortDateString() + ".csv", false, encoding);
+            StreamWriter sw = new StreamWriter(filePath + "\\" + fileName  + ".csv", false, encoding);
             StringBuilder strRow; // represents a full row
 
             // Writes the column headers if the user previously asked that.

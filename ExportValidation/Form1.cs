@@ -117,9 +117,14 @@ namespace ExportValidation
                 {
                     return Encoding.UTF8;
                 }
+                else if (rdbWin1251.Checked)
+                {
+                    return Encoding.GetEncoding(1251);
+                }
+
          else
                 {
-                    return Encoding.Unicode;
+                    return Encoding.GetEncoding(1251);
                     
                 }
 
