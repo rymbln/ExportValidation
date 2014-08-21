@@ -37,7 +37,7 @@ namespace ExportValidationConsole
                             if (data.Count > 0)
                             {
                                 ExcelGeneration.GenerateDocument(strPath, data, index);
-                                Log.Write("Finish");
+                                
                             }
                             else
                             {
@@ -47,6 +47,10 @@ namespace ExportValidationConsole
                         catch (Exception ex)
                         {
                             Log.Write(ex);
+                        }
+                        finally
+                        {
+                            Log.Write("Finish");
                         }
                     }
                 }
@@ -71,6 +75,10 @@ namespace ExportValidationConsole
                     catch (Exception ex)
                     {
                         Log.Write(ex);
+                    }
+                    finally
+                    {
+                        Log.Write("Finish");
                     }
                 }
 
@@ -101,13 +109,14 @@ namespace ExportValidationConsole
                                 Tools.ExportToCSVFile(strPath, strProject, fileName, sql, conn,
                                     Encoding.GetEncoding(1251), ";", true);
                             }
-                            Log.Write("Finish");
+                      
                         }
                         else
                         {
                             Log.Write("NoData");
                         }
-
+                            Log.Write("Finish");
+                        
                     }
                 }
                 else if (strMethod.Equals("RUN_QUERY"))
@@ -115,11 +124,15 @@ namespace ExportValidationConsole
                     try
                     {
                         Tools.GetQueriesInFormat(conn, strProject, strPath);
-                        Log.Write("Finish");
+                      
                     }
                     catch (Exception ex)
                     {
                         Log.Write(ex);
+                    }
+                    finally
+                    {
+                        Log.Write("Finish");
                     }
 
                 }
@@ -133,7 +146,7 @@ namespace ExportValidationConsole
                         if (data.Count > 0)
                         {
                             ExcelGeneration.GenerateDocument(strPath, data, index);
-                            Log.Write("Finish");
+                     
                         }
                     }
                     catch (Exception ex)
@@ -141,7 +154,10 @@ namespace ExportValidationConsole
                         Log.Write(ex);
 
                     }
-                    data = Tools.RunProcedure(conn, "RUN_ACTIVITY", strProject);
+                    finally
+                    {
+                        Log.Write("Finish");
+                    }
                 }
                 else if (strMethod.Equals("RUN_SYNC"))
                 {
@@ -152,6 +168,10 @@ namespace ExportValidationConsole
                     catch (Exception ex)
                     {
                         Log.Write(ex);
+                    }
+                    finally
+                    {
+                        Log.Write("Finish");
                     }
                 }
                 else

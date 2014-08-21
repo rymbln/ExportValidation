@@ -93,30 +93,41 @@ namespace ExportValidation.Common
             var lst = new List<IndexData>();
             var lstData = new List<IndexData>();
 
-            if (conn.State.ToString() == "Closed")
-            {
-                conn.Open();
-            }
-            var rdr = cmd.ExecuteReader();
+            Log.Write("Start GetIndex:" + cmd.CommandText);
 
-            // Получаем список запросов валидации
-            if (rdr.HasRows)
+            try
             {
-                while (rdr.Read())
+                if (conn.State.ToString() == "Closed")
                 {
-                    lst.Add(new IndexData
-                    {
-                        ValidationRule = rdr.GetString(0),
-                        NameList = rdr.GetString(3),
-                        Description = rdr.GetString(2),
-                        SelectCommand = rdr.GetString(5)
-                    });
+                    conn.Open();
                 }
+                var rdr = cmd.ExecuteReader();
+
+                // Получаем список запросов валидации
+                if (rdr.HasRows)
+                {
+                    while (rdr.Read())
+                    {
+                        lst.Add(new IndexData
+                        {
+                            ValidationRule = rdr.GetString(0),
+                            NameList = rdr.GetString(3),
+                            Description = rdr.GetString(2),
+                            SelectCommand = rdr.GetString(5)
+                        });
+                    }
+                }
+                rdr.Close();
+                rdr = null;
             }
-            rdr.Close();
-            rdr = null;
-
-
+            catch (Exception ex)
+            {
+                Log.Write(ex);
+            }
+            finally
+            {
+                Log.Write("Exit GetIndex");
+            }
             return lst;
         }
 
@@ -156,46 +167,63 @@ namespace ExportValidation.Common
 
         private static QueryData GetQueryData(string procName, string validName, string selectText, string descText, string number, string execText, string projectName, SqlConnection conn)
         {
+            Log.Write("Start GetQueryData:" + execText);
             var obj = new QueryData();
-            var lstColumns = new List<string>();
-            var sql = execText;
-            var cmd = new SqlCommand(sql.Replace("\\r\\n", "").Replace("\\r", ""), conn);
-            if (cmd.CommandText.StartsWith("EXEC"))
+            try
             {
-                cmd.CommandTimeout = 200;
-            }
-            if (cmd.CommandText.Contains("check_patient"))
-            {
-                cmd.CommandTimeout = 90;
-            }
-            cmd.CommandTimeout = 200;
-            var rdrQD = cmd.ExecuteReader();
-            if (rdrQD.HasRows)
-            {
-                for (int i = 0; i < rdrQD.FieldCount; i++)
+                
+                var lstColumns = new List<string>();
+                var sql = execText;
+                var cmd = new SqlCommand(sql.Replace("\\r\\n", "").Replace("\\r", ""), conn);
+                if (cmd.CommandText.StartsWith("EXEC"))
                 {
-                    lstColumns.Add(rdrQD.GetName(i));
+                    cmd.CommandTimeout = 200;
+                }
+                if (cmd.CommandText.Contains("check_patient"))
+                {
+                    cmd.CommandTimeout = 90;
+                }
+                cmd.CommandTimeout = 200;
+
+                var rdrQD = cmd.ExecuteReader();
+
+                if (rdrQD.HasRows)
+                {
+                    for (int i = 0; i < rdrQD.FieldCount; i++)
+                    {
+                        lstColumns.Add(rdrQD.GetName(i));
+                    }
+
+                    obj.FieldsName = lstColumns;
+                    // Получаем сами данные
+                    var dtData = new DataTable();
+                    dtData.Load(rdrQD);
+
+                    obj.Data = dtData;
+                    obj.ProjectName = projectName;
+                    obj.ValidationRule = validName;
+                    obj.Description = descText;
+                    obj.NameList = number;
+                }
+                else
+                {
+                    obj = null;
                 }
 
-                obj.FieldsName = lstColumns;
-                // Получаем сами данные
-                var dtData = new DataTable();
-                dtData.Load(rdrQD);
+                rdrQD.Close();
+                rdrQD = null;
+                
 
-                obj.Data = dtData;
-                obj.ProjectName = projectName;
-                obj.ValidationRule = validName;
-                obj.Description = descText;
-                obj.NameList = number;
             }
-            else
+            catch (Exception ex)
             {
-                obj = null;
+                Log.Write(ex);
             }
-
-            rdrQD.Close();
-            rdrQD = null;
-
+            finally
+            {
+                Log.Write("Exit GetQueryData:" + execText);
+                
+            }
             return obj;
         }
 
@@ -218,7 +246,7 @@ namespace ExportValidation.Common
             catch (Exception e)
             {
 
-                Log.Write(e.Message + " - " + procedureName + " - ");
+                Log.Write(e);
             }
             finally
             {
@@ -230,7 +258,8 @@ namespace ExportValidation.Common
 
         public static List<QueryData> RunProcedure(SqlConnection conn, string procedureName, string projectName, DateTime? startdate = null, DateTime? enddate = null)
         {
-            Log.Write("Start: " + procedureName);
+           
+            Log.Write("Start RunProcedure: " + procedureName);
             var sql = "EXEC " + procedureName;
             var cmd = new SqlCommand(sql, conn);
             var lst = new List<ValidationRows>();
@@ -243,7 +272,7 @@ namespace ExportValidation.Common
                 }
 
                 var rdr = cmd.ExecuteReader();
-
+                Log.Write("Start: " + cmd.CommandText);
                 // Получаем список запросов валидации
                 if (rdr.HasRows)
                 {
@@ -262,7 +291,7 @@ namespace ExportValidation.Common
                 }
                 rdr.Close();
                 rdr = null;
-
+                Log.Write("Exit: " + cmd.CommandText);
                 if (startdate != null && enddate != null)
                 {
                     foreach (var validationRowse in lst)
@@ -283,7 +312,7 @@ namespace ExportValidation.Common
                     }
                 }
 
-
+                Log.Write("Start: Parsing");
                 foreach (var item in lst)
                 {
                     var obj = GetQueryData(item.s2, item.s1, item.s5, item.s3, item.s4, item.s6, projectName, conn);
@@ -293,6 +322,7 @@ namespace ExportValidation.Common
                         lstData.Add(obj);
                     }
                 }
+                Log.Write("Exit: Parsing");
             }
             catch (Exception e)
             {
@@ -302,7 +332,7 @@ namespace ExportValidation.Common
             }
             finally
             {
-                Log.Write("Exit: " + procedureName);
+                Log.Write("Exit RunProcedure: " + procedureName);
             }
 
             return lstData;
@@ -413,6 +443,7 @@ namespace ExportValidation.Common
         }
         public static void GetQueriesInFormat(SqlConnection conn, string strProject, string strPath)
         {
+            Log.Write("Start GetQueriesInFormat");
             var sql = "EXEC	[dbo].[GetQueries]";
             var cmd = new SqlCommand(sql, conn);
             if (conn.State.ToString() == "Closed")
@@ -455,6 +486,7 @@ namespace ExportValidation.Common
 
             foreach (var user in lstUsers)
             {
+                Log.Write("GetQueriesInFormat: " + user.SiteNo + "_" + user.CityName + "_" + user.UserName);
                 using (System.IO.StreamWriter file = new System.IO.StreamWriter(strPath + @"\" + strProject + "_" + user.SiteNo + "_" + user.CityName + "_" + user.UserName + "_" + DateTime.Now.ToShortDateString() + ".txt", true))
                 {
                     file.WriteLine("To: " + user.UserEmail);
@@ -511,7 +543,7 @@ namespace ExportValidation.Common
                 }
 
             }
-            Log.Write("Создание Квери закончено");
+            Log.Write("Exit GetQueriesInFormat");
 
 
         }
@@ -519,6 +551,7 @@ namespace ExportValidation.Common
      
         public static void ExportToCSVFile(string filePath, string project, string fileName, string sql, SqlConnection conn, Encoding encoding, string separator, bool firstRowNames)
         {
+            Log.Write("Start ExportToCSVFile:" + sql);
             var cmd = new SqlCommand(sql, conn);
             cmd.CommandTimeout = 240;
             if (conn.State.ToString() == "Closed")
@@ -535,7 +568,7 @@ namespace ExportValidation.Common
             //StreamWriter sw = new StreamWriter(filePath + "\\" + project + "_" + fileName + "_" + DateTime.Now.ToShortDateString() + ".csv", false, encoding);
             StreamWriter sw = new StreamWriter(filePath + "\\" + fileName  + ".csv", false, encoding);
             StringBuilder strRow; // represents a full row
-
+            Log.Write("ExportToCSVFile:" + fileName);
             // Writes the column headers if the user previously asked that.
             if (firstRowNames)
             {
@@ -563,6 +596,7 @@ namespace ExportValidation.Common
             // Closes the text stream and the database connenction.
             sw.Close();
             conn.Close();
+            Log.Write("Exit ExportToCSVFile:");
         }
 
         public static void GenerateCSVDocument(SqlConnection conn, List<IndexData> index, string project, string filePath, Encoding encoding, string separator, bool hasColumnNames)

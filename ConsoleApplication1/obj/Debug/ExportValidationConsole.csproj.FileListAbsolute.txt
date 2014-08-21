@@ -1,5 +1,9 @@
-C:\Users\Rymbln\Documents\GitHub\ExportValidation\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
-C:\Users\Rymbln\Documents\GitHub\ExportValidation\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
-C:\Users\Rymbln\Documents\GitHub\ExportValidation\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
-C:\Users\Rymbln\Documents\GitHub\ExportValidation\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
-C:\Users\Rymbln\Documents\GitHub\ExportValidation\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
+C:\Users\Rymbln\Documents\GitHub\ExportValidation\ConsoleApplication1\bin\Debug\ExportValidationConsole.exe.config
+C:\Users\Rymbln\Documents\GitHub\ExportValidation\ConsoleApplication1\bin\Debug\ExportValidationConsole.exe
+C:\Users\Rymbln\Documents\GitHub\ExportValidation\ConsoleApplication1\bin\Debug\ExportValidationConsole.pdb
+C:\Users\Rymbln\Documents\GitHub\ExportValidation\ConsoleApplication1\obj\Debug\ExportValidationConsole.exe
+C:\Users\Rymbln\Documents\GitHub\ExportValidation\ConsoleApplication1\obj\Debug\ExportValidationConsole.pdb
+C:\Users\Rymbln\Documents\GitHub\ExportValidation\ExportValidation\bin\Debug\ExportValidationConsole.exe.config
+C:\Users\Rymbln\Documents\GitHub\ExportValidation\ExportValidation\bin\Debug\ExportValidationConsole.exe
+C:\Users\Rymbln\Documents\GitHub\ExportValidation\ExportValidation\bin\Debug\ExportValidationConsole.pdb
+C:\Users\Rymbln\Documents\GitHub\ExportValidation\ConsoleApplication1\obj\Debug\ExportValidationConsole.csprojResolveAssemblyReference.cache

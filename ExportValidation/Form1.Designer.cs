@@ -44,7 +44,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.tbxOutputPath = new System.Windows.Forms.TextBox();
             this.btnGenerate = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnExcelValidation = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.tbxProjectName = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -257,15 +257,15 @@
             this.btnGenerate.UseVisualStyleBackColor = true;
             this.btnGenerate.Click += new System.EventHandler(this.btnGenerate_Click);
             // 
-            // button1
+            // btnExcelValidation
             // 
-            this.button1.Location = new System.Drawing.Point(7, 48);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(340, 23);
-            this.button1.TabIndex = 15;
-            this.button1.Text = "Generate Excel Validation";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.btnExcelValidation.Location = new System.Drawing.Point(7, 48);
+            this.btnExcelValidation.Name = "btnExcelValidation";
+            this.btnExcelValidation.Size = new System.Drawing.Size(340, 23);
+            this.btnExcelValidation.TabIndex = 15;
+            this.btnExcelValidation.Text = "Generate Excel Validation";
+            this.btnExcelValidation.UseVisualStyleBackColor = true;
+            this.btnExcelValidation.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // button2
             // 
@@ -618,7 +618,7 @@
             this.groupBox2.Controls.Add(this.button14);
             this.groupBox2.Controls.Add(this.button13);
             this.groupBox2.Controls.Add(this.btnGenerate);
-            this.groupBox2.Controls.Add(this.button1);
+            this.groupBox2.Controls.Add(this.btnExcelValidation);
             this.groupBox2.Controls.Add(this.button2);
             this.groupBox2.Controls.Add(this.button8);
             this.groupBox2.Controls.Add(this.button3);
@@ -1020,7 +1020,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox tbxOutputPath;
         private System.Windows.Forms.Button btnGenerate;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnExcelValidation;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox tbxProjectName;
         private System.Windows.Forms.Label label5;

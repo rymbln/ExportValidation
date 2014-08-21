@@ -111,7 +111,7 @@ namespace ExportValidation.Common
             Excel.Range ExcelRange;
             int rowsCount;
             int colsCount;
-
+            Log.Write("Start GenerateDocument");
             try
             {
                 if (String.IsNullOrEmpty(filePath))
@@ -136,6 +136,7 @@ namespace ExportValidation.Common
 
                 foreach (var itemData in data)
                 {
+                    Log.Write(itemData.NameList + " " + itemData.ValidationRule);
                     ExcelSheet = ExcelWorkbook.Sheets.Add();
                     ExcelSheet.Name = itemData.NameList;
                     FormatSheet(ExcelSheet, itemData);
@@ -240,7 +241,7 @@ namespace ExportValidation.Common
             {
 
                 GC.Collect();
-
+                Log.Write("Exit GenerateDocument");
             }
         }
 
@@ -253,7 +254,7 @@ namespace ExportValidation.Common
             Excel.Range ExcelRange;
             int rowsCount;
             int colsCount;
-
+            Log.Write("Start GenerateDocument2");
             try
             {
                 if (String.IsNullOrEmpty(filePath))
@@ -279,6 +280,7 @@ namespace ExportValidation.Common
 
                 foreach (var itemData in data)
                 {
+                    Log.Write(itemData.NameList + " " + itemData.ValidationRule);
                     ExcelSheet = ExcelWorkbook.Sheets.Add();
                     ExcelSheet.Name = itemData.NameList;
                     FormatSheet(ExcelSheet, itemData);
@@ -382,15 +384,14 @@ namespace ExportValidation.Common
             }
             catch (Exception ex)
             {
-                Log.Write(ex.Data + "\r\n" + ex.Message + "\r\n" + ex.Source + "\r\n" + ex.InnerException + "\r\n" +
-                                ex.StackTrace);
+                Log.Write(ex);
                 return null;
             }
             finally
             {
-
+                
                 GC.Collect();
-
+                Log.Write("Exit GenerateDocument2");
             }
         }
     }

@@ -2,6 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <StartArguments>D:\sd .\sql2008 ELI_RUS_001_MSCRM_Local sa asuseee RUN_VALIDATION ELI_RUS</StartArguments>
+    <StartWorkingDirectory>C:\Users\Rymbln\Documents\GitHub\ExportValidation\ExportValidation\bin\Debug\</StartWorkingDirectory>
   </PropertyGroup>
   <PropertyGroup>
     <PublishUrlHistory>publish\</PublishUrlHistory>

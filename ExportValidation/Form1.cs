@@ -210,45 +210,23 @@ namespace ExportValidation
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            var strServer = this.tbxServerName.Text;
-            var strLogin = this.tbxLogin.Text;
-            var strPassword = this.tbxPassword.Text;
-            var strDbName = this.cbxDatabases.SelectedItem.ToString();
-            var strPath = this.tbxOutputPath.Text;
-            var strProject = this.tbxProjectName.Text;
-
-            var conn = Tools.GetConnectionString(strServer, strDbName, strLogin, strPassword);
-
-            using (conn)
+            try
             {
-                var data = new List<QueryData>();
-                var index = new List<IndexData>();
-                try
-                {
-                    data = Tools.RunProcedure(conn, "RUN_VALIDATION", strProject);
-                    index = Tools.GetIndex(conn, "RUN_VALIDATION");
-
-                }
-                catch (Exception)
-                {
-                    data = Tools.RunProcedure(conn, this.cbxProcedures.Text, strProject);
-                    index = Tools.GetIndex(conn, this.cbxProcedures.Text);
-                }
-                finally
-                {
-
-                    if (data.Count > 0)
-                    {
-                        ExcelGeneration.GenerateDocument(strPath, data, index);
-                        MessageBox.Show("Finish");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Ошибок не обнаружено!");
-                    }
-                }
-
+                var strServer = this.tbxServerName.Text;
+                var strLogin = this.tbxLogin.Text;
+                var strPassword = this.tbxPassword.Text;
+                var strDbName = this.cbxDatabases.SelectedItem.ToString();
+                var strPath = this.tbxOutputPath.Text;
+                var strProject = this.tbxProjectName.Text;
+                var strMethod = "RUN_VALIDATION";
+                string directory = AppDomain.CurrentDomain.BaseDirectory;
+                RunConsoleApp(directory, strPath, strServer, strDbName, strLogin, strPassword, strMethod, strProject);
             }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Проверьте заполнение всех полей");
+            }
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -303,44 +281,23 @@ namespace ExportValidation
 
         private void button4_Click(object sender, EventArgs e)
         {
-            var strServer = this.tbxServerName.Text;
-            var strLogin = this.tbxLogin.Text;
-            var strPassword = this.tbxPassword.Text;
-            var strDbName = this.cbxDatabases.SelectedItem.ToString();
-            var strPath = this.tbxOutputPath.Text;
-            var strProject = this.tbxProjectName.Text;
-
-            var conn = Tools.GetConnectionString(strServer, strDbName, strLogin, strPassword);
-
-            using (conn)
+            try
             {
-                var data = new List<QueryData>();
-                var index = new List<IndexData>();
-                try
-                {
-                    data = Tools.RunProcedure(conn, "RUN_EXPORT", strProject);
-                    index = Tools.GetIndex(conn, "RUN_EXPORT");
-
-                }
-                catch (Exception)
-                {
-                    data = Tools.RunProcedure(conn, this.cbxProcedures.Text, strProject);
-                    index = Tools.GetIndex(conn, this.cbxProcedures.Text);
-                }
-                finally
-                {
-
-                    if (data.Count > 0)
-                    {
-                        ExcelGeneration.GenerateDocument2(strPath, data, index);
-                        MessageBox.Show("Finish");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Ошибок не обнаружено!");
-                    }
-                }
+                var strServer = this.tbxServerName.Text;
+                var strLogin = this.tbxLogin.Text;
+                var strPassword = this.tbxPassword.Text;
+                var strDbName = this.cbxDatabases.SelectedItem.ToString();
+                var strPath = this.tbxOutputPath.Text;
+                var strProject = this.tbxProjectName.Text;
+                var strMethod = "RUN_EXPORT";
+                string directory = AppDomain.CurrentDomain.BaseDirectory;
+                RunConsoleApp(directory, strPath, strServer, strDbName, strLogin, strPassword, strMethod, strProject);
             }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Проверьте заполнение всех полей");
+            }
+
         }
 
         private void cbxDatabases_SelectedIndexChanged(object sender, EventArgs e)
@@ -368,20 +325,23 @@ namespace ExportValidation
 
         private void button6_Click(object sender, EventArgs e)
         {
-            var strServer = this.tbxServerName.Text;
-            var strLogin = this.tbxLogin.Text;
-            var strPassword = this.tbxPassword.Text;
-            var strDbName = this.cbxDatabases.SelectedItem.ToString();
-            var strPath = this.tbxOutputPath.Text;
-            var strProject = this.tbxProjectName.Text;
-
-            var conn = Tools.GetConnectionString(strServer, strDbName, strLogin, strPassword);
-
-            using (conn)
+            try
             {
-                Tools.GetQueriesInFormat(conn, strProject, strPath);
-
+                var strServer = this.tbxServerName.Text;
+                var strLogin = this.tbxLogin.Text;
+                var strPassword = this.tbxPassword.Text;
+                var strDbName = this.cbxDatabases.SelectedItem.ToString();
+                var strPath = this.tbxOutputPath.Text;
+                var strProject = this.tbxProjectName.Text;
+                var strMethod = "RUN_QUERY";
+                string directory = AppDomain.CurrentDomain.BaseDirectory;
+                RunConsoleApp(directory, strPath, strServer, strDbName, strLogin, strPassword, strMethod, strProject);
             }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Проверьте заполнение всех полей");
+            }
+
         }
 
         private void button5_Click_1(object sender, EventArgs e)
@@ -901,55 +861,23 @@ namespace ExportValidation
 
         private void button7_Click_1(object sender, EventArgs e)
         {
-            var strServer = this.tbxServerName.Text;
-            var strLogin = this.tbxLogin.Text;
-            var strPassword = this.tbxPassword.Text;
-            var strDbName = this.cbxDatabases.SelectedItem.ToString();
-            var strPath = this.tbxOutputPath.Text;
-            var strProject = this.tbxProjectName.Text;
-            var strProcedure = this.cbxProcedures.Text;
-
-            var conn = Tools.GetConnectionString(strServer, strDbName, strLogin, strPassword);
-
-            using (conn)
+            try
             {
-                //Tools.RunProcedureNonQuery(conn, strProcedure);
-                string fileName = "";
-                string sql = "";
-
-                var index = new List<IndexData>();
-
-                try
-                {
-
-                    index = Tools.GetIndex(conn, "RUN_EXPORT");
-                }
-                catch (Exception)
-                {
-                    index = Tools.GetIndex(conn, cbxProcedures.Text);
-                }
-                finally
-                {
-                    if (index.Count > 0)
-                    {
-                        foreach (var queryData in index)
-                        {
-                            fileName = queryData.NameList;
-                            sql = queryData.SelectCommand;
-                            Tools.ExportToCSVFile(strPath, strProject, fileName, sql, conn, encodingCSV, separatorCSV, this.chkFirstRowColumnNames.Checked);
-                        }
-                        MessageBox.Show("Finish");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Ошибок не обнаружено!");
-                    }
-
-                }
-
-
-
+                var strServer = this.tbxServerName.Text;
+                var strLogin = this.tbxLogin.Text;
+                var strPassword = this.tbxPassword.Text;
+                var strDbName = this.cbxDatabases.SelectedItem.ToString();
+                var strPath = this.tbxOutputPath.Text;
+                var strProject = this.tbxProjectName.Text;
+                var strMethod = "RUN_EXPORT_CSV";
+                string directory = AppDomain.CurrentDomain.BaseDirectory;
+                RunConsoleApp(directory, strPath, strServer, strDbName, strLogin, strPassword, strMethod, strProject);
             }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Проверьте заполнение всех полей");
+            }
+
         }
 
         private void button13_Click(object sender, EventArgs e)
@@ -972,61 +900,42 @@ namespace ExportValidation
 
         private void button14_Click(object sender, EventArgs e)
         {
-            var strServer = this.tbxServerName.Text;
-            var strLogin = this.tbxLogin.Text;
-            var strPassword = this.tbxPassword.Text;
-            var strDbName = this.cbxDatabases.SelectedItem.ToString();
-            var strPath = this.tbxOutputPath.Text;
-            var strProject = this.tbxProjectName.Text;
-            var strProcedure = this.cbxProcedures.Text;
-
-            var conn = Tools.GetConnectionString(strServer, strDbName, strLogin, strPassword);
-
-            using (conn)
+            try
             {
-                Tools.RunProcedureNonQuery(conn, "RUN_SYNC");
+                var strServer = this.tbxServerName.Text;
+                var strLogin = this.tbxLogin.Text;
+                var strPassword = this.tbxPassword.Text;
+                var strDbName = this.cbxDatabases.SelectedItem.ToString();
+                var strPath = this.tbxOutputPath.Text;
+                var strProject = this.tbxProjectName.Text;
+                var strMethod = "RUN_SYNC";
+                string directory = AppDomain.CurrentDomain.BaseDirectory;
+                RunConsoleApp(directory, strPath, strServer, strDbName, strLogin, strPassword, strMethod, strProject);
             }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Проверьте заполнение всех полей");
+            }
+
         }
 
         private void button15_Click(object sender, EventArgs e)
         {
-            var strServer = this.tbxServerName.Text;
-            var strLogin = this.tbxLogin.Text;
-            var strPassword = this.tbxPassword.Text;
-            var strDbName = this.cbxDatabases.SelectedItem.ToString();
-            var strPath = this.tbxOutputPath.Text;
-            var strProject = this.tbxProjectName.Text;
-
-
-            var conn = Tools.GetConnectionString(strServer, strDbName, strLogin, strPassword);
-
-            using (conn)
+            try
             {
-                var data = new List<QueryData>();
-
-
-                try
-                {
-
-                    var startdate = DateTime.Parse(maskedTextBox1.Text);
-                    var enddate = DateTime.Parse(maskedTextBox2.Text);
-                    data = Tools.RunProcedure(conn, "RUN_ACTIVITY", strProject, startdate, enddate);
-                }
-                catch (Exception ex)
-                {
-                    data = Tools.RunProcedure(conn, "RUN_ACTIVITY", strProject);
-                }
-
-                var index = Tools.GetIndex(conn, "RUN_ACTIVITY");
-                if (data.Count > 0)
-                {
-                    ExcelGeneration.GenerateDocument(strPath, data, index);
-                    MessageBox.Show("Finish");
-                }
-                else
-                {
-                    MessageBox.Show("Ошибок не обнаружено!");
-                }
+                var strServer = this.tbxServerName.Text;
+                var strLogin = this.tbxLogin.Text;
+                var strPassword = this.tbxPassword.Text;
+                var strDbName = this.cbxDatabases.SelectedItem.ToString();
+                var strPath = this.tbxOutputPath.Text;
+                var strProject = this.tbxProjectName.Text;
+                var strMethod = "RUN_ACTIVITY";
+                string directory = AppDomain.CurrentDomain.BaseDirectory;
+                RunConsoleApp(directory, strPath, strServer, strDbName, strLogin, strPassword, strMethod, strProject);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Проверьте заполнение всех полей");
             }
         }
 
@@ -1034,6 +943,47 @@ namespace ExportValidation
         {
             var strPath = tbxOutputPath.Text;
             Process.Start("explorer.exe", strPath);
+        }
+
+        private void button17_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var strServer = this.tbxServerName.Text;
+                var strLogin = this.tbxLogin.Text;
+                var strPassword = this.tbxPassword.Text;
+                var strDbName = this.cbxDatabases.SelectedItem.ToString();
+                var strPath = this.tbxOutputPath.Text;
+                var strProject = this.tbxProjectName.Text;
+                var strMethod = "RUN_VALIDATION";
+                string directory = AppDomain.CurrentDomain.BaseDirectory;
+                RunConsoleApp(directory, strPath, strServer, strDbName, strLogin, strPassword, strMethod, strProject);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Проверьте заполнение всех полей");
+            }
+
+        
+           
+        }
+
+        private static void RunConsoleApp(string directory, string strPath, string strServer, string strDbName, string strLogin,
+            string strPassword, string strMethod, string strProject)
+        {
+            var startInfo = new ProcessStartInfo
+            {
+                //имя файла
+                FileName = directory + "ExportValidationConsole.exe",
+                //скрытое окно
+                WindowStyle = ProcessWindowStyle.Normal,
+                //ваши аргументы
+                Arguments =
+                    strPath + " " + strServer + " " + strDbName + " " + strLogin + " " + strPassword + " " + strMethod + " " +
+                    strProject
+            };
+            //запуск процесса
+            Process.Start(startInfo);
         }
     }
 }
