@@ -106,9 +106,9 @@ namespace ExportValidation.Common
                 {
                     lst.Add(new IndexData
                     {
-                        ValidationRule = rdr.GetString(1),
-                        NameList = rdr.GetString(4),
-                        Description = rdr.GetString(3),
+                        ValidationRule = rdr.GetString(0),
+                        NameList = rdr.GetString(3),
+                        Description = rdr.GetString(2),
                         SelectCommand = rdr.GetString(5)
                     });
                 }
@@ -286,7 +286,7 @@ namespace ExportValidation.Common
 
                 foreach (var item in lst)
                 {
-                    var obj = GetQueryData(item.s1, item.s2, item.s3, item.s4, item.s5, item.s6, projectName, conn);
+                    var obj = GetQueryData(item.s2, item.s1, item.s5, item.s3, item.s4, item.s6, projectName, conn);
 
                     if (obj != null)
                     {

@@ -60,7 +60,7 @@ namespace ExportValidationConsole
                         index = Tools.GetIndex(conn, "RUN_EXPORT");
                         if (data.Count > 0)
                         {
-                            ExcelGeneration.GenerateDocument(strPath, data, index);
+                            ExcelGeneration.GenerateDocument2(strPath, data, index);
                             Log.Write("Finish");
                         }
                         else

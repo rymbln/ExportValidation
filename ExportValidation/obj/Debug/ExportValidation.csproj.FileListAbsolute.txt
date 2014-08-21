@@ -42,8 +42,6 @@ C:\Users\Rymbln\Documents\GitHub\ExportValidation\ExportValidation\bin\Debug\de\
 C:\Users\Rymbln\Documents\GitHub\ExportValidation\ExportValidation\bin\Debug\de\MigraDoc.RtfRendering.resources.dll
 C:\Users\Rymbln\Documents\GitHub\ExportValidation\ExportValidation\bin\Debug\de\PdfSharp.resources.dll
 C:\Users\Rymbln\Documents\GitHub\ExportValidation\ExportValidation\bin\Debug\de\PdfSharp.Charting.resources.dll
-C:\Users\Rymbln\Documents\GitHub\ExportValidation\ExportValidation\obj\Debug\ExportValidation.csprojResolveAssemblyReference.cache
 C:\Users\Rymbln\Documents\GitHub\ExportValidation\ExportValidation\obj\Debug\ExportValidation.Form1.resources
 C:\Users\Rymbln\Documents\GitHub\ExportValidation\ExportValidation\obj\Debug\ExportValidation.Properties.Resources.resources
 C:\Users\Rymbln\Documents\GitHub\ExportValidation\ExportValidation\obj\Debug\ExportValidation.csproj.GenerateResource.Cache
-C:\Users\Rymbln\Documents\GitHub\ExportValidation\ExportValidation\obj\Debug\ExportValidation.LogForm.resources

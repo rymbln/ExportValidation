@@ -191,7 +191,7 @@ namespace ExportValidation
             var strProject = this.tbxProjectName.Text;
 
             var conn = Tools.GetConnectionString(strServer, strDbName, strLogin, strPassword);
-            LogForm v = new LogForm();
+       //     LogForm v = new LogForm();
 
             using (conn)
             {
@@ -332,7 +332,7 @@ namespace ExportValidation
 
                     if (data.Count > 0)
                     {
-                        ExcelGeneration.GenerateDocument(strPath, data, index);
+                        ExcelGeneration.GenerateDocument2(strPath, data, index);
                         MessageBox.Show("Finish");
                     }
                     else

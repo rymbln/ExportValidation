@@ -945,10 +945,10 @@
             this.rdbWin1251.Checked = true;
             this.rdbWin1251.Location = new System.Drawing.Point(6, 114);
             this.rdbWin1251.Name = "rdbWin1251";
-            this.rdbWin1251.Size = new System.Drawing.Size(52, 17);
+            this.rdbWin1251.Size = new System.Drawing.Size(50, 17);
             this.rdbWin1251.TabIndex = 5;
             this.rdbWin1251.TabStop = true;
-            this.rdbWin1251.Text = "UTF8";
+            this.rdbWin1251.Text = "ANSI";
             this.rdbWin1251.UseVisualStyleBackColor = true;
             // 
             // Form1
