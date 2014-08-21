@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.Odbc;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -935,6 +936,54 @@ namespace ExportValidation
             {
                 Tools.RunProcedureNonQuery(conn, strProcedure);
             }
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            var strServer = this.tbxServerName.Text;
+            var strLogin = this.tbxLogin.Text;
+            var strPassword = this.tbxPassword.Text;
+            var strDbName = this.cbxDatabases.SelectedItem.ToString();
+            var strPath = this.tbxOutputPath.Text;
+            var strProject = this.tbxProjectName.Text;
+
+
+            var conn = Tools.GetConnectionString(strServer, strDbName, strLogin, strPassword);
+
+            using (conn)
+            {
+                var data = new List<QueryData>();
+              
+                
+                try
+                {
+
+                    var startdate = DateTime.Parse(maskedTextBox1.Text);
+                    var enddate = DateTime.Parse(maskedTextBox2.Text);
+                    data = Tools.RunProcedure(conn, this.cbxProcedures.Text, strProject, startdate, enddate);    
+                }
+                catch(Exception ex)
+                {
+                    data = Tools.RunProcedure(conn, this.cbxProcedures.Text, strProject);
+                }
+                
+                var index = Tools.GetIndex(conn, this.cbxProcedures.Text);
+                if (data.Count > 0)
+                {
+                    ExcelGeneration.GenerateDocument(strPath, data, index);
+                    MessageBox.Show("Finish");
+                }
+                else
+                {
+                    MessageBox.Show("Ошибок не обнаружено!");
+                }
+            }
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            var strPath = tbxOutputPath.Text;
+            Process.Start("explorer.exe", strPath);
         }
     }
 }

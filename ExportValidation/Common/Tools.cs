@@ -34,7 +34,7 @@ namespace ExportValidation.Common
             }
             return strOut;
         }
-      
+
         private static List<string> GetNamesFromSQL(SqlConnection conn, string sql)
         {
 
@@ -173,7 +173,7 @@ namespace ExportValidation.Common
             {
                 cmd.CommandTimeout = 90;
             }
-           cmd.CommandTimeout = 200;
+            cmd.CommandTimeout = 200;
             var rdrQD = cmd.ExecuteReader();
             if (rdrQD.HasRows)
             {
@@ -218,7 +218,7 @@ namespace ExportValidation.Common
 
                 cmd.ExecuteNonQuery();
 
-                
+
             }
             catch (Exception e)
             {
@@ -231,7 +231,9 @@ namespace ExportValidation.Common
             }
 
         }
-        public static List<QueryData> RunProcedure(SqlConnection conn, string procedureName, string projectName)
+
+
+        public static List<QueryData> RunProcedure(SqlConnection conn, string procedureName, string projectName, DateTime? startdate = null, DateTime? enddate = null)
         {
             MessageBox.Show("Start: " + procedureName);
             var sql = "EXEC " + procedureName;
@@ -266,6 +268,27 @@ namespace ExportValidation.Common
                 rdr.Close();
                 rdr = null;
 
+                if (startdate != null && enddate != null)
+                {
+                    foreach (var validationRowse in lst)
+                    {
+                        validationRowse.s6 = validationRowse.s6 +
+                        " @start_date = N'" + startdate.ToString() + "', @end_date = N'" + enddate.ToString() + "'";
+                    }
+                }
+                else
+                {
+                    foreach (var validationRowse in lst)
+                    {
+                        if (validationRowse.s6.Contains("GET_USER"))
+                        {
+                            validationRowse.s6 = validationRowse.s6 +
+                                                 " @start_date = NULL, @end_date = NULL";
+                        }
+                    }
+                }
+
+
                 foreach (var item in lst)
                 {
                     var obj = GetQueryData(item.s1, item.s2, item.s3, item.s4, item.s5, item.s6, projectName, conn);
@@ -278,9 +301,9 @@ namespace ExportValidation.Common
             }
             catch (Exception e)
             {
-              
 
-               MessageBox.Show(e.Message + " - " + procedureName + " - " );
+
+                MessageBox.Show(e.Message + " - " + procedureName + " - ");
             }
             finally
             {
@@ -328,7 +351,7 @@ namespace ExportValidation.Common
 
             foreach (var user in lstUsers)
             {
-                using (System.IO.StreamWriter file = new System.IO.StreamWriter(strPath +@"\"+ strProject + "_" + user.SiteNo + "_" + user.CityName + "_" + user.UserName + DateTime.Now.ToShortDateString() +".txt", true))
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(strPath + @"\" + strProject + "_" + user.SiteNo + "_" + user.CityName + "_" + user.UserName + DateTime.Now.ToShortDateString() + ".txt", true))
                 {
                     file.WriteLine("Номер центра: " + user.SiteNo);
                     file.WriteLine("Город: " + user.CityName);
@@ -408,7 +431,7 @@ namespace ExportValidation.Common
             }
             catch (Exception ex)
             {
-                
+
             }
             sql =
                 "SELECT DISTINCT [UserName],[UserEmail],[SiteNo],[CityName] FROM [dbo].[QUERY_LIST_DISTINCT]";
@@ -465,8 +488,8 @@ namespace ExportValidation.Common
                     foreach (var crfInfo in lstCrf)
                     {
                         file.WriteLine("");
-                        
-                        file.WriteLine("В карте № " + crfInfo.CrfNumber + " пациента "+ crfInfo.CrfName + " обнаружены проблемные данные:\r\n");
+
+                        file.WriteLine("В карте № " + crfInfo.CrfNumber + " пациента " + crfInfo.CrfName + " обнаружены проблемные данные:\r\n");
 
                         sql =
                             "SELECT DISTINCT [ValidationRule],[Descritpion]  FROM [dbo].[QUERY_LIST_DISTINCT] WHERE UserName = N'" +
@@ -479,7 +502,7 @@ namespace ExportValidation.Common
                             while (rdr.Read())
                             {
                                 {
-                                    file.WriteLine(i + ") " +rdr.GetString(1));
+                                    file.WriteLine(i + ") " + rdr.GetString(1));
                                     i++;
                                 }
                             }
@@ -561,7 +584,7 @@ namespace ExportValidation.Common
             DataTable dtSchema = dr.GetSchemaTable();
 
             // Creates the CSV file as a stream, using the given encoding.
-            StreamWriter sw = new StreamWriter(filePath+"\\"+project+"_"+fileName+"_"+DateTime.Now.ToShortDateString()+".csv", false, encoding);
+            StreamWriter sw = new StreamWriter(filePath + "\\" + project + "_" + fileName + "_" + DateTime.Now.ToShortDateString() + ".csv", false, encoding);
 
             StringBuilder strRow; // represents a full row
 
@@ -598,7 +621,7 @@ namespace ExportValidation.Common
         {
             foreach (var indexData in index)
             {
-                ExportToCSVFile(filePath, project, indexData.NameList, indexData.SelectCommand,conn, encoding,separator,hasColumnNames);
+                ExportToCSVFile(filePath, project, indexData.NameList, indexData.SelectCommand, conn, encoding, separator, hasColumnNames);
             }
         }
     }

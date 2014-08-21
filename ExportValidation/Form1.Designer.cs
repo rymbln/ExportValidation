@@ -79,6 +79,8 @@
             this.rdbSemicolon = new System.Windows.Forms.RadioButton();
             this.chkFirstRowColumnNames = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button14 = new System.Windows.Forms.Button();
+            this.button13 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnSave_Direct = new System.Windows.Forms.Button();
             this.btnSave_DataSet = new System.Windows.Forms.Button();
@@ -102,8 +104,10 @@
             this.btnBrowse = new System.Windows.Forms.Button();
             this.txtFileToImport = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.button13 = new System.Windows.Forms.Button();
-            this.button14 = new System.Windows.Forms.Button();
+            this.button15 = new System.Windows.Forms.Button();
+            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
+            this.maskedTextBox2 = new System.Windows.Forms.MaskedTextBox();
+            this.button16 = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gpbEncoding.SuspendLayout();
@@ -628,6 +632,26 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Auto Export";
             // 
+            // button14
+            // 
+            this.button14.Location = new System.Drawing.Point(7, 276);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(340, 23);
+            this.button14.TabIndex = 26;
+            this.button14.Text = "RUN SYNC";
+            this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
+            // 
+            // button13
+            // 
+            this.button13.Location = new System.Drawing.Point(7, 248);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(340, 23);
+            this.button13.TabIndex = 25;
+            this.button13.Text = "RUN VALIDATION";
+            this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.btnSave_Direct);
@@ -878,31 +902,52 @@
             this.label8.TabIndex = 1;
             this.label8.Text = "CSV file to load:";
             // 
-            // button13
+            // button15
             // 
-            this.button13.Location = new System.Drawing.Point(7, 248);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(340, 23);
-            this.button13.TabIndex = 25;
-            this.button13.Text = "RUN VALIDATION";
-            this.button13.UseVisualStyleBackColor = true;
-            this.button13.Click += new System.EventHandler(this.button13_Click);
+            this.button15.Location = new System.Drawing.Point(22, 425);
+            this.button15.Name = "button15";
+            this.button15.Size = new System.Drawing.Size(340, 23);
+            this.button15.TabIndex = 27;
+            this.button15.Text = "Activity Report";
+            this.button15.UseVisualStyleBackColor = true;
+            this.button15.Click += new System.EventHandler(this.button15_Click);
             // 
-            // button14
+            // maskedTextBox1
             // 
-            this.button14.Location = new System.Drawing.Point(7, 276);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(340, 23);
-            this.button14.TabIndex = 26;
-            this.button14.Text = "RUN SYNC";
-            this.button14.UseVisualStyleBackColor = true;
-            this.button14.Click += new System.EventHandler(this.button14_Click);
+            this.maskedTextBox1.Location = new System.Drawing.Point(22, 455);
+            this.maskedTextBox1.Mask = "00/00/0000";
+            this.maskedTextBox1.Name = "maskedTextBox1";
+            this.maskedTextBox1.Size = new System.Drawing.Size(100, 20);
+            this.maskedTextBox1.TabIndex = 29;
+            // 
+            // maskedTextBox2
+            // 
+            this.maskedTextBox2.Location = new System.Drawing.Point(262, 455);
+            this.maskedTextBox2.Mask = "00/00/0000";
+            this.maskedTextBox2.Name = "maskedTextBox2";
+            this.maskedTextBox2.Size = new System.Drawing.Size(100, 20);
+            this.maskedTextBox2.TabIndex = 30;
+            this.maskedTextBox2.ValidatingType = typeof(System.DateTime);
+            // 
+            // button16
+            // 
+            this.button16.Location = new System.Drawing.Point(785, 75);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(149, 23);
+            this.button16.TabIndex = 31;
+            this.button16.Text = "Open Folder";
+            this.button16.UseVisualStyleBackColor = true;
+            this.button16.Click += new System.EventHandler(this.button16_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1515, 556);
+            this.Controls.Add(this.button16);
+            this.Controls.Add(this.maskedTextBox2);
+            this.Controls.Add(this.maskedTextBox1);
+            this.Controls.Add(this.button15);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -1023,6 +1068,10 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button button14;
         private System.Windows.Forms.Button button13;
+        private System.Windows.Forms.Button button15;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox2;
+        private System.Windows.Forms.Button button16;
     }
 }
 
