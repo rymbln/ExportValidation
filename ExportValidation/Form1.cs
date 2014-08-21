@@ -122,10 +122,10 @@ namespace ExportValidation
                     return Encoding.GetEncoding(1251);
                 }
 
-         else
+                else
                 {
                     return Encoding.GetEncoding(1251);
-                    
+
                 }
 
                 // You can add other options, for ex.:
@@ -192,7 +192,7 @@ namespace ExportValidation
 
             var conn = Tools.GetConnectionString(strServer, strDbName, strLogin, strPassword);
             LogForm v = new LogForm();
- 
+
             using (conn)
             {
                 var data = Tools.RunProcedure(conn, this.cbxProcedures.SelectedItem.ToString(), strProject);
@@ -221,17 +221,33 @@ namespace ExportValidation
 
             using (conn)
             {
-                var data = Tools.RunProcedure(conn, this.cbxProcedures.Text, strProject);
-                var index = Tools.GetIndex(conn, this.cbxProcedures.Text);
-                if (data.Count > 0)
+                var data = new List<QueryData>();
+                var index = new List<IndexData>();
+                try
                 {
-                    ExcelGeneration.GenerateDocument(strPath, data, index);
-                    MessageBox.Show("Finish");
+                    data = Tools.RunProcedure(conn, "RUN_VALIDATION", strProject);
+                    index = Tools.GetIndex(conn, "RUN_VALIDATION");
+
                 }
-                else
+                catch (Exception)
                 {
-                    MessageBox.Show("Ошибок не обнаружено!");
+                    data = Tools.RunProcedure(conn, this.cbxProcedures.Text, strProject);
+                    index = Tools.GetIndex(conn, this.cbxProcedures.Text);
                 }
+                finally
+                {
+
+                    if (data.Count > 0)
+                    {
+                        ExcelGeneration.GenerateDocument(strPath, data, index);
+                        MessageBox.Show("Finish");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ошибок не обнаружено!");
+                    }
+                }
+
             }
         }
 
@@ -298,16 +314,31 @@ namespace ExportValidation
 
             using (conn)
             {
-                var data = Tools.RunProcedure(conn, this.cbxProcedures.Text, strProject);
-                var index = Tools.GetIndex(conn, this.cbxProcedures.Text);
-                if (data.Count > 0)
+                var data = new List<QueryData>();
+                var index = new List<IndexData>();
+                try
                 {
-                    ExcelGeneration.GenerateDocument2(strPath, data, index);
-                    MessageBox.Show("Finish");
+                    data = Tools.RunProcedure(conn, "RUN_EXPORT", strProject);
+                    index = Tools.GetIndex(conn, "RUN_EXPORT");
+
                 }
-                else
+                catch (Exception)
                 {
-                    MessageBox.Show("Ошибок не обнаружено!");
+                    data = Tools.RunProcedure(conn, this.cbxProcedures.Text, strProject);
+                    index = Tools.GetIndex(conn, this.cbxProcedures.Text);
+                }
+                finally
+                {
+
+                    if (data.Count > 0)
+                    {
+                        ExcelGeneration.GenerateDocument(strPath, data, index);
+                        MessageBox.Show("Finish");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ошибок не обнаружено!");
+                    }
                 }
             }
         }
@@ -377,7 +408,7 @@ namespace ExportValidation
             this.lbxTables.Items.Clear();
             this.lbxViews.Items.Clear();
             this.lbxProcedures.Items.Clear();
-            
+
             var conn = Tools.GetConnectionString(strServer, strDbName, strLogin, strPassword);
             using (conn)
             {
@@ -421,7 +452,7 @@ namespace ExportValidation
             string fileName = "";
             string sql = "";
 
-              var strServer = this.tbxServerName.Text;
+            var strServer = this.tbxServerName.Text;
             var strLogin = this.tbxLogin.Text;
             var strPassword = this.tbxPassword.Text;
             var strDbName = this.cbxDatabases.SelectedItem.ToString();
@@ -766,7 +797,7 @@ namespace ExportValidation
 
                 // Runs the sql command to make the destination table.
 
-             
+
                 SqlCommand command = conn.CreateCommand();
                 command.CommandText = ctStr;
                 conn.Open();
@@ -886,24 +917,38 @@ namespace ExportValidation
                 string fileName = "";
                 string sql = "";
 
-            //    var data = Tools.RunProcedure(conn, this.cbxProcedures.Text, strProject);
-                var index = Tools.GetIndex(conn, this.cbxProcedures.Text);
-                if (index.Count > 0)
+                var index = new List<IndexData>();
+
+                try
                 {
-                    foreach (var queryData in index)
-                    {
-                        fileName = queryData.NameList;
-                        sql = queryData.SelectCommand;
-                        Tools.ExportToCSVFile(strPath, strProject, fileName, sql, conn, encodingCSV, separatorCSV, this.chkFirstRowColumnNames.Checked);
-                    }
-                    MessageBox.Show("Finish");
+
+                    index = Tools.GetIndex(conn, "RUN_EXPORT");
                 }
-                else
+                catch (Exception)
                 {
-                    MessageBox.Show("Ошибок не обнаружено!");
+                    index = Tools.GetIndex(conn, cbxProcedures.Text);
+                }
+                finally
+                {
+                    if (index.Count > 0)
+                    {
+                        foreach (var queryData in index)
+                        {
+                            fileName = queryData.NameList;
+                            sql = queryData.SelectCommand;
+                            Tools.ExportToCSVFile(strPath, strProject, fileName, sql, conn, encodingCSV, separatorCSV, this.chkFirstRowColumnNames.Checked);
+                        }
+                        MessageBox.Show("Finish");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ошибок не обнаружено!");
+                    }
+
                 }
 
-               
+
+
             }
         }
 
@@ -921,7 +966,7 @@ namespace ExportValidation
 
             using (conn)
             {
-                Tools.RunProcedureNonQuery(conn,strProcedure);
+                Tools.RunProcedureNonQuery(conn, strProcedure);
             }
         }
 
@@ -939,7 +984,7 @@ namespace ExportValidation
 
             using (conn)
             {
-                Tools.RunProcedureNonQuery(conn, strProcedure);
+                Tools.RunProcedureNonQuery(conn, "RUN_SYNC");
             }
         }
 
@@ -958,21 +1003,21 @@ namespace ExportValidation
             using (conn)
             {
                 var data = new List<QueryData>();
-              
-                
+
+
                 try
                 {
 
                     var startdate = DateTime.Parse(maskedTextBox1.Text);
                     var enddate = DateTime.Parse(maskedTextBox2.Text);
-                    data = Tools.RunProcedure(conn, this.cbxProcedures.Text, strProject, startdate, enddate);    
+                    data = Tools.RunProcedure(conn, "RUN_ACTIVITY", strProject, startdate, enddate);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    data = Tools.RunProcedure(conn, this.cbxProcedures.Text, strProject);
+                    data = Tools.RunProcedure(conn, "RUN_ACTIVITY", strProject);
                 }
-                
-                var index = Tools.GetIndex(conn, this.cbxProcedures.Text);
+
+                var index = Tools.GetIndex(conn, "RUN_ACTIVITY");
                 if (data.Count > 0)
                 {
                     ExcelGeneration.GenerateDocument(strPath, data, index);
