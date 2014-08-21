@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tbxServerName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -109,6 +110,8 @@
             this.maskedTextBox2 = new System.Windows.Forms.MaskedTextBox();
             this.button16 = new System.Windows.Forms.Button();
             this.rdbWin1251 = new System.Windows.Forms.RadioButton();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gpbEncoding.SuspendLayout();
@@ -118,6 +121,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_preView)).BeginInit();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // tbxServerName
@@ -233,7 +238,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(355, 61);
+            this.label4.Location = new System.Drawing.Point(310, 61);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(71, 13);
             this.label4.TabIndex = 11;
@@ -241,9 +246,9 @@
             // 
             // tbxOutputPath
             // 
-            this.tbxOutputPath.Location = new System.Drawing.Point(358, 76);
+            this.tbxOutputPath.Location = new System.Drawing.Point(312, 76);
             this.tbxOutputPath.Name = "tbxOutputPath";
-            this.tbxOutputPath.Size = new System.Drawing.Size(340, 20);
+            this.tbxOutputPath.Size = new System.Drawing.Size(413, 20);
             this.tbxOutputPath.TabIndex = 12;
             this.tbxOutputPath.Text = "C:\\Users\\rymbln\\Desktop\\Output\\PDF";
             // 
@@ -281,7 +286,7 @@
             // 
             this.tbxProjectName.Location = new System.Drawing.Point(12, 76);
             this.tbxProjectName.Name = "tbxProjectName";
-            this.tbxProjectName.Size = new System.Drawing.Size(340, 20);
+            this.tbxProjectName.Size = new System.Drawing.Size(294, 20);
             this.tbxProjectName.TabIndex = 17;
             // 
             // label5
@@ -344,9 +349,9 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(704, 76);
+            this.button5.Location = new System.Drawing.Point(731, 76);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.Size = new System.Drawing.Size(101, 23);
             this.button5.TabIndex = 25;
             this.button5.Text = "Browse";
             this.button5.UseVisualStyleBackColor = true;
@@ -931,9 +936,9 @@
             // 
             // button16
             // 
-            this.button16.Location = new System.Drawing.Point(785, 75);
+            this.button16.Location = new System.Drawing.Point(838, 74);
             this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(149, 23);
+            this.button16.Size = new System.Drawing.Size(165, 23);
             this.button16.TabIndex = 31;
             this.button16.Text = "Open Folder";
             this.button16.UseVisualStyleBackColor = true;
@@ -951,11 +956,33 @@
             this.rdbWin1251.Text = "ANSI";
             this.rdbWin1251.UseVisualStyleBackColor = true;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
+            this.pictureBox1.Location = new System.Drawing.Point(1369, 16);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(112, 47);
+            this.pictureBox1.TabIndex = 32;
+            this.pictureBox1.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox2.InitialImage")));
+            this.pictureBox2.Location = new System.Drawing.Point(1345, 61);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(136, 50);
+            this.pictureBox2.TabIndex = 33;
+            this.pictureBox2.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1515, 556);
+            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button16);
             this.Controls.Add(this.maskedTextBox2);
             this.Controls.Add(this.maskedTextBox1);
@@ -979,6 +1006,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbxServerName);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Form1";
             this.statusStrip1.ResumeLayout(false);
@@ -997,6 +1025,8 @@
             this.groupBox5.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1085,6 +1115,8 @@
         private System.Windows.Forms.MaskedTextBox maskedTextBox2;
         private System.Windows.Forms.Button button16;
         private System.Windows.Forms.RadioButton rdbWin1251;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }
 
