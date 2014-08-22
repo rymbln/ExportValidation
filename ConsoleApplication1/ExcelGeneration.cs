@@ -116,13 +116,13 @@ namespace ExportValidation.Common
             {
                 if (String.IsNullOrEmpty(filePath))
                 {
-                    filePath = Path.Combine(filePath + "\\" + data[0].ProjectName + "_Validation_" + DateTime.Now.ToShortDateString());
+                    filePath = Path.Combine(filePath  + data[0].ProjectName + "_Validation_" + DateTime.Now.ToShortDateString());
                     //if (Environment.OSVersion.Version.Major >= 6)
                     //{
                     //    filePath = Directory.GetParent(filePath).FullName;
                     //}
                 }
-                var filename = data[0].ProjectName + "_Validation_" + DateTime.Now.ToShortDateString() + ".xls";
+                var filename = data[0].ProjectName + "_Validation_" + DateTime.Now.ToShortDateString() + ".xlsx";
 
                 var indexDocument = index;
 
@@ -213,7 +213,7 @@ namespace ExportValidation.Common
                 //End Creating Index
 
                 ExcelWorkbook.SaveAs();
-                ExcelWorkbook.SaveAs(filePath + "\\" + filename, Excel.XlFileFormat.xlExcel5, Type.Missing, Type.Missing, false, false, Excel.XlSaveAsAccessMode.xlNoChange, Excel.XlSaveConflictResolution.xlLocalSessionChanges, Type.Missing, Type.Missing);
+                ExcelWorkbook.SaveAs(filePath  + filename, Excel.XlFileFormat.xlWorkbookDefault, Type.Missing, Type.Missing, false, false, Excel.XlSaveAsAccessMode.xlNoChange, Excel.XlSaveConflictResolution.xlLocalSessionChanges, Type.Missing, Type.Missing);
 
 
                 while (Marshal.ReleaseComObject(ExcelWorkbook) > 0)
@@ -260,13 +260,13 @@ namespace ExportValidation.Common
                 if (String.IsNullOrEmpty(filePath))
                 {
                     filePath =
-                        Path.Combine(filePath + "\\" + data[0].ProjectName + "_Export_" + DateTime.Now.ToShortDateString());
+                        Path.Combine(filePath  + data[0].ProjectName + "_Export_" + DateTime.Now.ToShortDateString());
                     //if (Environment.OSVersion.Version.Major >= 6)
                     //{
                     //    filePath = Directory.GetParent(filePath).FullName;
                     //}
                 }
-                var filename = data[0].ProjectName + "_Export_" + DateTime.Now.ToShortDateString() + ".xls";
+                var filename = data[0].ProjectName + "_Export_" + DateTime.Now.ToShortDateString() + ".xlsx";
 
                 var indexDocument = index;
 
@@ -361,7 +361,7 @@ namespace ExportValidation.Common
                 //End Creating Index
 
                 ExcelWorkbook.SaveAs();
-                ExcelWorkbook.SaveAs(filePath + "\\" + filename, Excel.XlFileFormat.xlExcel5, Type.Missing,
+                ExcelWorkbook.SaveAs(filePath + "\\" + filename, Excel.XlFileFormat.xlWorkbookDefault, Type.Missing,
                     Type.Missing, false, false, Excel.XlSaveAsAccessMode.xlNoChange,
                     Excel.XlSaveConflictResolution.xlLocalSessionChanges, Type.Missing, Type.Missing);
 
@@ -380,7 +380,7 @@ namespace ExportValidation.Common
                 {
                 }
                 Log.Write("Document created successfully !");
-                return filePath + "\\" + filename;
+                return filePath  + filename;
             }
             catch (Exception ex)
             {

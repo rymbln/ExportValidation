@@ -88,7 +88,6 @@
     <Compile Include="Common\CrfInfo.cs" />
     <Compile Include="Common\LogManager.cs" />
     <Compile Include="Common\QueryReportData.cs" />
-    <Compile Include="Common\ExcelGeneration.cs" />
     <Compile Include="Common\IndexData.cs" />
     <Compile Include="Common\PDFGeneration.cs" />
     <Compile Include="Common\QueryData.cs" />
