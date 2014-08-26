@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Text;
 using ConsoleApplication1;
+using ExportValidationConsole;
 using DataTable = System.Data.DataTable;
 
 namespace ExportValidation.Common
@@ -90,6 +91,7 @@ namespace ExportValidation.Common
         {
             var sql = "exec " + procname;
             var cmd = new SqlCommand(sql, conn);
+            cmd.CommandTimeout = 180;
             var lst = new List<IndexData>();
             var lstData = new List<IndexData>();
 
@@ -256,14 +258,16 @@ namespace ExportValidation.Common
         }
 
 
-        public static List<QueryData> RunProcedure(SqlConnection conn, string procedureName, string projectName, DateTime? startdate = null, DateTime? enddate = null)
+        public static ReturnProc RunProcedure(SqlConnection conn, string procedureName, string projectName, DateTime? startdate = null, DateTime? enddate = null)
         {
            
             Log.Write("Start RunProcedure: " + procedureName);
             var sql = "EXEC " + procedureName;
             var cmd = new SqlCommand(sql, conn);
+            cmd.CommandTimeout = 180;
             var lst = new List<ValidationRows>();
             var lstData = new List<QueryData>();
+            var indexData = new List<IndexData>();
             try
             {
                 if (conn.State.ToString() == "Closed")
@@ -320,6 +324,13 @@ namespace ExportValidation.Common
                     if (obj != null)
                     {
                         lstData.Add(obj);
+                        indexData.Add(new IndexData
+                        {
+                            Description = item.s3,
+                            NameList = item.s4,
+                            SelectCommand = item.s6,
+                            ValidationRule = item.s1
+                        });
                     }
                 }
                 Log.Write("Exit: Parsing");
@@ -334,8 +345,8 @@ namespace ExportValidation.Common
             {
                 Log.Write("Exit RunProcedure: " + procedureName);
             }
-
-            return lstData;
+            var res = new ReturnProc(lstData, indexData);
+            return res;
         }
 
         public static void GetQueries(SqlConnection conn, string strProject, string strPath)

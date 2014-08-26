@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using ConsoleApplication1;
+using ExportValidationConsole;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace ExportValidation.Common
@@ -102,7 +103,7 @@ namespace ExportValidation.Common
             return data;
         }
 
-        public static string GenerateDocument(string filePath, List<QueryData> data, List<IndexData> index)
+        public static string GenerateDocument(string filePath,ReturnProc res)
         {
             Excel.Application ExcelApp;
             Excel.Worksheet ExcelSheet;
@@ -116,25 +117,24 @@ namespace ExportValidation.Common
             {
                 if (String.IsNullOrEmpty(filePath))
                 {
-                    filePath = Path.Combine(filePath  + data[0].ProjectName + "_Validation_" + DateTime.Now.ToShortDateString());
+                    filePath = Path.Combine(filePath  + res.Data[0].ProjectName + "_Validation_" + DateTime.Now.ToShortDateString());
                     //if (Environment.OSVersion.Version.Major >= 6)
                     //{
                     //    filePath = Directory.GetParent(filePath).FullName;
                     //}
                 }
-                var filename = data[0].ProjectName + "_Validation_" + DateTime.Now.ToShortDateString() + ".xlsx";
+                var filename = res.Data[0].ProjectName + "_Validation_" + DateTime.Now.ToShortDateString() + ".xlsx";
 
-                var indexDocument = index;
-
+      
                 ExcelApp = CreateExcelObj();
                 ExcelWorkbooks = ExcelApp.Workbooks;
                 ExcelApp.ScreenUpdating = false;
                 ExcelApp.DisplayAlerts = false;
                 ExcelWorkbook = ExcelWorkbooks.Add();
 
-                data = SortData(data);
+                res.Data = SortData(res.Data);
 
-                foreach (var itemData in data)
+                foreach (var itemData in res.Data)
                 {
                     Log.Write(itemData.NameList + " " + itemData.ValidationRule);
                     ExcelSheet = ExcelWorkbook.Sheets.Add();
@@ -184,19 +184,19 @@ namespace ExportValidation.Common
                 }
 
                 //Adding Index
-                object[,] dataIndex = new object[indexDocument.Count, 3];
-                for (int j = 0; j < indexDocument.Count; j++)
+                object[,] dataIndex = new object[res.Index.Count, 3];
+                for (int j = 0; j < res.Index.Count; j++)
                 {
-                    dataIndex[j, 0] = indexDocument[j].NameList;
-                    dataIndex[j, 1] = indexDocument[j].ValidationRule;
-                    dataIndex[j, 2] = indexDocument[j].Description;
+                    dataIndex[j, 0] = res.Index[j].NameList;
+                    dataIndex[j, 1] = res.Index[j].ValidationRule;
+                    dataIndex[j, 2] = res.Index[j].Description;
                 }
                 ExcelSheet = ExcelWorkbook.Sheets.Add();
                 ExcelSheet.Name = "Index";
-                FormatSheet(ExcelSheet, data[0]);
+                FormatSheet(ExcelSheet, res.Data[0]);
 
                 ExcelSheet.Cells[1, 1] = "Проект:";
-                ExcelSheet.Cells[1, 2] = data[0].ProjectName;
+                ExcelSheet.Cells[1, 2] = res.Data[0].ProjectName;
                 ExcelSheet.Cells[2, 1] = "Описание:";
                 ExcelSheet.Range[ExcelSheet.Cells[2, 1], ExcelSheet.Cells[2, 3]].Merge();
                 FormatDescription(ExcelSheet.Range[ExcelSheet.Cells[1, 1], ExcelSheet.Cells[2, 2]]);
@@ -204,11 +204,11 @@ namespace ExportValidation.Common
                 ExcelSheet.Cells[4, 2] = "Правило валидации";
                 ExcelSheet.Cells[4, 3] = "Описание правила для поиска ошибок";
 
-                Excel.Range rngIndex = ExcelSheet.Range[ExcelSheet.Cells[5, 1], ExcelSheet.Cells[4 + indexDocument.Count, 3]];
+                Excel.Range rngIndex = ExcelSheet.Range[ExcelSheet.Cells[5, 1], ExcelSheet.Cells[4 + res.Index.Count, 3]];
                 rngIndex.Value = dataIndex;
-                FormatDataArea(ExcelSheet.Range[ExcelSheet.Cells[4, 1], ExcelSheet.Cells[4 + indexDocument.Count, 3]], "index");
-                ExcelSheet.Range[ExcelSheet.Cells[5, 3], ExcelSheet.Cells[4 + indexDocument.Count, 3]].ColumnWidth = 90;
-                ExcelSheet.Range[ExcelSheet.Cells[5, 3], ExcelSheet.Cells[4 + indexDocument.Count, 3]].WrapText = true;
+                FormatDataArea(ExcelSheet.Range[ExcelSheet.Cells[4, 1], ExcelSheet.Cells[4 + res.Index.Count, 3]], "index");
+                ExcelSheet.Range[ExcelSheet.Cells[5, 3], ExcelSheet.Cells[4 + res.Index.Count, 3]].ColumnWidth = 90;
+                ExcelSheet.Range[ExcelSheet.Cells[5, 3], ExcelSheet.Cells[4 + res.Index.Count, 3]].WrapText = true;
 
                 //End Creating Index
 
@@ -245,7 +245,7 @@ namespace ExportValidation.Common
             }
         }
 
-        public static string GenerateDocument2(string filePath, List<QueryData> data, List<IndexData> index)
+        public static string GenerateDocument2(string filePath, ReturnProc res)
         {
             Excel.Application ExcelApp;
             Excel.Worksheet ExcelSheet;
@@ -260,15 +260,15 @@ namespace ExportValidation.Common
                 if (String.IsNullOrEmpty(filePath))
                 {
                     filePath =
-                        Path.Combine(filePath  + data[0].ProjectName + "_Export_" + DateTime.Now.ToShortDateString());
+                        Path.Combine(filePath  + res.Data[0].ProjectName + "_Export_" + DateTime.Now.ToShortDateString());
                     //if (Environment.OSVersion.Version.Major >= 6)
                     //{
                     //    filePath = Directory.GetParent(filePath).FullName;
                     //}
                 }
-                var filename = data[0].ProjectName + "_Export_" + DateTime.Now.ToShortDateString() + ".xlsx";
+                var filename = res.Data[0].ProjectName + "_Export_" + DateTime.Now.ToShortDateString() + ".xlsx";
 
-                var indexDocument = index;
+                var indexDocument = res.Index;
 
                 ExcelApp = CreateExcelObj();
                 ExcelWorkbooks = ExcelApp.Workbooks;
@@ -276,9 +276,9 @@ namespace ExportValidation.Common
                 ExcelApp.DisplayAlerts = false;
                 ExcelWorkbook = ExcelWorkbooks.Add();
 
-                data = SortData(data);
+                res.Data = SortData(res.Data);
 
-                foreach (var itemData in data)
+                foreach (var itemData in res.Data)
                 {
                     Log.Write(itemData.NameList + " " + itemData.ValidationRule);
                     ExcelSheet = ExcelWorkbook.Sheets.Add();
@@ -339,10 +339,10 @@ namespace ExportValidation.Common
                 }
                 ExcelSheet = ExcelWorkbook.Sheets.Add();
                 ExcelSheet.Name = "Index";
-                FormatSheet(ExcelSheet, data[0]);
+                FormatSheet(ExcelSheet, res.Data[0]);
 
                 ExcelSheet.Cells[1, 1] = "Проект:";
-                ExcelSheet.Cells[1, 2] = data[0].ProjectName;
+                ExcelSheet.Cells[1, 2] = res.Data[0].ProjectName;
                 ExcelSheet.Cells[2, 1] = "Описание:";
                 ExcelSheet.Range[ExcelSheet.Cells[2, 1], ExcelSheet.Cells[2, 3]].Merge();
                 FormatDescription(ExcelSheet.Range[ExcelSheet.Cells[1, 1], ExcelSheet.Cells[2, 2]]);

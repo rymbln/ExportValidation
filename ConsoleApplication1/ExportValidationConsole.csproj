@@ -67,6 +67,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryData.cs" />
     <Compile Include="QueryReportData.cs" />
+    <Compile Include="ReturnProc.cs" />
     <Compile Include="Tools.cs" />
     <Compile Include="ValidationRows.cs" />
   </ItemGroup>

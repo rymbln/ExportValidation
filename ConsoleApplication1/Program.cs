@@ -28,15 +28,14 @@ namespace ExportValidationConsole
                 {
                     using (conn)
                     {
-                        var data = new List<QueryData>();
-                        var index = new List<IndexData>();
+                        var res = new ReturnProc(null, null);
                         try
                         {
-                            data = Tools.RunProcedure(conn, "RUN_VALIDATION", strProject);
-                            index = Tools.GetIndex(conn, "RUN_VALIDATION");
-                            if (data.Count > 0)
+                            res = Tools.RunProcedure(conn, "RUN_VALIDATION", strProject);
+                      //      index = Tools.GetIndex(conn, "RUN_VALIDATION");
+                            if (res.Data.Count > 0)
                             {
-                                ExcelGeneration.GenerateDocument(strPath, data, index);
+                                ExcelGeneration.GenerateDocument(strPath, res);
                                 
                             }
                             else
@@ -56,15 +55,15 @@ namespace ExportValidationConsole
                 }
                 else if (strMethod.Equals("RUN_EXPORT"))
                 {
-                    var data = new List<QueryData>();
-                    var index = new List<IndexData>();
+//                    var data = new List<QueryData>();
+                    var res = new ReturnProc(null, null);
                     try
                     {
-                        data = Tools.RunProcedure(conn, "RUN_EXPORT", strProject);
-                        index = Tools.GetIndex(conn, "RUN_EXPORT");
-                        if (data.Count > 0)
+                        res = Tools.RunProcedure(conn, "RUN_EXPORT", strProject);
+                     
+                        if (res.Data.Count > 0)
                         {
-                            ExcelGeneration.GenerateDocument2(strPath, data, index);
+                            ExcelGeneration.GenerateDocument2(strPath, res);
                             Log.Write("Finish");
                         }
                         else
@@ -138,14 +137,14 @@ namespace ExportValidationConsole
                 }
                 else if (strMethod.Equals("RUN_ACTIVITY"))
                 {
-                    var data = new List<QueryData>();
+                    var res = new ReturnProc(null, null);
                     try
                     {
-                        data = Tools.RunProcedure(conn, "RUN_ACTIVITY", strProject);
-                        var index = Tools.GetIndex(conn, "RUN_ACTIVITY");
-                        if (data.Count > 0)
+                        res = Tools.RunProcedure(conn, "RUN_ACTIVITY", strProject);
+                 //       var index = Tools.GetIndex(conn, "RUN_ACTIVITY");
+                        if (res.Data.Count > 0)
                         {
-                            ExcelGeneration.GenerateDocument(strPath, data, index);
+                            ExcelGeneration.GenerateDocument(strPath, res);
                      
                         }
                     }
