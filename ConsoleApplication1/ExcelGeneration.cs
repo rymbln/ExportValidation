@@ -184,12 +184,13 @@ namespace ExportValidation.Common
                 }
 
                 //Adding Index
-                object[,] dataIndex = new object[res.Index.Count, 3];
+                object[,] dataIndex = new object[res.Index.Count, 4];
                 for (int j = 0; j < res.Index.Count; j++)
                 {
                     dataIndex[j, 0] = res.Index[j].NameList;
                     dataIndex[j, 1] = res.Index[j].ValidationRule;
                     dataIndex[j, 2] = res.Index[j].Description;
+                    dataIndex[j, 3] = res.Index[j].SelectCommand;
                 }
                 ExcelSheet = ExcelWorkbook.Sheets.Add();
                 ExcelSheet.Name = "Index";
@@ -203,10 +204,11 @@ namespace ExportValidation.Common
                 ExcelSheet.Cells[4, 1] = "Имя листа";
                 ExcelSheet.Cells[4, 2] = "Правило валидации";
                 ExcelSheet.Cells[4, 3] = "Описание правила для поиска ошибок";
+               ExcelSheet.Cells[4, 4] = "SQL";
 
-                Excel.Range rngIndex = ExcelSheet.Range[ExcelSheet.Cells[5, 1], ExcelSheet.Cells[4 + res.Index.Count, 3]];
+                Excel.Range rngIndex = ExcelSheet.Range[ExcelSheet.Cells[5, 1], ExcelSheet.Cells[4 + res.Index.Count, 4]];
                 rngIndex.Value = dataIndex;
-                FormatDataArea(ExcelSheet.Range[ExcelSheet.Cells[4, 1], ExcelSheet.Cells[4 + res.Index.Count, 3]], "index");
+                FormatDataArea(ExcelSheet.Range[ExcelSheet.Cells[4, 1], ExcelSheet.Cells[4 + res.Index.Count, 4]], "index");
                 ExcelSheet.Range[ExcelSheet.Cells[5, 3], ExcelSheet.Cells[4 + res.Index.Count, 3]].ColumnWidth = 90;
                 ExcelSheet.Range[ExcelSheet.Cells[5, 3], ExcelSheet.Cells[4 + res.Index.Count, 3]].WrapText = true;
 
@@ -330,12 +332,13 @@ namespace ExportValidation.Common
                 }
 
                 //Adding Index
-                object[,] dataIndex = new object[indexDocument.Count, 3];
+                object[,] dataIndex = new object[indexDocument.Count, 4];
                 for (int j = 0; j < indexDocument.Count; j++)
                 {
                     dataIndex[j, 0] = indexDocument[j].NameList;
                     dataIndex[j, 1] = indexDocument[j].ValidationRule;
                     dataIndex[j, 2] = indexDocument[j].Description;
+                    dataIndex[j, 3] = indexDocument[j].SelectCommand;
                 }
                 ExcelSheet = ExcelWorkbook.Sheets.Add();
                 ExcelSheet.Name = "Index";
@@ -349,14 +352,15 @@ namespace ExportValidation.Common
                 ExcelSheet.Cells[4, 1] = "Имя листа";
                 ExcelSheet.Cells[4, 2] = "Правило валидации";
                 ExcelSheet.Cells[4, 3] = "Описание правила для поиска ошибок";
+                ExcelSheet.Cells[4, 4] = "SQL";
 
                 Excel.Range rngIndex =
-                    ExcelSheet.Range[ExcelSheet.Cells[5, 1], ExcelSheet.Cells[4 + indexDocument.Count, 3]];
+                    ExcelSheet.Range[ExcelSheet.Cells[5, 1], ExcelSheet.Cells[4 + indexDocument.Count, 4]];
                 rngIndex.Value = dataIndex;
-                FormatDataArea(ExcelSheet.Range[ExcelSheet.Cells[4, 1], ExcelSheet.Cells[4 + indexDocument.Count, 3]],
+                FormatDataArea(ExcelSheet.Range[ExcelSheet.Cells[4, 1], ExcelSheet.Cells[4 + indexDocument.Count, 4]],
                     "index");
-                ExcelSheet.Range[ExcelSheet.Cells[5, 3], ExcelSheet.Cells[4 + indexDocument.Count, 3]].ColumnWidth = 90;
-                ExcelSheet.Range[ExcelSheet.Cells[5, 3], ExcelSheet.Cells[4 + indexDocument.Count, 3]].WrapText = true;
+                ExcelSheet.Range[ExcelSheet.Cells[5, 3], ExcelSheet.Cells[4 + indexDocument.Count, 4]].ColumnWidth = 90;
+                ExcelSheet.Range[ExcelSheet.Cells[5, 3], ExcelSheet.Cells[4 + indexDocument.Count, 4]].WrapText = true;
 
                 //End Creating Index
 
