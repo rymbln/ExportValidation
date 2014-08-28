@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using ExportValidation.Common;
 
 namespace ExportValidation
@@ -398,9 +399,18 @@ namespace ExportValidation
 
         private void button9_Click(object sender, EventArgs e)
         {
-            this.lbxProcedures.SelectedItems.Clear();
-            this.lbxViews.SelectedItems.Clear();
-            this.lbxTables.SelectedItems.Clear();
+            for (int i = 0; i < lbxTables.Items.Count; i++)
+            {
+                lbxTables.SetSelected(i, false);
+            }
+            for (int i = 0; i < lbxViews.Items.Count; i++)
+            {
+                lbxViews.SetSelected(i, false);
+            }
+            for (int i = 0; i < lbxProcedures.Items.Count; i++)
+            {
+                lbxProcedures.SetSelected(i, false);
+            }
         }
 
         private void btnExportToCSV_Click(object sender, EventArgs e)
@@ -448,17 +458,26 @@ namespace ExportValidation
 
         private void button10_Click(object sender, EventArgs e)
         {
-            this.lbxTables.SelectedItems.Add(lbxTables.Items);
+            for (int i = 0; i < lbxTables.Items.Count; i++)
+            {
+                lbxTables.SetSelected(i,true);
+            }
         }
 
         private void button12_Click(object sender, EventArgs e)
         {
-            this.lbxViews.SelectedItems.Add(lbxViews.Items);
+          for (int i = 0; i < lbxViews.Items.Count; i++)
+            {
+                lbxViews.SetSelected(i, true);
+            }
         }
 
         private void button11_Click(object sender, EventArgs e)
         {
-            this.lbxProcedures.SelectedItems.Add(lbxProcedures.Items);
+            for (int i = 0; i < lbxProcedures.Items.Count; i++)
+            {
+                lbxProcedures.SetSelected(i, true);
+            }
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -981,5 +1000,136 @@ namespace ExportValidation
             //запуск процесса
             Process.Start(startInfo);
         }
+
+        private void button20_Click(object sender, EventArgs e)
+        {
+            var strServer = this.tbxServerName.Text;
+            var strLogin = this.tbxLogin.Text;
+            var strPassword = this.tbxPassword.Text;
+            var strDbName = this.cbxDatabases.SelectedItem.ToString();
+
+            this.lbxXMLTables.Items.Clear();
+            this.lbxXMLViews.Items.Clear();
+            this.lbxXMLProcedures.Items.Clear();
+
+            var conn = Tools.GetConnectionString(strServer, strDbName, strLogin, strPassword);
+            using (conn)
+            {
+                var lst = Tools.GetTablesInDataBase(conn);
+                foreach (var item in lst)
+                {
+                    this.lbxXMLTables.Items.Add(item);
+                }
+                this.lbxXMLTables.Refresh();
+
+                var lst2 = Tools.GetViewsInDataBase(conn);
+                foreach (var item in lst2)
+                {
+                    this.lbxXMLViews.Items.Add(item);
+                }
+                this.lbxXMLViews.Refresh();
+
+                var lst3 = Tools.GetProceduresInDatabase(conn);
+                foreach (var item in lst3)
+                {
+                    this.lbxXMLProcedures.Items.Add(item);
+                }
+                this.lbxXMLProcedures.Refresh();
+            }
+        }
+
+        private void button18_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < lbxXMLTables.Items.Count; i++)
+            {
+                lbxXMLTables.SetSelected(i, true);
+            }
+        }
+
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+            for (int i = 0; i < lbxXMLViews.Items.Count; i++)
+            {
+                lbxXMLViews.SetSelected(i, true);
+            }
+        }
+
+        private void button17_Click_1(object sender, EventArgs e)
+        {
+            for (int i = 0; i < lbxXMLProcedures.Items.Count; i++)
+            {
+                lbxXMLProcedures.SetSelected(i, true);
+            }
+        }
+
+        private void button19_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < lbxXMLTables.Items.Count; i++)
+            {
+                lbxXMLTables.SetSelected(i, false);
+            }
+            for (int i = 0; i < lbxXMLViews.Items.Count; i++)
+            {
+                lbxXMLViews.SetSelected(i, false);
+            }
+            for (int i = 0; i < lbxXMLProcedures.Items.Count; i++)
+            {
+                lbxXMLProcedures.SetSelected(i, false);
+            }
+        }
+
+        private void button21_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                string fileName = "";
+                string sql = "";
+
+                var strServer = this.tbxServerName.Text;
+                var strLogin = this.tbxLogin.Text;
+                var strPassword = this.tbxPassword.Text;
+                var strDbName = this.cbxDatabases.SelectedItem.ToString();
+                var strPath = this.tbxOutputPath.Text;
+                var strProject = this.tbxProjectName.Text;
+
+                var conn = Tools.GetConnectionString(strServer, strDbName, strLogin, strPassword);
+                if (lbxXMLProcedures.SelectedItems.Count > 0)
+                {
+                    foreach (var selectedItem in lbxXMLProcedures.SelectedItems)
+                    {
+                        fileName = selectedItem.ToString();
+                        sql = "EXEC " + fileName;
+                        Tools.ExportToXMLFile(strPath, strProject, fileName, sql, conn);
+                    }
+                }
+                if (lbxXMLViews.SelectedItems.Count > 0)
+                {
+                    foreach (var selectedItem in lbxXMLViews.SelectedItems)
+                    {
+                        fileName = selectedItem.ToString();
+                        sql = "SELECT * FROM " + fileName;
+                        Tools.ExportToXMLFile(strPath, strProject, fileName, sql, conn);
+                    }
+                }
+                if (lbxXMLTables.SelectedItems.Count > 0)
+                {
+                    foreach (var selectedItem in lbxXMLTables.SelectedItems)
+                    {
+                        fileName = selectedItem.ToString();
+                        sql = "SELECT * FROM " + fileName;
+                        Tools.ExportToXMLFile(strPath, strProject, fileName, sql, conn);
+                    }
+                }
+                MessageBox.Show("XML Generated!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+          
+        }
+
+
     }
 }

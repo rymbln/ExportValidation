@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
@@ -10,6 +11,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Office.Interop.Word;
 using DataTable = System.Data.DataTable;
+
+using System.IO;
+using System.Xml;
 
 namespace ExportValidation.Common
 {
@@ -566,6 +570,23 @@ namespace ExportValidation.Common
             return lst;
 
 
+        }
+
+        public static void ExportToXMLFile(string filePath, string project, string filename, string sql,
+            SqlConnection conn)
+        {
+            var cmd = sql + " FOR XML PATH('" + filename + "'), ROOT ('" + filename + "s')";
+
+         //   cmd.CommandTimeout = 240;
+            if (conn.State.ToString() == "Closed")
+            {
+                conn.Open();
+            }
+            var adapter = new SqlDataAdapter(sql, conn);
+            var ds = new DataSet();
+            adapter.Fill(ds);
+            ds.WriteXml(filePath + "\\" + filename + ".xml");
+            conn.Close();
         }
 
         public static void ExportToCSVFile(string filePath, string project, string fileName, string sql, SqlConnection conn, Encoding encoding, string separator, bool firstRowNames)
