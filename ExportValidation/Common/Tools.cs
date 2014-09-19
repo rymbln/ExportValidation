@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
@@ -644,5 +645,37 @@ namespace ExportValidation.Common
                 ExportToCSVFile(filePath, project, indexData.NameList, indexData.SelectCommand, conn, encoding, separator, hasColumnNames);
             }
         }
+
+        public static void ExportToDBFFile(string filePath, string strProject, string filename, string sqldata, SqlConnection conn)
+        {
+         
+
+            try
+            {
+                if (conn.State.ToString() == "Closed")
+                {
+                    conn.Open();
+                }
+                // create linked server
+                var sql = @"EXEC master.dbo.sp_addlinkedserver @server = N'VFP_Test', @srvproduct=N'Microsoft Visual FoxPro OLE DB Data Provider', @provider=N'VFPOLEDB', @datasrc=N'"+filePath+"',@provstr=N'VFPOLEDB.1'";
+                var cmd = new SqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+
+                sql = "INSERT INTO VFP_Test." + filename + " " + sqldata;
+                cmd = new SqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+                // transfer data
+
+                // delete linked server
+                sql = @"IF  EXISTS (SELECT srv.name FROM sys.servers srv WHERE srv.server_id != 0 AND srv.name = N'VFP_Test')EXEC master.dbo.sp_dropserver @server=N'VFP_Test', @droplogins='droplogins'";
+                cmd = new SqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+      }
     }
 }

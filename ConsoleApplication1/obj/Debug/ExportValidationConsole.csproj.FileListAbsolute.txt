@@ -6,3 +6,4 @@ C:\Users\Rymbln\Documents\GitHub\ExportValidation\ConsoleApplication1\obj\Debug\
 C:\Users\Rymbln\Documents\GitHub\ExportValidation\ExportValidation\bin\Debug\ExportValidationConsole.exe.config
 C:\Users\Rymbln\Documents\GitHub\ExportValidation\ExportValidation\bin\Debug\ExportValidationConsole.exe
 C:\Users\Rymbln\Documents\GitHub\ExportValidation\ExportValidation\bin\Debug\ExportValidationConsole.pdb
+C:\Users\Rymbln\Documents\GitHub\ExportValidation\ConsoleApplication1\obj\Debug\ExportValidationConsole.csprojResolveAssemblyReference.cache

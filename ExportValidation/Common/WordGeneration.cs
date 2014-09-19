@@ -12,13 +12,14 @@ namespace ExportValidation.Common
 {
     public static class WordGeneration
     {
+       private static object obj;
+        private static Word.Application objWord;
         private static Word.Application CreateWordObj()
         {
-            object obj;
-            obj = null;
-            try
+            
+        try
             {
-                Word.Application objWord = new Word.Application();
+                objWord = new Word.Application();
                 objWord.Visible = false;
                 obj = objWord;
             }
@@ -128,6 +129,7 @@ namespace ExportValidation.Common
                         footerRange.Text = DateTime.Now.ToShortDateString();
                     }
 
+
                     //Add paragraph with Heading 1 style
                     Word.Paragraph para1 = doc.Content.Paragraphs.Add();
                     object styleHeading1 = "Заголовок 1";
@@ -218,6 +220,7 @@ toc2.Update();
                 doc = null;
                 objWord.Quit();
                 objWord = null;
+                obj = null;
                 MessageBox.Show("Document created successfully !");
 
 

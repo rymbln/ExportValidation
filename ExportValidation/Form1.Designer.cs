@@ -119,13 +119,26 @@
             this.lbxXMLTables = new System.Windows.Forms.ListBox();
             this.button21 = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.button17 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button18 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.button22 = new System.Windows.Forms.Button();
+            this.button23 = new System.Windows.Forms.Button();
+            this.button24 = new System.Windows.Forms.Button();
+            this.button25 = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
+            this.lbxDBFProcedures = new System.Windows.Forms.ListBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.lbxDBFViews = new System.Windows.Forms.ListBox();
+            this.button26 = new System.Windows.Forms.Button();
+            this.lbxDBFTables = new System.Windows.Forms.ListBox();
+            this.button27 = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -140,6 +153,8 @@
             this.gpbEncoding.SuspendLayout();
             this.gpbSeparator.SuspendLayout();
             this.groupBox6.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbxServerName
@@ -452,6 +467,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(382, 113);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -986,7 +1002,6 @@
             this.groupBox6.Controls.Add(this.lbxXMLTables);
             this.groupBox6.Controls.Add(this.button21);
             this.groupBox6.Controls.Add(this.label11);
-            this.groupBox6.Controls.Add(this.checkBox2);
             this.groupBox6.Location = new System.Drawing.Point(6, 9);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(527, 343);
@@ -1081,18 +1096,6 @@
             this.label11.TabIndex = 28;
             this.label11.Text = "TABLES:";
             // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Checked = true;
-            this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox2.Location = new System.Drawing.Point(350, 262);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(156, 17);
-            this.checkBox2.TabIndex = 31;
-            this.checkBox2.Text = "First row has column names";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
             // button17
             // 
             this.button17.Location = new System.Drawing.Point(349, 227);
@@ -1153,6 +1156,155 @@
             this.button10.UseVisualStyleBackColor = true;
             this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.groupBox7);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(1123, 358);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "DBF";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.button22);
+            this.groupBox7.Controls.Add(this.button23);
+            this.groupBox7.Controls.Add(this.button24);
+            this.groupBox7.Controls.Add(this.button25);
+            this.groupBox7.Controls.Add(this.label12);
+            this.groupBox7.Controls.Add(this.lbxDBFProcedures);
+            this.groupBox7.Controls.Add(this.label13);
+            this.groupBox7.Controls.Add(this.lbxDBFViews);
+            this.groupBox7.Controls.Add(this.button26);
+            this.groupBox7.Controls.Add(this.lbxDBFTables);
+            this.groupBox7.Controls.Add(this.button27);
+            this.groupBox7.Controls.Add(this.label14);
+            this.groupBox7.Location = new System.Drawing.Point(6, 6);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(527, 343);
+            this.groupBox7.TabIndex = 31;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Export To DBF";
+            // 
+            // button22
+            // 
+            this.button22.Location = new System.Drawing.Point(180, 227);
+            this.button22.Name = "button22";
+            this.button22.Size = new System.Drawing.Size(163, 26);
+            this.button22.TabIndex = 42;
+            this.button22.Text = "Select All";
+            this.button22.UseVisualStyleBackColor = true;
+            this.button22.Click += new System.EventHandler(this.button22_Click);
+            // 
+            // button23
+            // 
+            this.button23.Location = new System.Drawing.Point(349, 227);
+            this.button23.Name = "button23";
+            this.button23.Size = new System.Drawing.Size(163, 26);
+            this.button23.TabIndex = 41;
+            this.button23.Text = "Select All";
+            this.button23.UseVisualStyleBackColor = true;
+            this.button23.Click += new System.EventHandler(this.button23_Click);
+            // 
+            // button24
+            // 
+            this.button24.Location = new System.Drawing.Point(11, 227);
+            this.button24.Name = "button24";
+            this.button24.Size = new System.Drawing.Size(163, 26);
+            this.button24.TabIndex = 40;
+            this.button24.Text = "Select All";
+            this.button24.UseVisualStyleBackColor = true;
+            this.button24.Click += new System.EventHandler(this.button24_Click);
+            // 
+            // button25
+            // 
+            this.button25.Location = new System.Drawing.Point(180, 256);
+            this.button25.Name = "button25";
+            this.button25.Size = new System.Drawing.Size(163, 26);
+            this.button25.TabIndex = 39;
+            this.button25.Text = "Clear Selection";
+            this.button25.UseVisualStyleBackColor = true;
+            this.button25.Click += new System.EventHandler(this.button25_Click);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(346, 19);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(85, 13);
+            this.label12.TabIndex = 38;
+            this.label12.Text = "PROCEDURES:";
+            // 
+            // lbxDBFProcedures
+            // 
+            this.lbxDBFProcedures.FormattingEnabled = true;
+            this.lbxDBFProcedures.HorizontalScrollbar = true;
+            this.lbxDBFProcedures.Location = new System.Drawing.Point(349, 38);
+            this.lbxDBFProcedures.Name = "lbxDBFProcedures";
+            this.lbxDBFProcedures.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.lbxDBFProcedures.Size = new System.Drawing.Size(163, 186);
+            this.lbxDBFProcedures.TabIndex = 37;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(184, 19);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(45, 13);
+            this.label13.TabIndex = 36;
+            this.label13.Text = "VIEWS:";
+            // 
+            // lbxDBFViews
+            // 
+            this.lbxDBFViews.FormattingEnabled = true;
+            this.lbxDBFViews.HorizontalScrollbar = true;
+            this.lbxDBFViews.Location = new System.Drawing.Point(180, 38);
+            this.lbxDBFViews.Name = "lbxDBFViews";
+            this.lbxDBFViews.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.lbxDBFViews.Size = new System.Drawing.Size(163, 186);
+            this.lbxDBFViews.TabIndex = 35;
+            // 
+            // button26
+            // 
+            this.button26.Location = new System.Drawing.Point(11, 256);
+            this.button26.Name = "button26";
+            this.button26.Size = new System.Drawing.Size(163, 26);
+            this.button26.TabIndex = 34;
+            this.button26.Text = "Refresh list";
+            this.button26.UseVisualStyleBackColor = true;
+            this.button26.Click += new System.EventHandler(this.button26_Click);
+            // 
+            // lbxDBFTables
+            // 
+            this.lbxDBFTables.FormattingEnabled = true;
+            this.lbxDBFTables.HorizontalScrollbar = true;
+            this.lbxDBFTables.Location = new System.Drawing.Point(11, 38);
+            this.lbxDBFTables.Name = "lbxDBFTables";
+            this.lbxDBFTables.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.lbxDBFTables.Size = new System.Drawing.Size(163, 186);
+            this.lbxDBFTables.TabIndex = 29;
+            // 
+            // button27
+            // 
+            this.button27.Location = new System.Drawing.Point(11, 288);
+            this.button27.Name = "button27";
+            this.button27.Size = new System.Drawing.Size(501, 49);
+            this.button27.TabIndex = 33;
+            this.button27.Text = "Export to DBF";
+            this.button27.UseVisualStyleBackColor = true;
+            this.button27.Click += new System.EventHandler(this.button27_Click);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(8, 22);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(51, 13);
+            this.label14.TabIndex = 28;
+            this.label14.Text = "TABLES:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1205,6 +1357,9 @@
             this.gpbSeparator.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1302,13 +1457,26 @@
         private System.Windows.Forms.ListBox lbxXMLTables;
         private System.Windows.Forms.Button button21;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button17;
         private System.Windows.Forms.Button button18;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.Button button22;
+        private System.Windows.Forms.Button button23;
+        private System.Windows.Forms.Button button24;
+        private System.Windows.Forms.Button button25;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.ListBox lbxDBFProcedures;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ListBox lbxDBFViews;
+        private System.Windows.Forms.Button button26;
+        private System.Windows.Forms.ListBox lbxDBFTables;
+        private System.Windows.Forms.Button button27;
+        private System.Windows.Forms.Label label14;
     }
 }
 

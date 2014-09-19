@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.Odbc;
+using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
@@ -1128,6 +1129,134 @@ namespace ExportValidation
                 MessageBox.Show(ex.Message);
             }
           
+        }
+
+        private void button24_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < lbxDBFTables.Items.Count; i++)
+            {
+                lbxDBFTables.SetSelected(i, true);
+            }
+        }
+
+        private void button22_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < lbxDBFViews.Items.Count; i++)
+            {
+                lbxDBFViews.SetSelected(i, true);
+            }
+        }
+
+        private void button23_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < lbxDBFProcedures.Items.Count; i++)
+            {
+                lbxDBFProcedures.SetSelected(i, true);
+            }
+        }
+
+        private void button26_Click(object sender, EventArgs e)
+        {
+            var strServer = this.tbxServerName.Text;
+            var strLogin = this.tbxLogin.Text;
+            var strPassword = this.tbxPassword.Text;
+            var strDbName = this.cbxDatabases.SelectedItem.ToString();
+
+            this.lbxDBFTables.Items.Clear();
+            this.lbxDBFViews.Items.Clear();
+            this.lbxDBFProcedures.Items.Clear();
+
+            var conn = Tools.GetConnectionString(strServer, strDbName, strLogin, strPassword);
+            using (conn)
+            {
+                var lst = Tools.GetTablesInDataBase(conn);
+                foreach (var item in lst)
+                {
+                    this.lbxDBFTables.Items.Add(item);
+                }
+                this.lbxDBFTables.Refresh();
+
+                var lst2 = Tools.GetViewsInDataBase(conn);
+                foreach (var item in lst2)
+                {
+                    this.lbxDBFViews.Items.Add(item);
+                }
+                this.lbxDBFViews.Refresh();
+
+                var lst3 = Tools.GetProceduresInDatabase(conn);
+                foreach (var item in lst3)
+                {
+                    this.lbxDBFProcedures.Items.Add(item);
+                }
+                this.lbxDBFProcedures.Refresh();
+            }
+        }
+
+        private void button25_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < lbxDBFTables.Items.Count; i++)
+            {
+                lbxDBFTables.SetSelected(i, false);
+            }
+            for (int i = 0; i < lbxDBFViews.Items.Count; i++)
+            {
+                lbxDBFViews.SetSelected(i, false);
+            }
+            for (int i = 0; i < lbxDBFProcedures.Items.Count; i++)
+            {
+                lbxDBFProcedures.SetSelected(i, false);
+            }
+        }
+
+        private void button27_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                string fileName = "";
+                string sql = "";
+
+                var strServer = this.tbxServerName.Text;
+                var strLogin = this.tbxLogin.Text;
+                var strPassword = this.tbxPassword.Text;
+                var strDbName = this.cbxDatabases.SelectedItem.ToString();
+                var strPath = this.tbxOutputPath.Text;
+                var strProject = this.tbxProjectName.Text;
+
+                var conn = Tools.GetConnectionString(strServer, strDbName, strLogin, strPassword);
+                if (lbxDBFProcedures.SelectedItems.Count > 0)
+                {
+                    foreach (var selectedItem in lbxDBFProcedures.SelectedItems)
+                    {
+                        fileName = selectedItem.ToString();
+                        sql = "EXEC " + fileName;
+                        Tools.ExportToDBFFile(strPath, strProject, fileName, sql, conn);
+                    }
+                }
+                if (lbxDBFViews.SelectedItems.Count > 0)
+                {
+                    foreach (var selectedItem in lbxDBFViews.SelectedItems)
+                    {
+                        fileName = selectedItem.ToString();
+                        sql = "SELECT * FROM " + fileName;
+                        Tools.ExportToDBFFile(strPath, strProject, fileName, sql, conn);
+                    }
+                }
+                if (lbxDBFTables.SelectedItems.Count > 0)
+                {
+                    foreach (var selectedItem in lbxDBFTables.SelectedItems)
+                    {
+                        fileName = selectedItem.ToString();
+                        sql = "SELECT * FROM " + fileName;
+                        Tools.ExportToDBFFile(strPath, strProject, fileName, sql, conn);
+                    }
+                }
+                MessageBox.Show("XML Generated!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
 
