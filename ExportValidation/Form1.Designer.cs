@@ -63,7 +63,6 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnSave_Direct = new System.Windows.Forms.Button();
             this.btnSave_DataSet = new System.Windows.Forms.Button();
@@ -88,6 +87,9 @@
             this.txtFileToImport = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button12 = new System.Windows.Forms.Button();
+            this.button11 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.lbxProcedures = new System.Windows.Forms.ListBox();
@@ -109,7 +111,11 @@
             this.rdbTab = new System.Windows.Forms.RadioButton();
             this.rdbSemicolon = new System.Windows.Forms.RadioButton();
             this.chkFirstRowColumnNames = new System.Windows.Forms.CheckBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button17 = new System.Windows.Forms.Button();
+            this.button18 = new System.Windows.Forms.Button();
             this.button19 = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.lbxXMLProcedures = new System.Windows.Forms.ListBox();
@@ -119,12 +125,6 @@
             this.lbxXMLTables = new System.Windows.Forms.ListBox();
             this.button21 = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
-            this.button17 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button18 = new System.Windows.Forms.Button();
-            this.button11 = new System.Windows.Forms.Button();
-            this.button12 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.button22 = new System.Windows.Forms.Button();
@@ -144,7 +144,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_preView)).BeginInit();
             this.groupBox5.SuspendLayout();
@@ -152,6 +151,7 @@
             this.groupBox1.SuspendLayout();
             this.gpbEncoding.SuspendLayout();
             this.gpbSeparator.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -163,7 +163,7 @@
             this.tbxServerName.Name = "tbxServerName";
             this.tbxServerName.Size = new System.Drawing.Size(144, 20);
             this.tbxServerName.TabIndex = 0;
-            this.tbxServerName.Text = ".\\SQL2008";
+            this.tbxServerName.Text = "DMBS001";
             // 
             // label1
             // 
@@ -189,7 +189,7 @@
             this.tbxLogin.Name = "tbxLogin";
             this.tbxLogin.Size = new System.Drawing.Size(144, 20);
             this.tbxLogin.TabIndex = 3;
-            this.tbxLogin.Text = "sa";
+            this.tbxLogin.Text = "ivan.trushin";
             // 
             // label3
             // 
@@ -486,17 +486,6 @@
             this.tabPage1.Text = "CSV";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.groupBox6);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1123, 358);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "XML";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.btnSave_Direct);
@@ -770,6 +759,36 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Export To CSV";
             // 
+            // button12
+            // 
+            this.button12.Location = new System.Drawing.Point(180, 227);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(163, 26);
+            this.button12.TabIndex = 42;
+            this.button12.Text = "Select All";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
+            // button11
+            // 
+            this.button11.Location = new System.Drawing.Point(349, 227);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(163, 26);
+            this.button11.TabIndex = 41;
+            this.button11.Text = "Select All";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
+            // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(11, 227);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(163, 26);
+            this.button10.TabIndex = 40;
+            this.button10.Text = "Select All";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
             // button9
             // 
             this.button9.Location = new System.Drawing.Point(180, 256);
@@ -988,6 +1007,17 @@
             this.chkFirstRowColumnNames.Text = "First row has column names";
             this.chkFirstRowColumnNames.UseVisualStyleBackColor = true;
             // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.groupBox6);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1123, 358);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "XML";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.button1);
@@ -1008,6 +1038,36 @@
             this.groupBox6.TabIndex = 30;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Export To XML";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(180, 227);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(163, 26);
+            this.button1.TabIndex = 42;
+            this.button1.Text = "Select All";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_2);
+            // 
+            // button17
+            // 
+            this.button17.Location = new System.Drawing.Point(349, 227);
+            this.button17.Name = "button17";
+            this.button17.Size = new System.Drawing.Size(163, 26);
+            this.button17.TabIndex = 41;
+            this.button17.Text = "Select All";
+            this.button17.UseVisualStyleBackColor = true;
+            this.button17.Click += new System.EventHandler(this.button17_Click_1);
+            // 
+            // button18
+            // 
+            this.button18.Location = new System.Drawing.Point(11, 227);
+            this.button18.Name = "button18";
+            this.button18.Size = new System.Drawing.Size(163, 26);
+            this.button18.TabIndex = 40;
+            this.button18.Text = "Select All";
+            this.button18.UseVisualStyleBackColor = true;
+            this.button18.Click += new System.EventHandler(this.button18_Click);
             // 
             // button19
             // 
@@ -1095,66 +1155,6 @@
             this.label11.Size = new System.Drawing.Size(51, 13);
             this.label11.TabIndex = 28;
             this.label11.Text = "TABLES:";
-            // 
-            // button17
-            // 
-            this.button17.Location = new System.Drawing.Point(349, 227);
-            this.button17.Name = "button17";
-            this.button17.Size = new System.Drawing.Size(163, 26);
-            this.button17.TabIndex = 41;
-            this.button17.Text = "Select All";
-            this.button17.UseVisualStyleBackColor = true;
-            this.button17.Click += new System.EventHandler(this.button17_Click_1);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(180, 227);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(163, 26);
-            this.button1.TabIndex = 42;
-            this.button1.Text = "Select All";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_2);
-            // 
-            // button18
-            // 
-            this.button18.Location = new System.Drawing.Point(11, 227);
-            this.button18.Name = "button18";
-            this.button18.Size = new System.Drawing.Size(163, 26);
-            this.button18.TabIndex = 40;
-            this.button18.Text = "Select All";
-            this.button18.UseVisualStyleBackColor = true;
-            this.button18.Click += new System.EventHandler(this.button18_Click);
-            // 
-            // button11
-            // 
-            this.button11.Location = new System.Drawing.Point(349, 227);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(163, 26);
-            this.button11.TabIndex = 41;
-            this.button11.Text = "Select All";
-            this.button11.UseVisualStyleBackColor = true;
-            this.button11.Click += new System.EventHandler(this.button11_Click);
-            // 
-            // button12
-            // 
-            this.button12.Location = new System.Drawing.Point(180, 227);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(163, 26);
-            this.button12.TabIndex = 42;
-            this.button12.Text = "Select All";
-            this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.button12_Click);
-            // 
-            // button10
-            // 
-            this.button10.Location = new System.Drawing.Point(11, 227);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(163, 26);
-            this.button10.TabIndex = 40;
-            this.button10.Text = "Select All";
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // tabPage3
             // 
@@ -1341,7 +1341,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_preView)).EndInit();
@@ -1355,6 +1354,7 @@
             this.gpbEncoding.PerformLayout();
             this.gpbSeparator.ResumeLayout(false);
             this.gpbSeparator.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.tabPage3.ResumeLayout(false);
